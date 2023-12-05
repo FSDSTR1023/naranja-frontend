@@ -1,17 +1,12 @@
-import './App.css'
+import './App.css';
+import HomePage from './pages/HomePage';
 
 function App() {
-
   return (
-    <>
-      <h1 className='text-orange-500'>
-        Naranja Frontend
-      </h1>
-      <p className="read-the-docs">
-        Primera pagina del proyecto.
-      </p>
-    </>
-  )
+    <GroupProvider>
+      <HomePage />
+    </GroupProvider>
+  );
 }
 
-export default App
+export default App;
