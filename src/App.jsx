@@ -3,7 +3,6 @@ import { GroupProvider } from './context/GroupContext';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import NotFound from './pages/NotFound';
-
 import ChatPage from './pages/ChatPage';
 import GroupFormPage from './pages/GroupFormPage';
 import LoginPage from './pages/LoginPage';
@@ -12,7 +11,6 @@ import RegisterPage from './pages/RegisterPage';
 import TaskFormPage from './pages/TaskFormPage';
 import TasksPage from './pages/TasksPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
-
 import NavBar from './components/NavBar';
 import './App.css';
 
@@ -43,7 +41,5 @@ function App() {
 //GroupContext
 //TasksContext
 //MessagesContext
-
-//Router
 
 export default App;
