@@ -6,7 +6,7 @@ import NotFound from './pages/NotFound';
 import ChatPage from './pages/ChatPage';
 import GroupFormPage from './pages/GroupFormPage';
 import LoginPage from './pages/LoginPage';
-import RecoverPasswordPage from './pages/RecoverPasswordPage';
+import ChangePasswordForm from './pages/ChangePaswordForm';
 import RegisterPage from './pages/RegisterPage';
 import TaskFormPage from './pages/TaskFormPage';
 import TasksPage from './pages/TasksPage';
@@ -29,7 +29,7 @@ function App() {
           <Route path="/task-form-page" element={<TaskFormPage />} />
           <Route path="/tasks-page" element={<TasksPage />} />
           <Route path="/verify-email-page" element={<VerifyEmailPage />} />
-          <Route path="/recover-password-page" element={<RecoverPasswordPage />} />
+          <Route path="/change-password-form" element={<RecoverPasswordPage />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </GroupProvider>
