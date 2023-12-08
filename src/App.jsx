@@ -14,14 +14,6 @@ import VerifyEmailPage from './pages/VerifyEmailPage';
 import NavBar from './components/NavBar';
 import './App.css';
 
-const task = {
-    id: "2312",
-    title: "cualquiera",
-    description: "la que sea",
-    status: "siempre online",
-    dateStart: "2022-01-01", // Use a valid date string here
-    dateEnd: "2022-01-02", // And here
-};
 
 function App() {
   return (

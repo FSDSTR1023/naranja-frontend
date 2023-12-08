@@ -4,8 +4,8 @@ const task = {
   title: "TITULO",
   description: "DESCIPCION",
   status: "STATUS",
-  dateStart: "2022-01-01", // Use a valid date string here
-  dateEnd: "2022-01-02", // And here
+  dateStart: "2022-01-01 ", // Use a valid date string here
+  dateEnd: "2022-01-02 ", // And here
 };
 
 

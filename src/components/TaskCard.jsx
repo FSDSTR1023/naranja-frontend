@@ -44,11 +44,12 @@ return (
         </div>
         <div className='flex p-2 text-sm flex-col'>
         <p className='inline-flex items-center text-gray-400'>
-            <strong className='text-gray-800'>Date start: </strong>
+            <strong className='text-gray-800'>Date start</strong>:{' '} 
+            
             {new Date(task.dateStart).toLocaleDateString()}
         </p>
         <p className='inline-flex items-center text-gray-400'>
-            <strong className='text-gray-800'>Date end: </strong>{' '}
+            <strong className='text-gray-800'>Date end</strong>:{' '}
             {new Date(task.dateEnd).toLocaleDateString()}
         </p>
         </div>
@@ -69,7 +70,7 @@ return (
         type='button'
         value='inPogress'
         className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-500 hover:text-white'>
+        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-black hover:text-white'>
         Set in progress
         </button>
 
@@ -77,7 +78,7 @@ return (
         type='button'
         value='completed'
         className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-indigo-500 hover:text-white'>
+        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-black hover:text-white'>
         Set Completed
         </button>
     </div>
