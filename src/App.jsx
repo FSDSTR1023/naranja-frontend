@@ -9,10 +9,19 @@ import LoginPage from './pages/LoginPage';
 import ChangePasswordForm from './pages/ChangePaswordForm';
 import RegisterPage from './pages/RegisterPage';
 import TaskFormPage from './pages/TaskFormPage';
-import TasksPage from './pages/TasksPage';
+import TaskPage from './pages/TaskPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import NavBar from './components/NavBar';
 import './App.css';
+
+const task = {
+    id: "2312",
+    title: "cualquiera",
+    description: "la que sea",
+    status: "siempre online",
+    dateStart: "2022-01-01", // Use a valid date string here
+    dateEnd: "2022-01-02", // And here
+};
 
 function App() {
   return (
@@ -27,9 +36,9 @@ function App() {
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           <Route path="/task-form-page" element={<TaskFormPage />} />
-          <Route path="/tasks-page" element={<TasksPage />} />
+          <Route path="/task-page" element={<TaskPage />} />
           <Route path="/verify-email-page" element={<VerifyEmailPage />} />
-          <Route path="/change-password-form" element={<RecoverPasswordPage />} />
+          <Route path="/change-password-form" element={<ChangePasswordForm />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </GroupProvider>
