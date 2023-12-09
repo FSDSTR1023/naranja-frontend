@@ -70,7 +70,7 @@ return (
         type='button'
         value='inPogress'
         className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-black hover:text-white'>
+        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-purple-600 hover:text-white'>
         Set in progress
         </button>
 
@@ -78,7 +78,7 @@ return (
         type='button'
         value='completed'
         className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-black hover:text-white'>
+        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-green-400 hover:text-white'>
         Set Completed
         </button>
     </div>

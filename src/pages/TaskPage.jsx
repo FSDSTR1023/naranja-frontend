@@ -2,7 +2,7 @@ import TaskCard from '../components/TaskCard';
 const task = {
   id: "2312",
   title: "TITULO",
-  description: "DESCIPCION",
+  description: "DESCRIPCIÓN",
   status: "STATUS",
   dateStart: "2022-01-01 ", // Use a valid date string here
   dateEnd: "2022-01-02 ", // And here
