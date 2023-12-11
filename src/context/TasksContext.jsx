@@ -13,6 +13,8 @@ export const useTasks = () => {
 };
 
 export function TaskProvider({ children }) {
+  // crear estados y funciones relacionadas con las tareas
+
   return (
     <TaskContext.Provider
       value={
