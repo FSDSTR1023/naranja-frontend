@@ -5,8 +5,10 @@ import {
   registerRequest,
   sendTokenToServer,
   sendLoginUserRequest,
+  updateUserRequest,
 } from '../api/user';
 import Cookie from 'js-cookie';
+import axios from 'axios';
 
 export const UserContext = createContext();
 
@@ -62,6 +64,33 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const uploadProfilePicture = async (data) => {
+    try {
+      console.log(data.file, '<-- data en uploadProfilePicture');
+      const formData = new FormData();
+      formData.append('file', data.file[0]);
+      formData.append('upload_preset', 'emnwqxan');
+      console.log(formData);
+      axios
+        .post(
+          'https://api.cloudinary.com/v1_1/daoxla1fg/image/upload',
+          formData
+        )
+        .then((response) => {
+          console.log(
+            response.data.url,
+            '<-- response.data.url en uploadProfilePicture'
+          );
+          ///podriamos mirar si hay algo en data. password y si hay algo, cambiar la contraseña, y el isOnline
+
+          setUser({ ...user, avatar: response.data.url });
+          updateUserRequest(user);
+        });
+    } catch (error) {
+      console.log(error, '<-- error en uploadProfilePicture');
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -74,6 +103,7 @@ export const UserProvider = ({ children }) => {
         setError,
         verifyTokenRequest,
         loginUserRequest,
+        uploadProfilePicture,
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}
