@@ -1,6 +1,6 @@
 # TODO-MESSENGER-GROUP-MANAGER (TASKTALK)
 
-## Descripción General del Proyecto
+## Descripción General del Proyecto(TLDR)
 Este proyecto es una aplicación de gestión de tareas y mensajería grupal. Permite a los usuarios registrarse, crear tareas, asignarse entre sí y unirse a grupos para comunicarse a través de mensajes grupales o individuales (ya sea texto, vídeo, archivo o imágenes). El proyecto está en desarrollo, con la funcionalidad del chat y la mayoría del frontend pendientes de implementación.
 
 ## Estado del Proyecto
@@ -42,7 +42,7 @@ En desarrollo.
 
 ## Descripción extensa del proyecto, dirección del mismo y objetivos a lograr
 
-# TaskTalk
+# TaskTalk(Nombre provisional)
 
 TaskTalk aspira a convertirse en una aplicación diseñada para el ámbito profesional y educativo. Se espera que su implementación en estos campos agilice y optimice tanto el trabajo como la comunicación en grupo, ya sea en entornos laborales o académicos. Además, se vislumbran posibles usos de la aplicación a nivel P2P o individual, facilitando la creación de tareas y listas para cualquier propósito.
 
