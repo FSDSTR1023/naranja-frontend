@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm();
-  const { registerUserRecuest, isAuthenticated } = useUser();
+  const { registerUserRequest, isAuthenticated } = useUser();
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    await registerUserRecuest(data);
+    await registerUserRequest(data);
   });
   useEffect(() => {
     if (isAuthenticated) {
@@ -28,6 +28,7 @@ const RegisterPage = () => {
           <div className='w-full px-3 mb-4 md:mb-0'>
             <input
               {...register('name', { required: true })}
+              autoComplete='on'
               type='text'
               name='name'
               placeholder='Name'

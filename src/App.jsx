@@ -14,6 +14,7 @@ import VerifyEmailPage from './pages/VerifyEmailPage';
 import NavBar from './components/NavBar';
 import './App.css';
 import { UserProvider } from './context/UserContext';
+import VerifyEmail from './pages/VerifyEmail';
 // import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {
@@ -64,6 +65,10 @@ function App() {
             <Route
               path='/change-password-form'
               element={<ChangePasswordForm />}
+            />
+            <Route
+              path='/verify/:token'
+              element={<VerifyEmail />}
             />
             <Route
               path='*'
