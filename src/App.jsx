@@ -6,7 +6,7 @@ import NotFound from './pages/NotFound';
 import ChatPage from './pages/ChatPage';
 import GroupFormPage from './pages/GroupFormPage';
 import LoginPage from './pages/LoginPage';
-import ChangePasswordForm from './pages/ChangePaswordForm';
+
 import RegisterPage from './pages/RegisterPage';
 import TaskFormPage from './pages/TaskFormPage';
 import TaskPage from './pages/TaskPage';
@@ -62,10 +62,7 @@ function App() {
               path='/verify-email-page'
               element={<VerifyEmailPage />}
             />
-            <Route
-              path='/change-password-form'
-              element={<ChangePasswordForm />}
-            />
+
             <Route
               path='/verify/:token'
               element={<VerifyEmail />}
