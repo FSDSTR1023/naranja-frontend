@@ -52,9 +52,7 @@ En desarrollo.
 - [ESLint](https://eslint.org/docs/latest/) para el linting del código.
 - [Prettier](https://prettier.io) para el formateo consistente del código.
 
-# Arquitectura del Proyecto TaskTalk y Relaciones entre Entidades
-
-## Arquitectura del Proyecto    
+## Arquitectura del Proyecto TaskTalk y Relaciones entre Entidades  
 
 TaskTalk se construye como una aplicación web utilizando la pila MERN (MongoDB, Express.js, React, Node.js) para sus componentes de backend y frontend. El proyecto sigue una arquitectura modular y escalable para garantizar la mantenibilidad y extensibilidad.
 
