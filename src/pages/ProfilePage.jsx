@@ -1,39 +1,50 @@
-import { useForm } from 'react-hook-form';
+//import { useForm } from 'react-hook-form';
 import { useUser } from '../context/UserContext';
 
+import Dropzone from 'react-dropzone';
+import { PaperClipIcon } from '@heroicons/react/solid';
+
 const ProfilePage = () => {
-  const { register, handleSubmit } = useForm();
+  // const { register, handleSubmit } = useForm();
   const { uploadProfilePicture, user } = useUser();
   // >>>>>>> Crear la pagina para poder editar el avatar del usuario y el isOnline...
 
-  const onSubmit = handleSubmit((data) => {
-    uploadProfilePicture(data);
-    console.log(data);
-  });
+  // const onSubmit = handleSubmit((data) => {
+  //   uploadProfilePicture(data);
+  //   console.log(data);
+  // });
 
   return (
     <div className='flex flex-col justify-center items-center'>
-      <div>
-        <div>
-          <p>{user._id}</p>
-          <p>{user.name}</p>
-          <p>{user.surname}</p>
-          <p>{user.email}</p>
-          <p>{user.isOnline}</p>
-          <img
-            className='w-20 h-20 rounded-full'
-            src={user.avatar}
-            alt='avatar'
-          />
-        </div>
-      </div>
-      <form onSubmit={onSubmit}>
+      {/* <form onSubmit={onSubmit}>
         <input
+          className=' appearance-none  rounded w-full py-2 px-4'
+          placeholder=''
           type='file'
           {...register('file')}
         />
-        <button type='submit'>Submit</button>
-      </form>
+        <br />
+        <button
+          className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mt-2'
+          type='submit'>
+          Submit
+        </button>
+      </form> */}
+      <Dropzone
+        acceptedFiles='.jpg, .png, .jpeg, .gif, .svg'
+        onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+        {({ getRootProps, getInputProps, open }) => (
+          <section>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <PaperClipIcon
+                className='h-6 w-6'
+                onClick={open}
+              />
+            </div>
+          </section>
+        )}
+      </Dropzone>
     </div>
   );
 };
