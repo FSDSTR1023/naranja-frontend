@@ -19,7 +19,7 @@ const RegisterPage = () => {
     }
   }, [isAuthenticated]);
   return (
-    <nav className='w- full flex flex-col items-center justify-center p-4'>
+    <div className='flex flex-col items-center justify-center p-4'>
       <h2 className='text-2xl font-semibold mb-4'>Create User</h2>
       <form
         className='w-full max-w-lg'
@@ -85,7 +85,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </form>
-    </nav>
+    </div>
   );
 };
 
