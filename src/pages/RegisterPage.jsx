@@ -19,7 +19,11 @@ const RegisterPage = () => {
     }
   }, [isAuthenticated]);
   return (
-    <nav className='w- full flex flex-col items-center justify-center p-4'>
+    <div style={{width: 1320, height: 53, background: 'linear-gradient(180deg, rgba(95.22, 48.86, 155.49, 0.50) 60%, rgba(98.27, 66.33, 139.80, 0) 100%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25) inset', border: '1px rgba(0, 0, 0, 0.20) solid'}}>
+
+      
+    
+    <div className='flex flex-col items-center justify-center p-4'>
       <h2 className='text-2xl font-semibold mb-4'>Create User</h2>
       <form
         className='w-full max-w-lg'
@@ -85,7 +89,8 @@ const RegisterPage = () => {
           </div>
         </div>
       </form>
-    </nav>
+    </div>
+    </div>
   );
 };
 
