@@ -1,12 +1,22 @@
 # TODO-MESSENGER-GROUP-MANAGER (TASKTALK)
 
 ## Descripción General del Proyecto(TLDR)
+
 Este proyecto es una aplicación de gestión de tareas y mensajería grupal. Permite a los usuarios registrarse, crear tareas, asignarse entre sí y unirse a grupos para comunicarse a través de mensajes grupales o individuales (ya sea texto, vídeo, archivo o imágenes). El proyecto está en desarrollo, con la funcionalidad del chat y la mayoría del frontend pendientes de implementación.
 
+## Instalación y Ejecución
+
+1. Clona el repositorio.
+2. Ejecuta `npm install` para instalar las dependencias.
+3. Configura las variables de entorno en un archivo `.env`.
+4. Ejecuta `npm run dev` para iniciar el servidor en modo de desarrollo con nodemon.
+
 ## Estado del Proyecto
+
 En desarrollo.
 
 ## Funcionalidades Principales
+
 - Registro de usuarios.
 - Autenticación y verificación de usuarios.
 - Creación, edición y eliminación de tareas.
@@ -14,6 +24,7 @@ En desarrollo.
 - Mensajería grupal y P2P (pendiente de implementación).
 
 ## Requisitos para la Integración
+
 - Node.js y npm instalados.
 - Base de datos MongoDB.
 - Configuración de variables de entorno en un archivo `.env`.
@@ -23,6 +34,7 @@ En desarrollo.
   - Otras variables de entorno según sea necesario.
 
 ## Tecnologías Utilizadas
+
 - [Express.js](https://expressjs.com/es/starter/installing.html) para el servidor web.
 - [MongoDB](https://www.mongodb.com/es) y [Mongoose](https://mongoosejs.com/docs/) para la base de datos.
 - [JSON Web Tokens (JWT)](https://jwt.io/introduction) para la autenticación.
@@ -47,11 +59,5 @@ En desarrollo.
 TaskTalk aspira a convertirse en una aplicación diseñada para el ámbito profesional y educativo. Se espera que su implementación en estos campos agilice y optimice tanto el trabajo como la comunicación en grupo, ya sea en entornos laborales o académicos. Además, se vislumbran posibles usos de la aplicación a nivel P2P o individual, facilitando la creación de tareas y listas para cualquier propósito.
 
 En la versión actual del proyecto, aunque dista de alcanzar la visión completa de la aplicación, ya cuenta con numerosas utilidades funcionales en el backend, como se detalla en **Funcionalidades Principales**. También presenta una versión inicial y rudimentaria del frontend, que será desarrollado de manera más completa, cómoda y estéticamente agradable.
-
-## Instalación y Ejecución
-1. Clona el repositorio.
-2. Ejecuta `npm install` para instalar las dependencias.
-3. Configura las variables de entorno en un archivo `.env`.
-4. Ejecuta `npm run dev` para iniciar el servidor en modo de desarrollo con nodemon.
 
 **Nota:** El proyecto está en desarrollo, por lo que la funcionalidad de mensajería al completo no existe en esta versión del proyecto, de igual manera, el frontend está en una fase muy primitiva y queda será mejorado enormemente.
