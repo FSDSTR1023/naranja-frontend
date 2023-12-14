@@ -16,13 +16,17 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    setUser({});
+    setUser(null);
     setIsAuthenticated(false);
     Cookies.remove('token');
     navigate('/');
   };
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, []);
   return (
     <div className='flex-1 w-screen h-screen'>
       <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>

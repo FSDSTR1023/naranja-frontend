@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { useNavigate } from 'react-router-dom';
 const PasswordUpdate = ({ user, updateUserPassword }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
       password: password,
     };
     updateUserPassword(newUserData);
+    navigate('/');
   });
   return (
     <div className='m-1 flex w-auto border-2 border-gray-300 rounded-md p-2'>

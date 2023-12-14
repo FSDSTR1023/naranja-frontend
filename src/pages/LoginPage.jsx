@@ -10,7 +10,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
     await loginUserRequest(data);
   });
 

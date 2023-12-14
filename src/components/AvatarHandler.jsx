@@ -20,7 +20,7 @@ const AvatarHandler = ({ user, uploadProfilePicture }) => {
         <p>Cambia tu Avatar</p>
         <div className='flex justify-center w-full '>
           <img
-            src={previewImage ? previewImage : user.avatar}
+            src={previewImage ? previewImage : user?.avatar}
             alt='Avatar'
             className='w-12 h-12 rounded-full object-cover align-center m-1'
           />
