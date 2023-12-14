@@ -24,6 +24,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState([]);
+  const [isOnline, setIsOnline] = useState('Offline');
 
   const registerUserRequest = async (data) => {
     try {
@@ -113,6 +114,9 @@ export const UserProvider = ({ children }) => {
         loginUserRequest,
         uploadProfilePicture,
         updateUserPassword,
+        isOnline,
+        setIsOnline,
+
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}

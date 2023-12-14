@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import AvatarHandler from '../components/AvatarHandler';
 import PasswordUpdate from '../components/PasswordUpdate';
+import UserStatusHandler from '../components/UserStatusHandler';
 import { useUser } from '../context/UserContext';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -25,8 +26,9 @@ const ProfilePage = () => {
   useEffect(() => {
     if (!user) {
       navigate('/');
+      handleClick();
     }
-  }, []);
+  }, [user]);
   return (
     <div className='flex-1 w-screen h-screen'>
       <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
@@ -41,6 +43,7 @@ const ProfilePage = () => {
           user={user}
           updateUserPassword={updateUserPassword}
         />
+        <UserStatusHandler user={user} />
         <button onClick={handleClick}>LogOut ⌽</button>
       </div>
     </div>
