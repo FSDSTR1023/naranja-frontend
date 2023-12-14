@@ -12,7 +12,7 @@ const NavBar = () => {
         </p>
         <button
           onClick={() => navigate('/')}
-          className='bg-orange-400 text-black cursor-pointer'>
+          className='bg-orange-400 text-black cursor-pointer rounded-md p-2'>
           Home Page
         </button>
       </div>

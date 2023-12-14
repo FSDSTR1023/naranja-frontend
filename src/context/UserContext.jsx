@@ -66,9 +66,9 @@ export const UserProvider = ({ children }) => {
 
   const uploadProfilePicture = async (data) => {
     try {
-      console.log(data.file, '<-- data en uploadProfilePicture');
+      console.log(data, '<-- data en uploadProfilePicture');
       const formData = new FormData();
-      formData.append('file', data.file[0]);
+      formData.append('file', data);
       formData.append('upload_preset', 'emnwqxan');
       console.log(formData);
       axios
@@ -81,13 +81,21 @@ export const UserProvider = ({ children }) => {
             response.data.url,
             '<-- response.data.url en uploadProfilePicture'
           );
-          ///podriamos mirar si hay algo en data. password y si hay algo, cambiar la contraseña, y el isOnline
 
           setUser({ ...user, avatar: response.data.url });
           updateUserRequest(user);
         });
     } catch (error) {
       console.log(error, '<-- error en uploadProfilePicture');
+    }
+  };
+
+  const updateUserPassword = async (data) => {
+    try {
+      const userFound = await updateUserRequest(data);
+      setUser(userFound);
+    } catch (error) {
+      console.log(error, '<-- error en updateUserPassword');
     }
   };
 
@@ -104,6 +112,7 @@ export const UserProvider = ({ children }) => {
         verifyTokenRequest,
         loginUserRequest,
         uploadProfilePicture,
+        updateUserPassword,
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}

@@ -1,50 +1,44 @@
-//import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import AvatarHandler from '../components/AvatarHandler';
+import PasswordUpdate from '../components/PasswordUpdate';
 import { useUser } from '../context/UserContext';
-
-import Dropzone from 'react-dropzone';
-import { PaperClipIcon } from '@heroicons/react/solid';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
-  // const { register, handleSubmit } = useForm();
-  const { uploadProfilePicture, user } = useUser();
-  // >>>>>>> Crear la pagina para poder editar el avatar del usuario y el isOnline...
+  const {
+    user,
+    uploadProfilePicture,
+    updateUserPassword,
+    setUser,
+    setIsAuthenticated,
+  } = useUser();
+  const navigate = useNavigate();
 
-  // const onSubmit = handleSubmit((data) => {
-  //   uploadProfilePicture(data);
-  //   console.log(data);
-  // });
+  const handleClick = () => {
+    setUser({});
+    setIsAuthenticated(false);
+    Cookies.remove('token');
+    navigate('/');
+  };
 
+  useEffect(() => {}, [user]);
   return (
-    <div className='flex flex-col justify-center items-center'>
-      {/* <form onSubmit={onSubmit}>
-        <input
-          className=' appearance-none  rounded w-full py-2 px-4'
-          placeholder=''
-          type='file'
-          {...register('file')}
+    <div className='flex-1 w-screen h-screen'>
+      <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
+      <div
+        className='flex items-center justify-center border-2 
+      border-gray-400 rounded-md  m-10 mb-10 w-[calc(100%-50px)] h-full '>
+        <AvatarHandler
+          user={user}
+          uploadProfilePicture={uploadProfilePicture}
         />
-        <br />
-        <button
-          className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mt-2'
-          type='submit'>
-          Submit
-        </button>
-      </form> */}
-      <Dropzone
-        acceptedFiles='.jpg, .png, .jpeg, .gif, .svg'
-        onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
-        {({ getRootProps, getInputProps, open }) => (
-          <section>
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <PaperClipIcon
-                className='h-6 w-6'
-                onClick={open}
-              />
-            </div>
-          </section>
-        )}
-      </Dropzone>
+        <PasswordUpdate
+          user={user}
+          updateUserPassword={updateUserPassword}
+        />
+        <button onClick={handleClick}>LogOut ⌽</button>
+      </div>
     </div>
   );
 };
