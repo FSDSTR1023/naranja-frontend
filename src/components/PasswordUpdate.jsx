@@ -25,7 +25,7 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
     navigate('/');
   });
   return (
-    <div className='m-1 flex w-auto border-2 border-gray-300 rounded-md p-2'>
+    <div className='my-4 flex justify-center w-auto border-2 border-gray-300 rounded-md p-2'>
       <form onSubmit={onSubmit}>
         <div>
           <div className='flex justify-between'>
@@ -35,7 +35,7 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
               Password
             </label>
           </div>
-          <div className='mt-2'>
+          <div className='my-2'>
             <input
               {...register('password', { required: true })}
               type='password'
@@ -82,7 +82,7 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
         </div>
         <button
           type='submit'
-          className='inline-flex  mt-2 items-center gap-x-1.5 rounded-md
+          className='inline-flex  mt-4 items-center gap-x-1.5 rounded-md
            bg-orange-400 px-2.5 py-1.5 text-sm font-semibold
             text-white shadow-sm hover:bg-orange-700 
             focus-visible:outline focus-visible:outline-2 

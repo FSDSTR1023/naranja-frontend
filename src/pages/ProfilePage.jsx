@@ -30,27 +30,25 @@ const ProfilePage = () => {
     }
   }, [user]);
   return (
-    <div className='grid-cols-3'>
-      <div>Aqui Lista de Usuarios</div>
-      <div>Aqui Todas las Tareas</div>
-      <div>
-        <div className='flex-1 w-screen h-screen'>
-          <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
-          <div
-            className='flex items-center justify-center border-2 
-      border-gray-400 rounded-md  m-10 mb-10 w-[calc(100%-50px)] h-full '>
-            <AvatarHandler
-              user={user}
-              uploadProfilePicture={uploadProfilePicture}
-            />
-            <PasswordUpdate
-              user={user}
-              updateUserPassword={updateUserPassword}
-            />
-            <UserStatusHandler user={user} />
-            <button onClick={handleClick}>LogOut ⌽</button>
-          </div>
-        </div>
+    <div className='grid grid-cols-6 gap-4 h-screen'>
+      <div className='col-span-1 bg-gray-200'>
+        <h1 className=' text-3xl font-bold mt-6'>Usuarios</h1>
+      </div>
+      <div className='col-span-4 bg-gray-200'>
+        <h1 className=' text-3xl font-bold mt-6'>Tareas</h1>
+      </div>
+      <div className='col-span-1 bg-gray-200'>
+        <h1 className='text-center text-3xl font-bold mt-6'>Perfil</h1>
+        <AvatarHandler
+          user={user}
+          uploadProfilePicture={uploadProfilePicture}
+        />
+        <PasswordUpdate
+          user={user}
+          updateUserPassword={updateUserPassword}
+        />
+        <UserStatusHandler user={user} />
+        <button className='bg-red-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-red-800' onClick={handleClick}>LogOut →</button>
       </div>
     </div>
   );
