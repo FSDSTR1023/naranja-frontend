@@ -30,21 +30,27 @@ const ProfilePage = () => {
     }
   }, [user]);
   return (
-    <div className='flex-1 w-screen h-screen'>
-      <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
-      <div
-        className='flex items-center justify-center border-2 
+    <div className='grid-cols-3'>
+      <div>Aqui Lista de Usuarios</div>
+      <div>Aqui Todas las Tareas</div>
+      <div>
+        <div className='flex-1 w-screen h-screen'>
+          <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
+          <div
+            className='flex items-center justify-center border-2 
       border-gray-400 rounded-md  m-10 mb-10 w-[calc(100%-50px)] h-full '>
-        <AvatarHandler
-          user={user}
-          uploadProfilePicture={uploadProfilePicture}
-        />
-        <PasswordUpdate
-          user={user}
-          updateUserPassword={updateUserPassword}
-        />
-        <UserStatusHandler user={user} />
-        <button onClick={handleClick}>LogOut ⌽</button>
+            <AvatarHandler
+              user={user}
+              uploadProfilePicture={uploadProfilePicture}
+            />
+            <PasswordUpdate
+              user={user}
+              updateUserPassword={updateUserPassword}
+            />
+            <UserStatusHandler user={user} />
+            <button onClick={handleClick}>LogOut ⌽</button>
+          </div>
+        </div>
       </div>
     </div>
   );
