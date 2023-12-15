@@ -29,7 +29,7 @@ const UserStatusHandler = () => {
         </select>
         <button
           type='submit'
-          className='cursor-pointer bg-orange-400 text-white p-1 my-2 rounded-md'>
+          className='cursor-pointer bg-orange-400 text-white p-2 my-2 rounded-md hover:bg-orange-700'>
           Change Status
         </button>
       </form>
