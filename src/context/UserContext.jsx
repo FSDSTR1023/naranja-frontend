@@ -6,6 +6,7 @@ import {
   sendTokenToServer,
   sendLoginUserRequest,
   updateUserRequest,
+  getAllUsersRequest,
 } from '../api/user';
 import Cookie from 'js-cookie';
 import axios from 'axios';
@@ -25,6 +26,7 @@ export const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState([]);
   const [isOnline, setIsOnline] = useState('Offline');
+  const [allUsers, setAllUsers] = useState([]);
 
   const registerUserRequest = async (data) => {
     try {
@@ -100,6 +102,27 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateIsOnline = async (data) => {
+    try {
+      const userFound = await updateUserRequest(data);
+      setUser(userFound);
+    } catch (error) {
+      console.log(error, '<-- error en updateIsOnline');
+    }
+  };
+
+  const getAllUsers = async () => {
+    try {
+      const response = await getAllUsersRequest();
+      console.log(response.data, '<-- response.data en getAllUsers');
+      const users = response.data;
+      const filteredUsers = users.filter((contact) => contact._id !== user._id);
+      setAllUsers(filteredUsers);
+    } catch (error) {
+      console.log(error, '<-- error en getAllUsers');
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -116,6 +139,10 @@ export const UserProvider = ({ children }) => {
         updateUserPassword,
         isOnline,
         setIsOnline,
+        updateIsOnline,
+        getAllUsers,
+        allUsers,
+        setAllUsers,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

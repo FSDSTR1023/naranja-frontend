@@ -15,6 +15,7 @@ import NavBar from './components/NavBar';
 import './App.css';
 import { UserProvider } from './context/UserContext';
 import VerifyEmail from './pages/VerifyEmail';
+import { TaskProvider } from './context/TasksContext';
 // import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {
@@ -22,55 +23,57 @@ function App() {
     <Router>
       <UserProvider>
         <GroupProvider>
-          <NavBar />
-          <Routes>
-            <Route
-              path='/'
-              element={<HomePage />}
-            />
-            <Route
-              path='/profile-page'
-              element={<ProfilePage />}
-            />
-            <Route
-              path='/chat-page'
-              element={<ChatPage />}
-            />
-            <Route
-              path='/group-form-page'
-              element={<GroupFormPage />}
-            />
-            <Route
-              path='/login-page'
-              element={<LoginPage />}
-            />
-            <Route
-              path='/register-page'
-              element={<RegisterPage />}
-            />
-            <Route
-              path='/task-form-page'
-              element={<TaskFormPage />}
-            />
+          <TaskProvider>
+            <NavBar />
+            <Routes>
+              <Route
+                path='/'
+                element={<HomePage />}
+              />
+              <Route
+                path='/profile-page'
+                element={<ProfilePage />}
+              />
+              <Route
+                path='/chat-page'
+                element={<ChatPage />}
+              />
+              <Route
+                path='/group-form-page'
+                element={<GroupFormPage />}
+              />
+              <Route
+                path='/login-page'
+                element={<LoginPage />}
+              />
+              <Route
+                path='/register-page'
+                element={<RegisterPage />}
+              />
+              <Route
+                path='/task-form-page/:id'
+                element={<TaskFormPage />}
+              />
 
-            <Route
-              path='/task-page'
-              element={<TaskPage />}
-            />
+              <Route
+                path='/task-page'
+                element={<TaskPage />}
+              />
 
-            <Route
-              path='/verify-email-page'
-              element={<VerifyEmailPage />}
-            />
+              <Route
+                path='/verify-email-page'
+                element={<VerifyEmailPage />}
+              />
 
-            <Route
-              path='/verify/:token'
-              element={<VerifyEmail />}
-            />
-            <Route
-              path='*'
-              element={<NotFound />}></Route>
-          </Routes>
+              <Route
+                path='/verify/:token'
+                element={<VerifyEmail />}
+              />
+              <Route
+                path='*'
+                element={<NotFound />}></Route>
+            </Routes>
+          </TaskProvider>
         </GroupProvider>
       </UserProvider>
     </Router>

@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { getAllTasksRequest } from '../api/task';
 
 const TaskContext = createContext();
 
@@ -13,15 +14,33 @@ export const useTasks = () => {
 };
 
 export function TaskProvider({ children }) {
+  const [allTasks, setAllTasks] = useState([]);
+  const [myOwnTasks, setMyOwnTasks] = useState([]);
+  const [myAssignedTasks, setMyAssignedTasks] = useState([]);
+
+  const getAllTasks = async () => {
+    try {
+      const response = await getAllTasksRequest();
+      setAllTasks(response.data);
+    } catch (error) {
+      console.log(error, '<-- error en getAllTasks');
+    }
+  };
+
   // crear estados y funciones relacionadas con las tareas
 
   return (
     <TaskContext.Provider
-      value={
-        {
-          // <-- van todas las funciones de las tasks para exportarlas
-        }
-      }>
+      value={{
+        allTasks,
+        setAllTasks,
+        myOwnTasks,
+        setMyOwnTasks,
+        myAssignedTasks,
+        setMyAssignedTasks,
+        getAllTasks,
+        // <-- van todas las funciones de las tasks para exportarlas
+      }}>
       {children}
     </TaskContext.Provider>
   );
