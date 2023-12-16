@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const TaskCard = ({ task }) => {
   return (
     <div
-      className='h-96 max-w-sm p-6 bg-gray-200 border
-    border-gray-300 rounded-lg w-80 box-content mb-1 '>
+      className='h-96 max-w-full p-6 bg-gray-200 border
+    border-gray-300 rounded-lg  box-content mb-1 '>
       <div className='flex flex-row justify-between'>
         <div className='flex p-2 gap-2 '>
           <button>
@@ -66,7 +66,7 @@ const TaskCard = ({ task }) => {
       <div className='flex p-2 gap-2 flex-col'>
         <button
           type='button'
-          value='inPogress'
+          value='inProgress'
           className='rounded bg-white px-2 py-1 text-xs font-semibold
         text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-purple-600 hover:text-white'>
           Set in progress
