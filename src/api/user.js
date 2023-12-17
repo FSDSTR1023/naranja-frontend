@@ -9,3 +9,6 @@ export const sendLoginUserRequest = (data) => axios.post('/login', data);
 export const updateUserRequest = (user) => axios.put('/user/update', user);
 
 export const getAllUsersRequest = () => axios.get('/');
+
+export const editUserPasswordRequest = (data) =>
+  axios.put('/user/password', data);

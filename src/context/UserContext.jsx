@@ -7,6 +7,7 @@ import {
   sendLoginUserRequest,
   updateUserRequest,
   getAllUsersRequest,
+  editUserPasswordRequest,
 } from '../api/user';
 import Cookie from 'js-cookie';
 import axios from 'axios';
@@ -80,11 +81,6 @@ export const UserProvider = ({ children }) => {
           formData
         )
         .then((response) => {
-          console.log(
-            response.data.url,
-            '<-- response.data.url en uploadProfilePicture'
-          );
-
           setUser({ ...user, avatar: response.data.url });
           updateUserRequest(user);
         });
@@ -95,7 +91,7 @@ export const UserProvider = ({ children }) => {
 
   const updateUserPassword = async (data) => {
     try {
-      const userFound = await updateUserRequest(data);
+      const userFound = await editUserPasswordRequest(data);
       setUser(userFound);
     } catch (error) {
       console.log(error, '<-- error en updateUserPassword');
