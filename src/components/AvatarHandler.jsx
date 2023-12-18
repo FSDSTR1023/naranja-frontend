@@ -2,11 +2,12 @@
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon, PaperAirplaneIcon } from '@heroicons/react/solid';
+import { useUser } from '../context/UserContext';
 
-const AvatarHandler = ({ user, uploadProfilePicture }) => {
+const AvatarHandler = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [image, setImage] = useState(null);
-  console.log(user, '<-- user en AvatarHandler');
+  const { user, uploadProfilePicture } = useUser();
 
   const handleImage = () => {
     uploadProfilePicture(image);
