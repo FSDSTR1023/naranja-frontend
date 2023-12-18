@@ -7,7 +7,9 @@ const UserStatusHandler = () => {
   const onSubmit = handleSubmit((data) => {
     console.log(data.isOnline);
     setIsOnline(data.isOnline);
+    console.log(user, '<-- user en onSubmit');
     const newUserData = { ...user, isOnline: data.isOnline };
+    console.log(newUserData, '<-- newUserData en onSubmit');
     updateIsOnline(newUserData);
   });
 

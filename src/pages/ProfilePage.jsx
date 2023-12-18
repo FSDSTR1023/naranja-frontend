@@ -38,7 +38,7 @@ const ProfilePage = () => {
       navigate('/');
       handleClick();
     }
-  }, [user]);
+  }, []);
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
       <div className='col-span-3 bg-gray-200'>
