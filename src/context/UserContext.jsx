@@ -57,6 +57,7 @@ export const UserProvider = ({ children }) => {
         throw new Error('No hay token');
       }
       const userToLogin = response.data;
+      console.log(userToLogin, '<-- userToLogin en loginUserRequest');
       if (userToLogin.status === false) {
         throw new Error('No se pudo loguear, verifique su correo electronico');
       }
@@ -99,6 +100,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateIsOnline = async (data) => {
+    console.log(data, '<-- data en updateIsOnline');
     try {
       const userFound = await updateUserRequest(data);
       setUser(userFound);
@@ -112,7 +114,10 @@ export const UserProvider = ({ children }) => {
       const response = await getAllUsersRequest();
       console.log(response.data, '<-- response.data en getAllUsers');
       const users = response.data;
-      const filteredUsers = users.filter((contact) => contact._id !== user._id);
+      const filteredUsers = users.filter((contact) => {
+        return contact.email !== user.email;
+      });
+      console.log(filteredUsers, '<-- filteredUsers en getAllUsers');
       setAllUsers(filteredUsers);
     } catch (error) {
       console.log(error, '<-- error en getAllUsers');
