@@ -8,9 +8,8 @@ const UserStatusHandler = () => {
     console.log(data.isOnline);
     setIsOnline(data.isOnline);
     console.log(user, '<-- user en onSubmit');
-    const newUserData = { ...user, isOnline: data.isOnline };
-    console.log(newUserData, '<-- newUserData en onSubmit');
-    updateIsOnline(newUserData);
+    console.log(user, '<-- user en onSubmit despues de setUser');
+    updateIsOnline(user, data.isOnline);
   });
 
   return (
@@ -34,7 +33,11 @@ const UserStatusHandler = () => {
           <option>Busy</option>
         </select>
         <button
-          type='submit'
+          onClick={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+          type='button'
           className='cursor-pointer bg-orange-400 text-white p-2 my-2 rounded-md hover:bg-orange-700'>
           Change Status
         </button>

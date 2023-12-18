@@ -90,20 +90,28 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const updateUserPassword = async (data) => {
+  const updateUserPassword = async (user, password) => {
+    const data = {
+      _id: user._id,
+      password: password,
+    };
     try {
       const userFound = await editUserPasswordRequest(data);
-      setUser(userFound);
+      setUser({ ...user, password: userFound.password });
     } catch (error) {
       console.log(error, '<-- error en updateUserPassword');
     }
   };
 
-  const updateIsOnline = async (data) => {
-    console.log(data, '<-- data en updateIsOnline');
+  const updateIsOnline = async (user, state) => {
+    console.log(state, '<-- state en updateIsOnline');
+    const data = {
+      ...user,
+      isOnline: state,
+    };
     try {
       const userFound = await updateUserRequest(data);
-      setUser(userFound);
+      setUser({ ...user, isOnline: userFound.isOnline });
     } catch (error) {
       console.log(error, '<-- error en updateIsOnline');
     }

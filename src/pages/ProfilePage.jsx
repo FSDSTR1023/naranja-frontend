@@ -11,15 +11,8 @@ import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
 
 const ProfilePage = () => {
-  const {
-    user,
-    uploadProfilePicture,
-    updateUserPassword,
-    setUser,
-    setIsAuthenticated,
-    allUsers,
-    getAllUsers,
-  } = useUser();
+  const { user, setUser, setIsAuthenticated, allUsers, getAllUsers } =
+    useUser();
 
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
@@ -32,13 +25,16 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    console.log('ProfilePage useEffect');
     getAllUsers();
     getAllTasks();
     if (!user) {
       navigate('/');
-      handleClick();
+      setUser(null);
+      setIsAuthenticated(false);
+      Cookies.remove('token');
     }
-  }, []);
+  }, [user]);
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
       <div className='col-span-3 bg-gray-200'>
@@ -71,15 +67,9 @@ const ProfilePage = () => {
         <h3 className=''>
           {user?.name} {user?.surname}
         </h3>
-        <AvatarHandler
-          user={user}
-          uploadProfilePicture={uploadProfilePicture}
-        />
-        <PasswordUpdate
-          user={user}
-          updateUserPassword={updateUserPassword}
-        />
-        <UserStatusHandler user={user} />
+        <AvatarHandler />
+        <PasswordUpdate />
+        <UserStatusHandler />
         <div className='flex flex-col items-center justify-center'>
           {' '}
           <button
