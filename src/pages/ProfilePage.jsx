@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AvatarHandler from '../components/AvatarHandler';
 import PasswordUpdate from '../components/PasswordUpdate';
 import UserStatusHandler from '../components/UserStatusHandler';
@@ -23,7 +23,6 @@ const ProfilePage = () => {
 
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
-  const [expandedSection, setExpandedSection] = useState('tasks');
 
   const handleClick = () => {
     setUser(null);
@@ -38,16 +37,11 @@ const ProfilePage = () => {
     if (!user) {
       navigate('/');
       handleClick();
-      setExpandedSection(null);
     }
   }, [user]);
-
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
-      <div className={`col-span-3 bg-gray-200 ${expandedSection === 'contacts' ? 'col-span-8' : 'col-span-2'}`}>
-      <button className=' text-center text-2xl font-bold p-4 border-2 rounded-2xl border-gray-900 mt-4 mb-2' onClick={() =>
-          setExpandedSection('contacts')
-        }>Contactos</button>
+      <div className='col-span-3 bg-gray-200'>
         {allUsers?.map((contact) => (
           <UserCard
             key={contact._id}
@@ -56,12 +50,10 @@ const ProfilePage = () => {
         ))}
       </div>
       <div
-        className={`col-span-6 bg-gray-200 border-x-2 border-gray-700 flex flex-col items-center justify-center mb-1 ${expandedSection === 'tasks' ? 'col-span-8' : 'col-span-2'}`}>
-        <button className='text-center text-2xl font-bold p-4 border-2 rounded-2xl border-gray-900 mt-4' onClick={() =>
-          setExpandedSection('tasks')
-        }>Tareas</button>
+        className='col-span-6 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-center mb-1'>
         <button
-          className='bg-orange-400 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-700 mb-2'
+          className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
           onClick={() => {
             console.log('modal tarea');
           }}>
@@ -74,10 +66,8 @@ const ProfilePage = () => {
           />
         ))}
       </div>
-      <div className={`col-span-3 bg-gray-200 ${expandedSection === 'profile' ? 'col-span-8' : 'col-span-2'}`}>
-        <button className='text-center text-2xl font-bold p-4 border-2 rounded-2xl border-gray-900 mt-4 mb-2' onClick={() =>
-          setExpandedSection('profile')
-        }>Perfil</button>
+      <div className='col-span-3 bg-gray-200'>
+        <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
         <h3 className=''>
           {user?.name} {user?.surname}
         </h3>
