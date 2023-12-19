@@ -3,8 +3,6 @@
 import { createContext, useContext, useState } from 'react';
 import { createGroupRequest } from '../api/groups.js';
 
-// eslint-disable-next-line import/prefer-default-export
-
 export const GroupContext = createContext();
 
 export const useGroups = () => {
