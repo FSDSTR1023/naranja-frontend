@@ -38,6 +38,13 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
       <div className='col-span-3 bg-gray-200'>
+      <button
+          className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
+          onClick={() => {
+            navigate('/group-form-page');
+          }}>
+          Crear Grupo
+        </button>
         {allUsers?.map((contact) => (
           <UserCard
             key={contact._id}
@@ -46,7 +53,7 @@ const ProfilePage = () => {
         ))}
       </div>
       <div
-        className='col-span-6 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+        className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
       items-center justify-center mb-1'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
@@ -61,6 +68,10 @@ const ProfilePage = () => {
             task={task}
           />
         ))}
+      </div>
+      <div
+        className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-center mb-1'>
       </div>
       <div className='col-span-3 bg-gray-200'>
         <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
