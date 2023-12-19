@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom';
 const UserCard = ({ contact }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div
         className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
-        onClick={() => console.log(contact._id)}>
+        onClick={() => {
+          console.log(contact._id);
+          navigate('/chat-page');
+        }}>
         <div className='flex w-full justify-between items-center p-2'>
           <img
             className='w-10 h-10 rounded-full'

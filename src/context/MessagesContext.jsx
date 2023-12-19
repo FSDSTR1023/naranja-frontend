@@ -36,7 +36,12 @@ export const MessageProvider = ({ children }) => {
   return (
     <MessageContext.Provider
       value={{
-        socket, // <-- van todas las funciones del los grupos para exportarlas
+        socket,
+        message,
+        setMessage,
+        mySocket,
+        setMySocket,
+        // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}
     </MessageContext.Provider>

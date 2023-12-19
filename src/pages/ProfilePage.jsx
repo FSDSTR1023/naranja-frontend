@@ -11,16 +11,20 @@ import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
 
 const ProfilePage = () => {
-  const { user, setUser, setIsAuthenticated, allUsers, getAllUsers } =
-    useUser();
+  const {
+    user,
+    setUser,
+    setIsAuthenticated,
+    allUsers,
+    getAllUsers,
+    logOutUser,
+  } = useUser();
 
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    Cookies.remove('token');
+    logOutUser();
     navigate('/');
   };
 
@@ -38,7 +42,7 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
       <div className='col-span-3 bg-gray-200'>
-      <button
+        <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
           onClick={() => {
             navigate('/group-form-page');
@@ -71,8 +75,7 @@ const ProfilePage = () => {
       </div>
       <div
         className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-center mb-1'>
-      </div>
+      items-center justify-center mb-1'></div>
       <div className='col-span-3 bg-gray-200'>
         <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
         <h3 className=''>

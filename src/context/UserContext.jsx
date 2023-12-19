@@ -9,7 +9,7 @@ import {
   getAllUsersRequest,
   editUserPasswordRequest,
 } from '../api/user';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export const UserContext = createContext();
@@ -51,7 +51,7 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await sendLoginUserRequest(data);
       console.log(response.data, '<-- response.data en loginUserRequest');
-      const token = Cookie.get('token');
+      const token = Cookies.get('token');
       console.log(token, '<-- token en loginUserRequest');
       if (!token) {
         throw new Error('No hay token');
@@ -132,6 +132,13 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const logOutUser = () => {
+    updateIsOnline(user, 'Offline');
+    setUser(null);
+    setIsAuthenticated(false);
+    Cookies.remove('token');
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -152,6 +159,7 @@ export const UserProvider = ({ children }) => {
         getAllUsers,
         allUsers,
         setAllUsers,
+        logOutUser,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
