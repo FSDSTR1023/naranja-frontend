@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import UserCard from '../components/UserCard';
 import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
+import GroupPage from './GroupPage';
+import { useGroups } from '../context/GroupContext';
+import GroupCard from '../components/GroupCard';
 
 const ProfilePage = () => {
   const {
@@ -20,6 +23,7 @@ const ProfilePage = () => {
     logOutUser,
   } = useUser();
 
+  const { allGroups, getAllGroups } = useGroups();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
@@ -32,6 +36,7 @@ const ProfilePage = () => {
     console.log('ProfilePage useEffect');
     getAllUsers();
     getAllTasks();
+    getAllGroups();
     if (!user) {
       navigate('/');
       setUser(null);
@@ -44,10 +49,8 @@ const ProfilePage = () => {
       <div className='col-span-3 bg-gray-200'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
-          onClick={() => {
-            navigate('/group-form-page');
-          }}>
-          Crear Grupo
+          >
+          Contactos
         </button>
         {allUsers?.map((contact) => (
           <UserCard
@@ -75,7 +78,12 @@ const ProfilePage = () => {
       </div>
       <div
         className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-center mb-1'></div>
+      items-center justify-center mb-1'>
+        <GroupPage/>
+        {allGroups?.map((group) => (
+          <GroupCard key={group.id} group={group} />
+        ))}
+      </div>
       <div className='col-span-3 bg-gray-200'>
         <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
         <h3 className=''>

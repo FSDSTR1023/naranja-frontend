@@ -59,7 +59,7 @@ const GroupForm = () => {
     });
 
     return (
-        <div className='flex flex-col justify-center'>
+        <div className='flex flex-col items-center justify-center'>
             <h1 className='text-3xl font-bold my-6'>Nuevo Grupo</h1>
             <form className='w-full max-w-lg' onSubmit={onSubmit} >
                 <div className='flex flex-wrap'>

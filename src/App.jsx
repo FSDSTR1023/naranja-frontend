@@ -4,7 +4,8 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import NotFound from './pages/NotFound';
 import ChatPage from './pages/ChatPage';
-import GroupFormPage from './pages/GroupFormPage';
+import GroupPage from './pages/GroupPage';
+import GroupForm from './components/GroupForm';
 import LoginPage from './pages/LoginPage';
 
 import RegisterPage from './pages/RegisterPage';
@@ -43,7 +44,11 @@ function App() {
                 />
                 <Route
                   path='/group-form-page'
-                  element={<GroupFormPage />}
+                  element={<GroupPage />}
+                />
+                <Route
+                  path='/create-group'
+                  element={<GroupForm />}
                 />
                 <Route
                   path='/login-page'
