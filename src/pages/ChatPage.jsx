@@ -6,6 +6,7 @@ import UserCard from '../components/UserCard';
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const ChatPage = () => {
   const { allUsers, user } = useUser();
@@ -13,7 +14,6 @@ const ChatPage = () => {
   const [chatMessage, setChatMessage] = useState('');
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [urlImage, setUrlImage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
   const onSubmit = async (e) => {
@@ -21,23 +21,34 @@ const ChatPage = () => {
     if (image) {
       const response = await uploadImage(image);
       setPreviewImage(null);
-      setUrlImage(response);
-      setImage(null);
-    }
-    if (chatMessage !== '' || urlImage !== '') {
       const messageData = {
         room: room,
         message: chatMessage,
         author: user._id,
         authorName: user.name,
-        image: urlImage,
+        image: response,
+        time:
+          new Date(Date.now()).getHours() +
+          ':' +
+          new Date(Date.now()).getMinutes(),
+      };
+      await setMessageList((list) => [...list, messageData]);
+      setChatMessage('');
+      setImage(null);
+    } else if (chatMessage !== '') {
+      const messageData = {
+        room: room,
+        message: chatMessage,
+        author: user._id,
+        authorName: user.name,
+        image: null,
         time:
           new Date(Date.now()).getHours() +
           ':' +
           new Date(Date.now()).getMinutes(),
       };
       //await socket.emit('send_message', messageData);
-      setMessageList((list) => [...list, messageData]);
+      await setMessageList((list) => [...list, messageData]);
       setChatMessage('');
     }
   };
@@ -48,28 +59,38 @@ const ChatPage = () => {
         <div
           className='flex flex-col  border-2 border-gray-400 rounded-md 
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
-          <ul className='flex flex-col  gap-3 p-2 rounded-md overflow-y-scroll'>
-            {messageList?.map((message) => (
-              <li
-                key={message._id}
-                className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)]'>
-                <div className='flex gap-1 items-center justify-center'>
-                  <p className='text-[13px] text-start w-full'>
-                    {message.authorName}
-                  </p>
-                </div>
-                <div className='flex flex-wrap max-w-md'>
-                  <hr className=' border-1 w-full rounded-md border-grey-600' />
-                  <p className='text-[14px] text-start flex '>
-                    {message.message}
-                  </p>
-                  {message.image && <img src={message.image} />}
-                </div>
-                <div>
-                  <p className='text-[10px] w-full text-end'>{message.time}</p>
-                </div>
-              </li>
-            ))}
+          <ul className='flex flex-col p-2 rounded-md overflow-y-scroll no-scrollbar'>
+            <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
+              {messageList?.map((message, index) => (
+                <li
+                  key={index}
+                  className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)] mb-2'>
+                  <div className='flex gap-1 items-center justify-center'>
+                    <p className='text-[13px] text-start w-full'>
+                      {message.authorName}
+                    </p>
+                  </div>
+                  <div className='flex flex-wrap max-w-md'>
+                    <hr className=' border-1 w-full rounded-md border-grey-600' />
+                    <p className='text-[14px] text-start flex '>
+                      {message.message}
+                    </p>
+                    {message.image && (
+                      <img
+                        className='w-[150px] m-2'
+                        src={message.image}
+                        alt='file'
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <p className='text-[10px] w-full text-end'>
+                      {message.time}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ScrollToBottom>
           </ul>
         </div>
         <div className='flex flex-row justify-between rounded-md w-[calc(100%-115px)] p-1 border-2 border-gray-400'>
