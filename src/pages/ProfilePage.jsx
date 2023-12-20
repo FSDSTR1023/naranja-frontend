@@ -12,6 +12,7 @@ import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
 
 const ProfilePage = () => {
+  
   const { user, setUser, setIsAuthenticated, allUsers, getAllUsers } = useUser();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const ProfilePage = () => {
           Crear Tarea
         </button>
 
-        {showForm && <FormsTaskCreate />}
+        {showForm && <FormsTaskCreate users={allUsers} />}
 
         <div className="flex flex-wrap justify-center -mx-2">
           {allTasks?.map((task) => (
