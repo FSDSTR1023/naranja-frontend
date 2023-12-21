@@ -3,6 +3,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { getAllMessagesRequest, createMessageRequest } from '../api/message';
 
 export const MessageContext = createContext();
 
@@ -19,6 +20,7 @@ export const useMessage = () => {
 export const MessageProvider = ({ children }) => {
   const [message, setMessage] = useState([]);
   const [mySocket, setMySocket] = useState('');
+  const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
 
   const socket = io.connect('http://localhost:4000');
   useEffect(() => {
@@ -31,6 +33,27 @@ export const MessageProvider = ({ children }) => {
     };
   }, [socket]);
 
+  const getAllMessages = async (groupId) => {
+    try {
+      const response = await getAllMessagesRequest(groupId);
+      console.log(response.data, '<-- response.data del getAllMessages');
+      const messages = response.data;
+      setMessage(messages);
+    } catch (error) {
+      console.log(error, '<-- error del getAllMessages');
+    }
+  };
+
+  const createMessage = async (newMessage) => {
+    try {
+      const response = await createMessageRequest(newMessage);
+      console.log(response.data, 'response.data del createMessage');
+      setMessage([...message, response.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // <-- van todas las funciones del los grupos
 
   return (
@@ -41,6 +64,10 @@ export const MessageProvider = ({ children }) => {
         setMessage,
         mySocket,
         setMySocket,
+        getAllMessages,
+        createMessage,
+        room,
+        setRoom,
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
+import { useMessage } from '../context/MessagesContext';
 const UserCard = ({ contact }) => {
   const navigate = useNavigate();
+  const { setRoom, room } = useMessage();
 
   return (
     <>
@@ -9,6 +11,8 @@ const UserCard = ({ contact }) => {
         className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
         onClick={() => {
           console.log(contact._id);
+          setRoom(contact._id);
+          console.log('room', room);
           navigate('/chat-page');
         }}>
         <div className='flex w-full justify-between items-center p-2'>
@@ -31,7 +35,7 @@ const UserCard = ({ contact }) => {
         </div>
         <div className='flex flex-col justify-center'>
           <p className='text-xs text-start  mb-1'>
-            Lorem ipsum dolor sit amet...{' '}
+            Texto del ultimo Mensaje...{' '}
           </p>
           <p className='text-[10px] text-end'>23/09/2023</p>
         </div>

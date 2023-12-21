@@ -23,7 +23,7 @@ const ProfilePage = () => {
     logOutUser,
   } = useUser();
 
-  const { allGroups, getAllGroups } = useGroups();
+  const { allGroups, getAllGroups, groups } = useGroups();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const ProfilePage = () => {
     console.log('ProfilePage useEffect');
     getAllUsers();
     getAllTasks();
-    getAllGroups();
+    getAllGroups({ userId: user?._id });
     if (!user) {
       navigate('/');
       setUser(null);
@@ -47,9 +47,7 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
       <div className='col-span-3 bg-gray-200'>
-        <button
-          className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
-          >
+        <button className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'>
           Contactos
         </button>
         {allUsers?.map((contact) => (
@@ -79,9 +77,12 @@ const ProfilePage = () => {
       <div
         className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
       items-center justify-center mb-1'>
-        <GroupPage/>
-        {allGroups?.map((group) => (
-          <GroupCard key={group.id} group={group} />
+        <GroupPage />
+        {groups?.map((group) => (
+          <GroupCard
+            key={group.id}
+            group={group}
+          />
         ))}
       </div>
       <div className='col-span-3 bg-gray-200'>

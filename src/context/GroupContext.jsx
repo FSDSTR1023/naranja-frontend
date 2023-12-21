@@ -19,9 +19,10 @@ export const GroupProvider = ({ children }) => {
   // <-- van todas las funciones del los grupos
   const [groups, setGroups] = useState([]);
 
-  const getAllGroups = async () => {
+  const getAllGroups = async (userId) => {
     try {
-      const response = await getAllGroupsRequest();
+      const response = await getAllGroupsRequest(userId);
+      console.log(response, '<-- response del getAllGroups');
       console.log(response.data, '<-- response.data del getAllGroups');
       const groups = response.data;
       setGroups(groups);
@@ -34,7 +35,7 @@ export const GroupProvider = ({ children }) => {
     try {
       const response = await createGroupRequest(newGroup);
       console.log(response.data, 'response.data del createGroup');
-      setGroups([...groups, response.data])
+      setGroups([...groups, response.data]);
     } catch (error) {
       console.log(error);
     }

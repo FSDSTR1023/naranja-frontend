@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
@@ -9,12 +9,19 @@ import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
 const ChatPage = () => {
+  const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
   const { allUsers, user } = useUser();
-  const { socket, room } = useMessage();
+  const { socket, createMessages, getAllMessages, message } = useMessage();
   const [chatMessage, setChatMessage] = useState('');
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [messageList, setMessageList] = useState([]);
+
+  useEffect(() => {
+    console.log('ChatPage useEffect');
+    getAllMessages(room);
+    setMessageList(message);
+  }, [room]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +29,7 @@ const ChatPage = () => {
       const response = await uploadImage(image);
       setPreviewImage(null);
       const messageData = {
+        group: room,
         room: room,
         message: chatMessage,
         author: user._id,
@@ -37,6 +45,7 @@ const ChatPage = () => {
       setImage(null);
     } else if (chatMessage !== '') {
       const messageData = {
+        group: room,
         room: room,
         message: chatMessage,
         author: user._id,
@@ -61,35 +70,39 @@ const ChatPage = () => {
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
           <ul className='flex flex-col p-2 rounded-md overflow-y-scroll no-scrollbar'>
             <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
-              {messageList?.map((message, index) => (
-                <li
-                  key={index}
-                  className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)] mb-2'>
-                  <div className='flex gap-1 items-center justify-center'>
-                    <p className='text-[13px] text-start w-full'>
-                      {message.authorName}
-                    </p>
-                  </div>
-                  <div className='flex flex-wrap max-w-md'>
-                    <hr className=' border-1 w-full rounded-md border-grey-600' />
-                    <p className='text-[14px] text-start flex '>
-                      {message.message}
-                    </p>
-                    {message.image && (
-                      <img
-                        className='w-[150px] m-2'
-                        src={message.image}
-                        alt='file'
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <p className='text-[10px] w-full text-end'>
-                      {message.time}
-                    </p>
-                  </div>
-                </li>
-              ))}
+              {room && messageList ? (
+                messageList?.map((message, index) => (
+                  <li
+                    key={index}
+                    className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)] mb-2'>
+                    <div className='flex gap-1 items-center justify-center'>
+                      <p className='text-[13px] text-start w-full'>
+                        {message.authorName}
+                      </p>
+                    </div>
+                    <div className='flex flex-wrap max-w-md'>
+                      <hr className=' border-1 w-full rounded-md border-grey-600' />
+                      <p className='text-[14px] text-start flex '>
+                        {message.message}
+                      </p>
+                      {message.image && (
+                        <img
+                          className='w-[150px] m-2'
+                          src={message.image}
+                          alt='file'
+                        />
+                      )}
+                    </div>
+                    <div>
+                      <p className='text-[10px] w-full text-end'>
+                        {message.time}
+                      </p>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <p className='text-[14px] text-start flex '>No hay mensajes</p>
+              )}
             </ScrollToBottom>
           </ul>
         </div>
