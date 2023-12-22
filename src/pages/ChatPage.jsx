@@ -7,9 +7,11 @@ import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { useGroups } from '../context/GroupContext';
 
 const ChatPage = () => {
   const { allUsers, user } = useUser();
+  const { getAllGroups } = useGroups();
   const { socket, createMessages, getAllMessages, message, room } =
     useMessage();
   const [chatMessage, setChatMessage] = useState('');
@@ -19,7 +21,9 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.emit('join-room', room);
-    //getAllMessages(room);
+    getAllMessages(room);
+    getAllGroups(user._id);
+
     setMessageList(message);
   }, [room]);
 
@@ -31,10 +35,12 @@ const ChatPage = () => {
       const messageData = {
         group: room,
         room: room,
-        message: chatMessage,
+        body: chatMessage,
         author: user._id,
         authorName: user.name,
         image: response,
+        video: '',
+        fileAtt: '',
         time:
           new Date(Date.now()).getHours() +
           ':' +
@@ -42,16 +48,19 @@ const ChatPage = () => {
       };
       await socket.emit('send-message', { room, messageData, user });
       await setMessageList((list) => [...list, messageData]);
+      createMessages(messageData);
       setChatMessage('');
       setImage(null);
     } else if (chatMessage !== '') {
       const messageData = {
         group: room,
         room: room,
-        message: chatMessage,
+        body: chatMessage,
         author: user._id,
         authorName: user.name,
         image: null,
+        video: '',
+        fileAtt: '',
         time:
           new Date(Date.now()).getHours() +
           ':' +
@@ -60,6 +69,7 @@ const ChatPage = () => {
       console.log(messageData);
       await socket.emit('send-message', { room, messageData, user });
       await setMessageList((list) => [...list, messageData]);
+      createMessages(messageData);
       setChatMessage('');
     }
   };
@@ -95,7 +105,7 @@ const ChatPage = () => {
                     <div className='flex flex-wrap max-w-md'>
                       <hr className=' border-1 w-full rounded-md border-grey-600' />
                       <p className='text-[14px] text-start flex '>
-                        {message.message}
+                        {message.body}
                       </p>
                       {message.image && (
                         <img

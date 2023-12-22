@@ -20,6 +20,7 @@ export const GroupProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
 
   const getAllGroups = async (userId) => {
+    console.log(userId, '<-- userId del getAllGroups');
     try {
       const response = await getAllGroupsRequest(userId);
       console.log(response, '<-- response del getAllGroups');
