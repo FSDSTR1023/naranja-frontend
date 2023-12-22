@@ -23,7 +23,7 @@ const ProfilePage = () => {
     logOutUser,
   } = useUser();
 
-  const { allGroups, getAllGroups, groups } = useGroups();
+  const { getAllGroups, groups } = useGroups();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 

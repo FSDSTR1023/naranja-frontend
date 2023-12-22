@@ -9,17 +9,17 @@ import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
 const ChatPage = () => {
-  const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
   const { allUsers, user } = useUser();
-  const { socket, createMessages, getAllMessages, message } = useMessage();
+  const { socket, createMessages, getAllMessages, message, room } =
+    useMessage();
   const [chatMessage, setChatMessage] = useState('');
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
-    console.log('ChatPage useEffect');
-    getAllMessages(room);
+    socket.emit('join-room', room);
+    //getAllMessages(room);
     setMessageList(message);
   }, [room]);
 
@@ -40,6 +40,7 @@ const ChatPage = () => {
           ':' +
           new Date(Date.now()).getMinutes(),
       };
+      await socket.emit('send-message', { room, messageData, user });
       await setMessageList((list) => [...list, messageData]);
       setChatMessage('');
       setImage(null);
@@ -56,11 +57,22 @@ const ChatPage = () => {
           ':' +
           new Date(Date.now()).getMinutes(),
       };
-      //await socket.emit('send_message', messageData);
+      console.log(messageData);
+      await socket.emit('send-message', { room, messageData, user });
       await setMessageList((list) => [...list, messageData]);
       setChatMessage('');
     }
   };
+  useEffect(() => {
+    if (!socket) return;
+    socket.on('receive-message', (data) => {
+      console.log(data, '<-- data del receive-message');
+      setMessageList((list) => [...list, data]);
+    });
+    return () => {
+      socket.off('receive-message');
+    };
+  }, [socket]);
 
   return (
     <div className='flex flex-row justify-center items-center w-full'>
@@ -70,7 +82,7 @@ const ChatPage = () => {
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
           <ul className='flex flex-col p-2 rounded-md overflow-y-scroll no-scrollbar'>
             <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
-              {room && messageList ? (
+              {room && room ? (
                 messageList?.map((message, index) => (
                   <li
                     key={index}
