@@ -1,7 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from 'react';
-import { createGroupRequest, getAllGroupsRequest } from '../api/groups.js';
+import {
+  createGroupRequest,
+  getAllGroupsRequest,
+  getGroupByIdOrCreate,
+} from '../api/groups.js';
 
 export const GroupContext = createContext();
 
@@ -18,6 +22,8 @@ export const useGroups = () => {
 export const GroupProvider = ({ children }) => {
   // <-- van todas las funciones del los grupos
   const [groups, setGroups] = useState([]);
+  const [groupError, setGroupError] = useState([]);
+  const [currentGroup, setCurrentGroup] = useState({});
 
   const getAllGroups = async (userId) => {
     console.log(userId, '<-- userId del getAllGroups');
@@ -31,7 +37,16 @@ export const GroupProvider = ({ children }) => {
       console.log(error, '<-- error del getAllGroups');
     }
   };
-  const getGroupById = async () => {};
+  const getGroupById = async (group) => {
+    try {
+      const response = await getGroupByIdOrCreate(group);
+      console.log(response.data, 'response.data del getGroupById');
+      setCurrentGroup(response.data);
+    } catch (error) {
+      console.log(error);
+      setGroupError(error);
+    }
+  };
   const createGroup = async (newGroup) => {
     try {
       const response = await createGroupRequest(newGroup);
@@ -52,6 +67,10 @@ export const GroupProvider = ({ children }) => {
         getAllGroups,
         getGroupById,
         createGroup,
+        currentGroup,
+        setCurrentGroup,
+        groupError,
+        setGroupError,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

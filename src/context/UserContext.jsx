@@ -28,6 +28,7 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState([]);
   const [isOnline, setIsOnline] = useState('Offline');
   const [allUsers, setAllUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
 
   const registerUserRequest = async (data) => {
     try {
@@ -160,6 +161,8 @@ export const UserProvider = ({ children }) => {
         allUsers,
         setAllUsers,
         logOutUser,
+        selectedUser,
+        setSelectedUser,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

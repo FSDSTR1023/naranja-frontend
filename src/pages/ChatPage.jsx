@@ -10,8 +10,8 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
 
 const ChatPage = () => {
-  const { allUsers, user } = useUser();
-  const { getAllGroups } = useGroups();
+  const { allUsers, user, selectedUser } = useUser();
+  const { getAllGroups, getGroupById } = useGroups();
   const { socket, createMessages, getAllMessages, message, room } =
     useMessage();
   const [chatMessage, setChatMessage] = useState('');
@@ -21,10 +21,20 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.emit('join-room', room);
-    getAllMessages(room);
-    getAllGroups(user._id);
-
-    setMessageList(message);
+    const groupToGet = {
+      groupId: room,
+      name: user.name + selectedUser.name,
+      description: 'chat-privado',
+      ownerUser: user._id,
+      members: [user._id, selectedUser._id],
+    };
+    const getInfo = async () => {
+      await getGroupById(groupToGet);
+      await getAllMessages(room);
+      await getAllGroups(user._id);
+      await setMessageList(message);
+    };
+    getInfo(groupToGet, room, user._id);
   }, [room]);
 
   const onSubmit = async (e) => {
