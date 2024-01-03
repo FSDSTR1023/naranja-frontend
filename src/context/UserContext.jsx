@@ -50,7 +50,11 @@ export const UserProvider = ({ children }) => {
 
   const loginUserRequest = async (data) => {
     try {
-      const response = await sendLoginUserRequest(data);
+      const userToLogIn = {
+        ...data,
+        isOnline: 'Online',
+      };
+      const response = await sendLoginUserRequest(userToLogIn);
       console.log(response.data, '<-- response.data en loginUserRequest');
       const token = Cookies.get('token');
       console.log(token, '<-- token en loginUserRequest');
@@ -62,6 +66,7 @@ export const UserProvider = ({ children }) => {
       if (userToLogin.status === false) {
         throw new Error('No se pudo loguear, verifique su correo electronico');
       }
+      setIsOnline(userToLogin.isOnline);
       setUser(userToLogin);
       setIsAuthenticated(true);
     } catch (error) {
@@ -126,7 +131,7 @@ export const UserProvider = ({ children }) => {
       const filteredUsers = users.filter((contact) => {
         return contact.email !== user.email;
       });
-      console.log(filteredUsers, '<-- filteredUsers en getAllUsers');
+
       setAllUsers(filteredUsers);
     } catch (error) {
       console.log(error, '<-- error en getAllUsers');

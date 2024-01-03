@@ -40,7 +40,7 @@ export const GroupProvider = ({ children }) => {
   const getGroupById = async (group) => {
     try {
       const response = await getGroupByIdOrCreate(group);
-      console.log(response.data, 'response.data del getGroupById');
+
       setCurrentGroup(response.data);
     } catch (error) {
       console.log(error);

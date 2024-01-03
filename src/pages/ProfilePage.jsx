@@ -46,7 +46,7 @@ const ProfilePage = () => {
   }, [user]);
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
-      <div className='col-span-3 bg-gray-200'>
+      <div className='col-span-2 bg-gray-200'>
         <button className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'>
           Contactos
         </button>
@@ -58,7 +58,7 @@ const ProfilePage = () => {
         ))}
       </div>
       <div
-        className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+        className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
       items-center justify-center mb-1'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
@@ -75,8 +75,8 @@ const ProfilePage = () => {
         ))}
       </div>
       <div
-        className='col-span-3 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-center mb-1'>
+        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-center mb-1 gap-2'>
         <GroupPage />
         {groups?.map((group) => (
           <GroupCard

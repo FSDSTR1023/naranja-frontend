@@ -8,18 +8,24 @@ import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
+import { useNavigate } from 'react-router-dom';
 
 const ChatPage = () => {
   const { allUsers, user, selectedUser } = useUser();
-  const { getAllGroups, getGroupById } = useGroups();
-  const { socket, createMessages, getAllMessages, message, room } =
+  const { getAllGroups, getGroupById, currentGroup } = useGroups();
+  const { socket, createMessage, getAllMessages, message, room, setMessage } =
     useMessage();
   const [chatMessage, setChatMessage] = useState('');
-  const [image, setImage] = useState(null);
+  const [uplodedFile, setUploadedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [messageList, setMessageList] = useState([]);
+
+  const navigate = useNavigate();
+  console.log(currentGroup._id, '<-- currentGroup en ChatPage');
 
   useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
     socket.emit('join-room', room);
     const groupToGet = {
       groupId: room,
@@ -30,20 +36,20 @@ const ChatPage = () => {
     };
     const getInfo = async () => {
       await getGroupById(groupToGet);
-      await getAllMessages(room);
+      await getAllMessages(currentGroup._id);
       await getAllGroups(user._id);
-      await setMessageList(message);
     };
-    getInfo(groupToGet, room, user._id);
+    getInfo();
   }, [room]);
 
   const onSubmit = async (e) => {
+    console.log(uplodedFile, '<-- uplodedFile en onSubmit');
     e.preventDefault();
-    if (image) {
-      const response = await uploadImage(image);
+    if (uplodedFile) {
+      const response = await uploadImage(uplodedFile);
       setPreviewImage(null);
       const messageData = {
-        group: room,
+        group: currentGroup._id,
         room: room,
         body: chatMessage,
         author: user._id,
@@ -56,14 +62,14 @@ const ChatPage = () => {
           ':' +
           new Date(Date.now()).getMinutes(),
       };
-      await socket.emit('send-message', { room, messageData, user });
-      await setMessageList((list) => [...list, messageData]);
-      createMessages(messageData);
       setChatMessage('');
-      setImage(null);
+      setUploadedFile(null);
+      await socket.emit('send-message', { room, messageData, user });
+      await setMessage((list) => [...list, messageData]);
+      createMessage(messageData);
     } else if (chatMessage !== '') {
       const messageData = {
-        group: room,
+        group: currentGroup._id,
         room: room,
         body: chatMessage,
         author: user._id,
@@ -77,17 +83,17 @@ const ChatPage = () => {
           new Date(Date.now()).getMinutes(),
       };
       console.log(messageData);
-      await socket.emit('send-message', { room, messageData, user });
-      await setMessageList((list) => [...list, messageData]);
-      createMessages(messageData);
       setChatMessage('');
+      await socket.emit('send-message', { room, messageData, user });
+      await setMessage((list) => [...list, messageData]);
+      createMessage(messageData);
     }
   };
   useEffect(() => {
     if (!socket) return;
     socket.on('receive-message', (data) => {
       console.log(data, '<-- data del receive-message');
-      setMessageList((list) => [...list, data]);
+      setMessage((list) => [...list, data]);
     });
     return () => {
       socket.off('receive-message');
@@ -100,35 +106,40 @@ const ChatPage = () => {
         <div
           className='flex flex-col  border-2 border-gray-400 rounded-md 
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
+          <div>
+            <div className='flex items-center justify-center w-full bg-zinc-500/50 text-white p-6 rounded md'>
+              <p className='text-[14px] justify-center flex '>
+                Este es el comienzo de tu conversacion con {selectedUser.name}{' '}
+                {currentGroup._id}
+                {currentGroup.name}
+              </p>
+            </div>
+          </div>
           <ul className='flex flex-col p-2 rounded-md overflow-y-scroll no-scrollbar'>
             <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
-              {room && room ? (
-                messageList?.map((message, index) => (
+              {message && message?.[0] !== '' ? (
+                message?.map((m, index) => (
                   <li
                     key={index}
                     className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)] mb-2'>
                     <div className='flex gap-1 items-center justify-center'>
                       <p className='text-[13px] text-start w-full'>
-                        {message.authorName}
+                        {m.authorName}
                       </p>
                     </div>
                     <div className='flex flex-wrap max-w-md'>
                       <hr className=' border-1 w-full rounded-md border-grey-600' />
-                      <p className='text-[14px] text-start flex '>
-                        {message.body}
-                      </p>
-                      {message.image && (
+                      <p className='text-[14px] text-start flex '>{m.body}</p>
+                      {m.image && (
                         <img
                           className='w-[150px] m-2'
-                          src={message.image}
+                          src={m.image}
                           alt='file'
                         />
                       )}
                     </div>
                     <div>
-                      <p className='text-[10px] w-full text-end'>
-                        {message.time}
-                      </p>
+                      <p className='text-[10px] w-full text-end'>{m.time}</p>
                     </div>
                   </li>
                 ))
@@ -148,7 +159,6 @@ const ChatPage = () => {
               value={chatMessage}
               className='border-none w-full rounded-md p-1'
               onChange={(e) => {
-                console.log(e.target.value);
                 setChatMessage(e.target.value);
               }}
             />
@@ -168,7 +178,7 @@ const ChatPage = () => {
               multiple={false}
               noClick={true}
               onDrop={(acceptedFiles) => {
-                setImage(acceptedFiles[0]);
+                setUploadedFile(acceptedFiles[0]);
                 setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
               }}>
               {({ getRootProps, getInputProps, open }) => (

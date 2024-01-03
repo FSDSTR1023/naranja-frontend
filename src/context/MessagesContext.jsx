@@ -19,7 +19,7 @@ export const useMessage = () => {
 
 export const MessageProvider = ({ children }) => {
   const [message, setMessage] = useState([]);
-  const [mySocket, setMySocket] = useState('');
+
   const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
 
   const socket = io.connect('http://localhost:4000');
@@ -35,16 +35,17 @@ export const MessageProvider = ({ children }) => {
 
   const getAllMessages = async (groupId) => {
     try {
+      setMessage([]);
       const response = await getAllMessagesRequest(groupId);
       console.log(response.data, '<-- response.data del getAllMessages');
-      const messages = response.data;
-      setMessage(messages);
+      setMessage(response.data);
     } catch (error) {
       console.log(error, '<-- error del getAllMessages');
     }
   };
 
   const createMessage = async (newMessage) => {
+    console.log(newMessage, '<-- newMessage en createMessage');
     try {
       const response = await createMessageRequest(newMessage);
       console.log(response.data, 'response.data del createMessage');
@@ -62,12 +63,12 @@ export const MessageProvider = ({ children }) => {
         socket,
         message,
         setMessage,
-        mySocket,
-        setMySocket,
+
         getAllMessages,
         createMessage,
         room,
         setRoom,
+
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
       {children}

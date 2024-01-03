@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const TaskCard = ({ task }) => {
   return (
     <div
-      className='h-96 max-w-sm p-6 bg-gray-200 border
+      className=' h-96 max-w-sm p-6 bg-gray-200 border
     border-gray-300 rounded-lg w-80 box-content mb-1 '>
       <div className='flex flex-row justify-between'>
         <div className='flex p-2 gap-2 '>
@@ -14,7 +14,7 @@ const TaskCard = ({ task }) => {
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
-                strokeWidth='1.5'
+                strokeWidth='1'
                 stroke='currentColor'
                 className='w-6 h-6'>
                 <path
@@ -30,7 +30,7 @@ const TaskCard = ({ task }) => {
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
-              strokeWidth='1.5'
+              strokeWidth='1'
               stroke='currentColor'
               className='w-6 h-6'>
               <path
