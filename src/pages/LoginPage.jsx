@@ -5,7 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { loginUserRequest, isAuthenticated } = useUser();
   const navigate = useNavigate();
 
@@ -27,6 +31,7 @@ const LoginPage = () => {
         onSubmit={onSubmit}>
         <div className='flex flex-wrap -mx-3 mb-6'>
           <div className='w-full px-3'>
+            {/* creo que iria aqui el label del email */}
             <input
               type='email'
               name='email'
@@ -39,6 +44,9 @@ const LoginPage = () => {
             />
           </div>
         </div>
+        {errors.email && (
+          <span className='text-red-500'>This field is required</span>
+        )}
         <div className='flex flex-wrap -mx-3 mb-6'>
           <div className='w-full px-3'>
             <input
@@ -52,6 +60,9 @@ const LoginPage = () => {
             />
           </div>
         </div>
+        {errors.password && (
+          <span className='text-red-500'>This field is required</span>
+        )}
         <div className='flex flex-wrap -mx-3'>
           <div className='w-full px-3 text-right'>
             <button

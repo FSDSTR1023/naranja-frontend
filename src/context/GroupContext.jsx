@@ -31,8 +31,8 @@ export const GroupProvider = ({ children }) => {
       const response = await getAllGroupsRequest(userId);
       console.log(response, '<-- response del getAllGroups');
       console.log(response.data, '<-- response.data del getAllGroups');
-      const groups = response.data;
-      setGroups(groups);
+
+      setGroups(response.data);
     } catch (error) {
       console.log(error, '<-- error del getAllGroups');
     }

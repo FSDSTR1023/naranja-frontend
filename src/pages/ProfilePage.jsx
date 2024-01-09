@@ -32,6 +32,7 @@ const ProfilePage = () => {
 
   const handleClick = () => {
     logOutUser();
+    // hacer que haga una llamada a un socket para cambiar el estado de isOnline a la desconecxion
     navigate('/');
   };
 
@@ -59,7 +60,10 @@ const ProfilePage = () => {
           Contactos
         </button>
         {allUsers?.map((contact) => (
-          <UserCard key={contact._id} contact={contact} />
+          <UserCard
+            key={contact._id}
+            contact={contact}
+          />
         ))}
       </div>
       <div
@@ -67,16 +71,18 @@ const ProfilePage = () => {
       items-center justify-center mb-1 overflow-x-scroll'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
-          onClick={handleForm}
-        >
+          onClick={handleForm}>
           Crear Tarea
         </button>
 
         {showForm && <FormsTaskCreate users={allUsers} />}
 
-        <div className="flex flex-wrap justify-center -mx-2">
+        <div className='flex flex-wrap justify-center -mx-2'>
           {allTasks?.map((task) => (
-            <TaskCard key={task._id} task={task} />
+            <TaskCard
+              key={task._id}
+              task={task}
+            />
           ))}
         </div>
       </div>
@@ -102,8 +108,7 @@ const ProfilePage = () => {
         <div className='flex flex-col items-center justify-center'>
           <button
             className='bg-red-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-red-800'
-            onClick={handleClick}
-          >
+            onClick={handleClick}>
             LogOut →
           </button>
         </div>

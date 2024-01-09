@@ -107,7 +107,7 @@ const ChatPage = () => {
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
           <div>
             <div className='flex items-center justify-center w-full bg-zinc-500/50 text-white p-6 rounded md'>
-              <p className='text-[14px] justify-center flex '>
+              <p className='text-[14px] justify-center flex text-black'>
                 Este es el comienzo de tu conversacion con {selectedUser.name}{' '}
                 {currentGroup._id}
                 {currentGroup.name}
