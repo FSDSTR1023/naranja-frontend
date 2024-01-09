@@ -20,7 +20,6 @@ const ChatPage = () => {
   const [previewImage, setPreviewImage] = useState(null);
 
   const navigate = useNavigate();
-  console.log(currentGroup._id, '<-- currentGroup en ChatPage');
 
   useEffect(() => {
     if (!user) {

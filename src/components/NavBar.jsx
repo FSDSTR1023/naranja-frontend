@@ -128,6 +128,15 @@ const NavBar = () => {
                 Login
               </Link>
             </li>
+            <li>
+              <Link
+                to='/profile-page'
+                className='block py-2 px-3 text-white bg-orange-500 
+                  rounded md:bg-transparent md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500'
+                aria-current='page'>
+                Profile
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

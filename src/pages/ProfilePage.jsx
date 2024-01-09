@@ -59,7 +59,7 @@ const ProfilePage = () => {
       </div>
       <div
         className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-center mb-1'>
+      items-center justify-center mb-1 overflow-x-scroll'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
           onClick={() => {
@@ -76,7 +76,7 @@ const ProfilePage = () => {
       </div>
       <div
         className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-center mb-1 gap-2'>
+      items-center justify-center mb-1 gap-2 '>
         <GroupPage />
         {groups?.map((group) => (
           <GroupCard
