@@ -20,7 +20,7 @@ export const useGroups = () => {
 };
 
 export const GroupProvider = ({ children }) => {
-  // <-- van todas las funciones del los grupos
+  // State to store the groups
   const [groups, setGroups] = useState([]);
   const [groupError, setGroupError] = useState([]);
   const [currentGroup, setCurrentGroup] = useState({});
@@ -63,7 +63,7 @@ export const GroupProvider = ({ children }) => {
     <GroupContext.Provider
       value={{
         groups,
-        setGroups,
+        setGroups, // You can remove this if you don't intend to directly set groups from components
         getAllGroups,
         getGroupById,
         createGroup,

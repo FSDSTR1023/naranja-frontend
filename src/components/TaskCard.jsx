@@ -1,5 +1,6 @@
-/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 const TaskCard = ({ task }) => {
   return (
@@ -25,6 +26,7 @@ const TaskCard = ({ task }) => {
               </svg>
             </Link>
           </button>
+
           <button>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -40,48 +42,56 @@ const TaskCard = ({ task }) => {
               />
             </svg>
           </button>
+
         </div>
-        <div className='flex p-2 text-sm flex-col'>
-          <p className='inline-flex items-center text-gray-400'>
-            <strong className='text-gray-800'>Date start</strong>:{' '}
-            {new Date(task?.dateStart).toLocaleDateString()}
+
+{/* date */}
+        <div className='text-sm'>
+          <p className='text-gray-400'>
+            <strong className='text-gray-800'>Date start:</strong> {new Date(task?.dateStart).toLocaleDateString()}
           </p>
-          <p className='inline-flex items-center text-gray-400 '>
-            <strong className='text-gray-800'>Date end</strong>:{' '}
-            {new Date(task?.dateEnd).toLocaleDateString()}
+          <p className='text-gray-400'>
+            <strong className='text-gray-800'>Date end:</strong> {new Date(task?.dateEnd).toLocaleDateString()}
           </p>
         </div>
       </div>
-      <div className='flex flex-row justify-between'>
-        <h5 className='mb-2 text-2xl font-semibold tracking-tight text-gray-900 '>
-          {task?.title}
-        </h5>
-        <p className='text-sm p-2'>
-          status: <em>{task?.status}</em>
-        </p>
-      </div>
-      <p className='mb-3 font-normal text-gray-500 dark:text-gray-400 h-40'>
+
+      <h5 className='mb-2 text-2xl font-semibold text-gray-900'>
+        {task?.title}
+      </h5>
+
+      <p className='mb-3 font-normal text-gray-500 h-40 overflow-auto'>
         {task?.description}
       </p>
-      <div className='flex p-2 gap-2 flex-col'>
+
+{/* status */}
+      <div className='flex flex-col gap-2'>
         <button
           type='button'
-          value='inPogress'
-          className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-purple-600 hover:text-white'>
+          className='rounded bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-purple-600 hover:text-white'>
           Set in progress
         </button>
-
         <button
           type='button'
-          value='completed'
-          className='rounded bg-white px-2 py-1 text-xs font-semibold
-        text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-green-400 hover:text-white'>
+          className='rounded bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-indigo-600 hover:bg-green-400 hover:text-white'>
           Set Completed
         </button>
       </div>
+
     </div>
   );
+};
+
+TaskCard.propTypes = {
+  task: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    dateStart: PropTypes.string,
+    dateEnd: PropTypes.string,
+    status: PropTypes.string
+    // Add other expected properties of task here
+  }).isRequired
 };
 
 export default TaskCard;
