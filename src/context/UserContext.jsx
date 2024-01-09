@@ -9,7 +9,7 @@ import {
   getAllUsersRequest,
   editUserPasswordRequest,
 } from '../api/user';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 export const UserContext = createContext();
@@ -28,6 +28,7 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState([]);
   const [isOnline, setIsOnline] = useState('Offline');
   const [allUsers, setAllUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
 
   const registerUserRequest = async (data) => {
     try {
@@ -49,9 +50,13 @@ export const UserProvider = ({ children }) => {
 
   const loginUserRequest = async (data) => {
     try {
-      const response = await sendLoginUserRequest(data);
+      const userToLogIn = {
+        ...data,
+        isOnline: 'Online',
+      };
+      const response = await sendLoginUserRequest(userToLogIn);
       console.log(response.data, '<-- response.data en loginUserRequest');
-      const token = Cookie.get('token');
+      const token = Cookies.get('token');
       console.log(token, '<-- token en loginUserRequest');
       if (!token) {
         throw new Error('No hay token');
@@ -61,6 +66,7 @@ export const UserProvider = ({ children }) => {
       if (userToLogin.status === false) {
         throw new Error('No se pudo loguear, verifique su correo electronico');
       }
+      setIsOnline(userToLogin.isOnline);
       setUser(userToLogin);
       setIsAuthenticated(true);
     } catch (error) {
@@ -125,11 +131,18 @@ export const UserProvider = ({ children }) => {
       const filteredUsers = users.filter((contact) => {
         return contact.email !== user.email;
       });
-      console.log(filteredUsers, '<-- filteredUsers en getAllUsers');
+
       setAllUsers(filteredUsers);
     } catch (error) {
       console.log(error, '<-- error en getAllUsers');
     }
+  };
+
+  const logOutUser = () => {
+    updateIsOnline(user, 'Offline');
+    setUser(null);
+    setIsAuthenticated(false);
+    Cookies.remove('token');
   };
 
   return (
@@ -152,6 +165,9 @@ export const UserProvider = ({ children }) => {
         getAllUsers,
         allUsers,
         setAllUsers,
+        logOutUser,
+        selectedUser,
+        setSelectedUser,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

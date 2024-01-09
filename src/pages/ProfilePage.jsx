@@ -10,19 +10,28 @@ import { useNavigate } from 'react-router-dom';
 import UserCard from '../components/UserCard';
 import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
+import GroupPage from './GroupPage';
+import { useGroups } from '../context/GroupContext';
+import GroupCard from '../components/GroupCard';
 
 const ProfilePage = () => {
-  
-  const { user, setUser, setIsAuthenticated, allUsers, getAllUsers } = useUser();
+  const {
+    user,
+    setUser,
+    setIsAuthenticated,
+    allUsers,
+    getAllUsers,
+    logOutUser,
+  } = useUser();
+
+  const { getAllGroups, groups } = useGroups();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
   const [showForm, setShowForm] = useState(false);
 
   const handleClick = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    Cookies.remove('token');
+    logOutUser();
     navigate('/');
   };
 
@@ -34,6 +43,7 @@ const ProfilePage = () => {
     console.log('ProfilePage useEffect');
     getAllUsers();
     getAllTasks();
+    getAllGroups({ userId: user?._id });
     if (!user) {
       navigate('/');
       setUser(null);
@@ -43,16 +53,18 @@ const ProfilePage = () => {
   }, [user]);
 
   return (
-    <div className='grid grid-cols-12 gap-1 md:gap-1 min-h-screen bg-grey-900 overflow-auto'>
-      {/* users */}
-      <div className='col-span-4 md:col-span-3 bg-gray-200 p-4'>
+    <div className='grid grid-cols-12 h-screen bg-grey-900'>
+      <div className='col-span-2 bg-gray-200'>
+        <button className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'>
+          Contactos
+        </button>
         {allUsers?.map((contact) => (
           <UserCard key={contact._id} contact={contact} />
         ))}
       </div>
-
-      {/* tasks */}
-      <div className='col-span-4 md:col-span-6 bg-gray-200 p-4 overflow-auto'>
+      <div
+        className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-center mb-1 overflow-x-scroll'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
           onClick={handleForm}
@@ -68,11 +80,22 @@ const ProfilePage = () => {
           ))}
         </div>
       </div>
-
-      {/* profile */}
-      <div className='col-span-4 md:col-span-3 bg-gray-200 p-4'>
-        <h1 className='text-center text-2xl font-bold mt-6'>Perfil</h1>
-        <h3>{user?.name} {user?.surname}</h3>
+      <div
+        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-center mb-1 gap-2 '>
+        <GroupPage />
+        {groups?.map((group) => (
+          <GroupCard
+            key={group.id}
+            group={group}
+          />
+        ))}
+      </div>
+      <div className='col-span-3 bg-gray-200'>
+        <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
+        <h3 className=''>
+          {user?.name} {user?.surname}
+        </h3>
         <AvatarHandler />
         <PasswordUpdate />
         <UserStatusHandler />

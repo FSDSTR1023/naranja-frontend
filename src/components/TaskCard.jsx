@@ -5,18 +5,17 @@ import PropTypes from 'prop-types';
 const TaskCard = ({ task }) => {
   return (
     <div
-    className='w-full max-w-12 max-h-50 md:max-w-sm bg-gray-200 border border-gray-300 rounded-lg box-content mb-2 p-4'>
-      <div className='flex flex-col md:flex-row justify-between'>
-
-        <div className='flex gap-2 mb-2 md:mb-0'>
-
+      className=' h-96 max-w-sm p-6 bg-gray-200 border
+    border-gray-300 rounded-lg w-80 box-content mb-1 '>
+      <div className='flex flex-row justify-between'>
+        <div className='flex p-2 gap-2 '>
           <button>
             <Link to={`/add-task/${task?._id}`}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
-                strokeWidth='1.5'
+                strokeWidth='1'
                 stroke='currentColor'
                 className='w-6 h-6'>
                 <path
@@ -33,7 +32,7 @@ const TaskCard = ({ task }) => {
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
-              strokeWidth='1.5'
+              strokeWidth='1'
               stroke='currentColor'
               className='w-6 h-6'>
               <path

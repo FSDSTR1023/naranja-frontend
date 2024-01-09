@@ -1,10 +1,25 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom';
+import { useMessage } from '../context/MessagesContext';
+import { useUser } from '../context/UserContext';
 const UserCard = ({ contact }) => {
+  const navigate = useNavigate();
+  const { setRoom } = useMessage();
+  const { user, setSelectedUser } = useUser();
+
+  const handleClick = () => {
+    setSelectedUser(contact);
+    contact._id > user._id
+      ? setRoom(contact._id + user._id)
+      : setRoom(user._id + contact._id);
+    navigate(`/chat-page`);
+  };
+
   return (
     <>
       <div
         className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
-        onClick={() => console.log(contact._id)}>
+        onClick={() => handleClick(contact)}>
         <div className='flex w-full justify-between items-center p-2'>
           <img
             className='w-10 h-10 rounded-full'
@@ -25,7 +40,7 @@ const UserCard = ({ contact }) => {
         </div>
         <div className='flex flex-col justify-center'>
           <p className='text-xs text-start  mb-1'>
-            Lorem ipsum dolor sit amet...{' '}
+            Texto del ultimo Mensaje...{' '}
           </p>
           <p className='text-[10px] text-end'>23/09/2023</p>
         </div>
