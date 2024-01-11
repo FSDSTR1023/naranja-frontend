@@ -41,6 +41,17 @@ const ChatPage = () => {
     getInfo();
   }, [room]);
 
+  useEffect(() => {
+    if (!socket) return;
+    socket.on('receive-message', (data) => {
+      console.log(data, '<-- data del receive-message');
+      setMessage((list) => [...list, data]);
+    });
+    return () => {
+      socket.off('receive-message');
+    };
+  }, [socket]);
+
   const onSubmit = async (e) => {
     console.log(uplodedFile, '<-- uplodedFile en onSubmit');
     e.preventDefault();
@@ -88,16 +99,6 @@ const ChatPage = () => {
       createMessage(messageData);
     }
   };
-  useEffect(() => {
-    if (!socket) return;
-    socket.on('receive-message', (data) => {
-      console.log(data, '<-- data del receive-message');
-      setMessage((list) => [...list, data]);
-    });
-    return () => {
-      socket.off('receive-message');
-    };
-  }, [socket]);
 
   return (
     <div className='flex flex-row justify-center items-center w-full'>
