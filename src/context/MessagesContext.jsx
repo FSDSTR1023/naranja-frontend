@@ -22,13 +22,11 @@ export const MessageProvider = ({ children }) => {
   const [message, setMessage] = useState([]);
 
   const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
-  const { user, getAllUsers } = useUser();
+  const { getAllUsers } = useUser();
 
   const socket = io.connect('http://localhost:4000');
   useEffect(() => {
     socket.on('connect', () => {
-      console.log('Conectado al servidor', socket.id);
-      console.log(user, '<-- user en el useEffect');
       getAllUsers();
     });
 
