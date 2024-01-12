@@ -36,8 +36,8 @@ const ChatPage = () => {
     };
     const getInfo = async () => {
       await getGroupById(groupToGet);
-      await getAllMessages(currentGroup._id);
       await getAllGroups(user._id);
+      await getAllMessages(currentGroup._id);
     };
     getInfo();
   }, [room]);

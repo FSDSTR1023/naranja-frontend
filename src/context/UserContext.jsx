@@ -154,6 +154,7 @@ export const UserProvider = ({ children }) => {
 
     return () => {
       socket.emit('disconnect-user', user);
+
       socket.off();
     };
   }, [socket]);

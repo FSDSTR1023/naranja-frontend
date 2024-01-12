@@ -41,7 +41,6 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    console.log('ProfilePage useEffect');
     getAllUsers();
     getAllTasks();
     getAllGroups({ userId: user?._id });
