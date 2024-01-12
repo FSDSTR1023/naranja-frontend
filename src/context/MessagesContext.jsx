@@ -1,10 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import { createContext, useContext, useState } from 'react';
+
 import { getAllMessagesRequest, createMessageRequest } from '../api/message';
-import { useUser } from './UserContext';
 
 export const MessageContext = createContext();
 
@@ -22,18 +21,6 @@ export const MessageProvider = ({ children }) => {
   const [message, setMessage] = useState([]);
 
   const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
-  const { getAllUsers } = useUser();
-
-  const socket = io.connect('http://localhost:4000');
-  useEffect(() => {
-    socket.on('connect', () => {
-      getAllUsers();
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [socket]);
 
   const getAllMessages = async (groupId) => {
     try {
@@ -62,7 +49,6 @@ export const MessageProvider = ({ children }) => {
   return (
     <MessageContext.Provider
       value={{
-        socket,
         message,
         setMessage,
 

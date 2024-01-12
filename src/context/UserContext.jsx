@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import {
   registerRequest,
   sendTokenToServer,
@@ -11,6 +11,7 @@ import {
 } from '../api/user';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 export const UserContext = createContext();
 
@@ -144,6 +145,18 @@ export const UserProvider = ({ children }) => {
     setIsAuthenticated(false);
     Cookies.remove('token');
   };
+  const socket = io.connect('http://localhost:4000');
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log(socket.id, '<-- socket.id');
+    });
+
+    return () => {
+      socket.emit('disconnect-user', user);
+      socket.off();
+    };
+  }, [socket]);
 
   return (
     <UserContext.Provider
@@ -168,6 +181,7 @@ export const UserProvider = ({ children }) => {
         logOutUser,
         selectedUser,
         setSelectedUser,
+        socket,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
