@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useGroups } from '../context/GroupContext';
 import PropTypes from 'prop-types';
+import { useUser } from '../context/UserContext';
 
 const FormsTaskCreate = () => {
   const { groups } = useGroups();
   const params = useParams();
-  const users = []; // esta comentado porque los users hay que traerlos del contexto de users
+  const { allUsers } = useUser(); // esta comentado porque los users hay que traerlos del contexto de users
   const {
     register,
     handleSubmit,
@@ -53,7 +54,9 @@ const FormsTaskCreate = () => {
                 name='title'
                 type='text'
                 required
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 
+                shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
+                focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
               />
             </div>
             {errors.title && (
@@ -74,7 +77,10 @@ const FormsTaskCreate = () => {
                 id='description'
                 name='description'
                 rows={3}
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
+                className='block w-full rounded-md border-0 py-1.5
+                 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
+                  placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                   focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
                 defaultValue={''}
               />
             </div>
@@ -100,7 +106,9 @@ const FormsTaskCreate = () => {
                 name='dateStart'
                 type='date'
                 required
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 
+                focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
               />
             </div>
             {errors.dateStart && (
@@ -122,7 +130,9 @@ const FormsTaskCreate = () => {
                 name='dateEnd'
                 type='date'
                 required
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 
+                focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'
               />
             </div>
             {errors.dateEnd && (
@@ -142,7 +152,9 @@ const FormsTaskCreate = () => {
                 {...register('status', { required: true })}
                 id='status'
                 name='status'
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 
+                focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
                 <option value=''>Select a Status</option>
                 {/* Populate Status Options Here */}
               </select>
@@ -164,7 +176,9 @@ const FormsTaskCreate = () => {
                 {...register('group', { required: true })}
                 id='group'
                 name='group'
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
+                focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
                 <option value=''>Select a Group</option>
                 {groups &&
                   groups.map((group) => (
@@ -193,10 +207,12 @@ const FormsTaskCreate = () => {
                 {...register('user', { required: true })}
                 id='user'
                 name='user'
-                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
+                className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
+                focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2'>
                 <option value=''>Select a User</option>
-                {users &&
-                  users?.map((user) => (
+                {allUsers &&
+                  allUsers?.map((user) => (
                     <option
                       key={user._id}
                       value={user._id}>
@@ -211,7 +227,9 @@ const FormsTaskCreate = () => {
           <div>
             <button
               type='submit'
-              className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+              className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5
+               text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 
+               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
               Submit Task
             </button>
           </div>

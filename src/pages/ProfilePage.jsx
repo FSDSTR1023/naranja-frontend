@@ -32,8 +32,6 @@ const ProfilePage = () => {
 
   const handleClick = () => {
     logOutUser();
-    // hacer que haga una llamada a un socket para cambiar el estado de isOnline a la desconecxion
-    navigate('/');
   };
 
   const handleForm = () => {
@@ -43,7 +41,7 @@ const ProfilePage = () => {
   useEffect(() => {
     getAllUsers();
     getAllTasks();
-    getAllGroups({ userId: user?._id });
+    getAllGroups(user._id);
     if (!user) {
       navigate('/');
       setUser(null);

@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 
 const ChatPage = () => {
   const { allUsers, user, selectedUser, socket } = useUser();
-  const { getAllGroups, getGroupById, currentGroup } = useGroups();
+  const { getGroupById, currentGroup } = useGroups();
   const { createMessage, getAllMessages, message, room, setMessage } =
     useMessage();
   const [chatMessage, setChatMessage] = useState('');
@@ -35,9 +35,11 @@ const ChatPage = () => {
       members: [user._id, selectedUser._id],
     };
     const getInfo = async () => {
-      await getGroupById(groupToGet);
-      await getAllGroups(user._id);
-      await getAllMessages(currentGroup._id);
+      const response = await getGroupById(groupToGet);
+
+      if (response) {
+        await getAllMessages(response._id);
+      }
     };
     getInfo();
   }, [room]);

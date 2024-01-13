@@ -19,7 +19,6 @@ export const useMessage = () => {
 
 export const MessageProvider = ({ children }) => {
   const [message, setMessage] = useState([]);
-
   const [room, setRoom] = useState(''); // <-- cambiar por el id del grupo
 
   const getAllMessages = async (groupId) => {

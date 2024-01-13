@@ -56,17 +56,18 @@ export const UserProvider = ({ children }) => {
         isOnline: 'Online',
       };
       const response = await sendLoginUserRequest(userToLogIn);
-      console.log(response.data, '<-- response.data en loginUserRequest');
+
       const token = Cookies.get('token');
-      console.log(token, '<-- token en loginUserRequest');
+
       if (!token) {
         throw new Error('No hay token');
       }
       const userToLogin = response.data;
-      console.log(userToLogin, '<-- userToLogin en loginUserRequest');
+
       if (userToLogin.status === false) {
         throw new Error('No se pudo loguear, verifique su correo electronico');
       }
+
       setIsOnline(userToLogin.isOnline);
       setUser(userToLogin);
       setIsAuthenticated(true);
@@ -140,6 +141,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logOutUser = () => {
+    socket.emit('disconnect-user', user);
     updateIsOnline(user, 'Offline');
     setUser(null);
     setIsAuthenticated(false);
@@ -148,13 +150,20 @@ export const UserProvider = ({ children }) => {
   const socket = io.connect('http://localhost:4000');
 
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log(socket.id, '<-- socket.id');
+    socket.on('connect', () => {});
+
+    socket.on('user-disconnected', (userId) => {
+      const usersIsOfline = allUsers.map((user) => {
+        if (user._id === userId._id) {
+          return { ...user, isOnline: 'Offline' };
+        }
+        return user;
+      });
+
+      setAllUsers(usersIsOfline);
     });
 
     return () => {
-      socket.emit('disconnect-user', user);
-
       socket.off();
     };
   }, [socket]);
