@@ -2,11 +2,12 @@
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon, PaperAirplaneIcon } from '@heroicons/react/solid';
+import { useUser } from '../context/UserContext';
 
-const AvatarHandler = ({ user, uploadProfilePicture }) => {
+const AvatarHandler = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [image, setImage] = useState(null);
-  console.log(user, '<-- user en AvatarHandler');
+  const { user, uploadProfilePicture } = useUser();
 
   const handleImage = () => {
     uploadProfilePicture(image);
@@ -16,17 +17,17 @@ const AvatarHandler = ({ user, uploadProfilePicture }) => {
 
   return (
     <>
-      <div className='flex flex-col gap-2 justify-center items-center border-2 border-gray-300 p-4 rounded-lg'>
+      <div className='flex flex-col gap-2 justify-center items-center border-2 border-gray-300 p-4 rounded-lg my-4'>
         <p>Cambia tu Avatar</p>
         <div className='flex justify-center w-full '>
           <img
-            src={previewImage ? previewImage : user?.avatar}
+            src={user?.avatar}
             alt='Avatar'
-            className='w-12 h-12 rounded-full object-cover align-center m-1'
+            className='w-12 h-12 rounded-full object-cover align-center m-2'
           />
         </div>
 
-        <div className='flex flex-row gap-2 items-center'>
+        <div className='flex flex-row gap-2 items-center my-2'>
           <Dropzone
             acceptedFiles='.jpg, .png, .jpeg, .gif, .svg'
             multiple={false}
@@ -55,6 +56,13 @@ const AvatarHandler = ({ user, uploadProfilePicture }) => {
       cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90'
             onClick={handleImage}
           />
+          {previewImage && (
+            <img
+              className='w-12 h-12 rounded-full object-cover align-center m-2'
+              src={previewImage}
+              alt=''
+            />
+          )}
         </div>
       </div>
     </>

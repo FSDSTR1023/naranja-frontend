@@ -1,55 +1,114 @@
-import { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import AvatarHandler from '../components/AvatarHandler';
 import PasswordUpdate from '../components/PasswordUpdate';
 import UserStatusHandler from '../components/UserStatusHandler';
+import FormsTaskCreate from '../components/FormsTaskCreate';
 import { useUser } from '../context/UserContext';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import UserCard from '../components/UserCard';
+import TaskCard from '../components/TaskCard';
+import { useTasks } from '../context/TasksContext';
+import GroupPage from './GroupPage';
+import { useGroups } from '../context/GroupContext';
+import GroupCard from '../components/GroupCard';
 
 const ProfilePage = () => {
   const {
     user,
-    uploadProfilePicture,
-    updateUserPassword,
     setUser,
     setIsAuthenticated,
+    allUsers,
+    getAllUsers,
+    logOutUser,
+    usersChanges,
   } = useUser();
+
+  const { getAllGroups, groups } = useGroups();
+  const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
+  const [showForm, setShowForm] = useState(false);
+
   const handleClick = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    Cookies.remove('token');
-    navigate('/');
+    logOutUser();
+  };
+
+  const handleForm = () => {
+    setShowForm(true);
   };
 
   useEffect(() => {
+    getAllUsers();
+    getAllTasks();
+    getAllGroups(user?._id);
     if (!user) {
       navigate('/');
-      handleClick();
+      setUser(null);
+      setIsAuthenticated(false);
+      Cookies.remove('token');
     }
-  }, [user]);
+  }, [user, usersChanges]);
+
   return (
-    <div className='grid-cols-3'>
-      <div>Aqui Lista de Usuarios</div>
-      <div>Aqui Todas las Tareas</div>
-      <div>
-        <div className='flex-1 w-screen h-screen'>
-          <h1 className='text-center text-3xl font-bold mt-10'>Perfil</h1>
-          <div
-            className='flex items-center justify-center border-2 
-      border-gray-400 rounded-md  m-10 mb-10 w-[calc(100%-50px)] h-full '>
-            <AvatarHandler
-              user={user}
-              uploadProfilePicture={uploadProfilePicture}
+    <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
+      <div className='col-span-2 bg-gray-200'>
+        <button className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'>
+          Contactos
+        </button>
+        {allUsers?.map((contact) => (
+          <UserCard
+            key={contact._id}
+            contact={contact}
+          />
+        ))}
+      </div>
+      <div
+        className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-start mb-1 overflow-x-scroll'>
+        <button
+          className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
+          onClick={handleForm}>
+          Crear Tarea
+        </button>
+
+        {showForm && <FormsTaskCreate users={allUsers} />}
+
+        <div className='flex flex-wrap justify-center -mx-2'>
+          {allTasks?.map((task) => (
+            <TaskCard
+              key={task._id}
+              task={task}
             />
-            <PasswordUpdate
-              user={user}
-              updateUserPassword={updateUserPassword}
-            />
-            <UserStatusHandler user={user} />
-            <button onClick={handleClick}>LogOut ⌽</button>
-          </div>
+          ))}
+        </div>
+      </div>
+      <div
+        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-start mb-1 gap-2 overflow-y-scroll '>
+        <GroupPage />
+        {groups?.map((group) => (
+          <GroupCard
+            key={group.id}
+            group={group}
+          />
+        ))}
+      </div>
+      <div className='col-span-3 bg-gray-200 flex flex-col justify-between'>
+        <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
+        <h3 className=''>
+          {user?.name} {user?.surname}
+        </h3>
+        <AvatarHandler />
+        <PasswordUpdate />
+        <UserStatusHandler />
+        <div className='flex flex-col items-center justify-center'>
+          <button
+            className='bg-red-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-red-800'
+            onClick={handleClick}>
+            LogOut →
+          </button>
         </div>
       </div>
     </div>

@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { useNavigate } from 'react-router-dom';
-const PasswordUpdate = ({ user, updateUserPassword }) => {
-  const navigate = useNavigate();
+
+import { useUser } from '../context/UserContext';
+const PasswordUpdate = () => {
+  const { user, updateUserPassword } = useUser();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
     getValues,
+    formState: { errors },
   } = useForm();
 
   const onSubmit = handleSubmit((data) => {
@@ -17,15 +19,11 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
       console.log(errors, '<-- errors en el handleSubmit de PasswordUpdate');
       return;
     }
-    const newUserData = {
-      ...user,
-      password: password,
-    };
-    updateUserPassword(newUserData);
-    navigate('/');
+
+    updateUserPassword(user, password);
   });
   return (
-    <div className='m-1 flex w-auto border-2 border-gray-300 rounded-md p-2'>
+    <div className='my-4 flex justify-center w-auto border-2 border-gray-300 rounded-md p-2'>
       <form onSubmit={onSubmit}>
         <div>
           <div className='flex justify-between'>
@@ -35,7 +33,7 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
               Password
             </label>
           </div>
-          <div className='mt-2'>
+          <div className='my-2'>
             <input
               {...register('password', { required: true })}
               type='password'
@@ -81,8 +79,12 @@ const PasswordUpdate = ({ user, updateUserPassword }) => {
           </div>
         </div>
         <button
-          type='submit'
-          className='inline-flex  mt-2 items-center gap-x-1.5 rounded-md
+          onClick={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+          type='button'
+          className='inline-flex  mt-4 items-center gap-x-1.5 rounded-md
            bg-orange-400 px-2.5 py-1.5 text-sm font-semibold
             text-white shadow-sm hover:bg-orange-700 
             focus-visible:outline focus-visible:outline-2 
