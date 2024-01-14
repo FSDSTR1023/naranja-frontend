@@ -122,6 +122,7 @@ export const UserProvider = ({ children }) => {
     try {
       const userFound = await updateUserRequest(data);
       setUser({ ...user, isOnline: userFound.isOnline });
+      socket.emit('user-status');
     } catch (error) {
       console.log(error, '<-- error en updateIsOnline');
     }
@@ -162,6 +163,10 @@ export const UserProvider = ({ children }) => {
     });
 
     socket.on('new-user-online', () => {
+      setUsersChanges(!usersChanges);
+    });
+
+    socket.on('user-status-change', () => {
       setUsersChanges(!usersChanges);
     });
 
