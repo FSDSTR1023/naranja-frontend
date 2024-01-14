@@ -5,7 +5,7 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className='bg-white border-gray-200 dark:bg-gray-900 p-4'>
+    <nav className='bg-white border-gray-200 dark:bg-gray-900 p-4 block'>
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
         {/* Logo will go here */}
         <a
