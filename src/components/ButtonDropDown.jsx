@@ -1,17 +1,39 @@
-import { Dropdown } from 'keep-react';
+import { Dropdown, TextInput } from 'keep-react';
 
-const DropdownComponent = () => {
+const ButtonDropDown = () => {
   return (
     <Dropdown
+      className='bg-orange-600 mt-4 text-white text-sm font-bold rounded-md hover:bg-orange-800 m-2'
       label='Dropdown button'
-      size='sm'
       type='primary'
+      size='sm'
       dismissOnClick={true}>
-      <Dropdown.Item>Dashboard</Dropdown.Item>
-      <Dropdown.Item>Settings</Dropdown.Item>
-      <Dropdown.Item>Earnings</Dropdown.Item>
-      <Dropdown.Item>Sign out</Dropdown.Item>
+      <div className='px-5 pt-3 pb-2'>
+        <TextInput
+          id='#id-z3rxdy'
+          placeholder='Search'
+          color='gray'
+          sizing='md'
+        />
+      </div>
+      <Dropdown.Item>
+        Dashboard
+        <span className='ml-auto'></span>
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Settings
+        <span className='ml-auto'></span>
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Earnings
+        <span className='ml-auto'></span>
+      </Dropdown.Item>
+      <Dropdown.Item>
+        Sign out
+        <span className='ml-auto'></span>
+      </Dropdown.Item>
     </Dropdown>
   );
 };
-export default DropdownComponent;
+
+export default ButtonDropDown;
