@@ -153,17 +153,21 @@ export const UserProvider = ({ children }) => {
     socket.on('connect', () => {});
 
     socket.on('user-disconnected', (userId) => {
-      const usersIsOfline = allUsers.map((user) => {
-        if (user._id === userId._id) {
-          return { ...user, isOnline: 'Offline' };
-        }
-        return user;
-      });
+      console.log('user desconectado', userId);
 
-      setAllUsers(usersIsOfline);
+      // const usersIsOfline = allUsers.map((user) => {
+      //   if (user._id === userId._id) {
+      //     return { ...user, isOnline: 'Offline' };
+      //   }
+      //   console.log(user, '<-- user en user-disconnected');
+      //   return user;
+      // });
+
+      // setAllUsers(usersIsOfline);
     });
 
     return () => {
+      console.log('desconectado');
       socket.off();
     };
   }, [socket]);

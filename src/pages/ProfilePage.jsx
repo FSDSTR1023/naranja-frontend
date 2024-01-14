@@ -41,7 +41,7 @@ const ProfilePage = () => {
   useEffect(() => {
     getAllUsers();
     getAllTasks();
-    getAllGroups(user._id);
+    getAllGroups(user?._id);
     if (!user) {
       navigate('/');
       setUser(null);
