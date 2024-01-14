@@ -24,15 +24,19 @@ export const GroupProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
   const [groupError, setGroupError] = useState([]);
   const [currentGroup, setCurrentGroup] = useState({});
+  const [privateGroups, setPrivateGroups] = useState([]);
 
   const getAllGroups = async (userId) => {
-    console.log(userId, '<-- userId del getAllGroups');
     try {
       const response = await getAllGroupsRequest(userId);
-      console.log(response, '<-- response del getAllGroups');
-      console.log(response.data, '<-- response.data del getAllGroups');
 
-      setGroups(response.data);
+      for (let i = 0; i < response.data.length; i++) {
+        if (response.data[i].description === 'chat-privado') {
+          setPrivateGroups([...privateGroups, response.data[i]]);
+        } else {
+          setGroups([...groups, response.data[i]]);
+        }
+      }
     } catch (error) {
       console.log(error, '<-- error del getAllGroups');
     }
@@ -71,6 +75,8 @@ export const GroupProvider = ({ children }) => {
         setCurrentGroup,
         groupError,
         setGroupError,
+        privateGroups,
+        setPrivateGroups,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

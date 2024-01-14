@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMessage } from '../context/MessagesContext';
 import { useUser } from '../context/UserContext';
 
-const UserCard = ({ contact }) => {
+const PrivateChatCard = ({ contact }) => {
   const navigate = useNavigate();
   const { setRoom } = useMessage();
   const { user, setSelectedUser } = useUser();
@@ -40,9 +40,15 @@ const UserCard = ({ contact }) => {
             <div className='w-2 h-2 bg-red-500 rounded-full'></div>
           )}
         </div>
+        <div className='flex flex-col justify-center'>
+          <p className='text-xs text-start  mb-1'>
+            Texto del ultimo Mensaje...{' '}
+          </p>
+          <p className='text-[10px] text-end'>23/09/2023</p>
+        </div>
       </div>
     </>
   );
 };
 
-export default UserCard;
+export default PrivateChatCard;
