@@ -30,6 +30,7 @@ export const UserProvider = ({ children }) => {
   const [isOnline, setIsOnline] = useState('Offline');
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
+  const [usersChanges, setUsersChanges] = useState(false);
 
   const registerUserRequest = async (data) => {
     try {
@@ -71,6 +72,7 @@ export const UserProvider = ({ children }) => {
       setIsOnline(userToLogin.isOnline);
       setUser(userToLogin);
       setIsAuthenticated(true);
+      socket.emit('new-user', userToLogin);
     } catch (error) {
       console.log(error, '<-- error en loginUserRequest');
       setError(error);
@@ -150,20 +152,17 @@ export const UserProvider = ({ children }) => {
   const socket = io.connect('http://localhost:4000');
 
   useEffect(() => {
-    socket.on('connect', () => {});
+    socket.on('connect', () => {
+      console.log('conectado');
+    });
 
     socket.on('user-disconnected', (userId) => {
       console.log('user desconectado', userId);
+      setUsersChanges(!usersChanges);
+    });
 
-      // const usersIsOfline = allUsers.map((user) => {
-      //   if (user._id === userId._id) {
-      //     return { ...user, isOnline: 'Offline' };
-      //   }
-      //   console.log(user, '<-- user en user-disconnected');
-      //   return user;
-      // });
-
-      // setAllUsers(usersIsOfline);
+    socket.on('new-user-online', () => {
+      setUsersChanges(!usersChanges);
     });
 
     return () => {
@@ -196,6 +195,7 @@ export const UserProvider = ({ children }) => {
         selectedUser,
         setSelectedUser,
         socket,
+        usersChanges,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

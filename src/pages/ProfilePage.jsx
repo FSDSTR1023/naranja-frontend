@@ -22,6 +22,7 @@ const ProfilePage = () => {
     allUsers,
     getAllUsers,
     logOutUser,
+    usersChanges,
   } = useUser();
 
   const { getAllGroups, groups } = useGroups();
@@ -48,7 +49,7 @@ const ProfilePage = () => {
       setIsAuthenticated(false);
       Cookies.remove('token');
     }
-  }, [user]);
+  }, [user, usersChanges]);
 
   return (
     <div className='grid grid-cols-12 h-screen bg-grey-900'>
