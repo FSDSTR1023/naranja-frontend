@@ -13,6 +13,7 @@ import { useTasks } from '../context/TasksContext';
 import GroupPage from './GroupPage';
 import { useGroups } from '../context/GroupContext';
 import GroupCard from '../components/GroupCard';
+import ButtonDropDown from '../components/ButtonDropDown';
 
 const ProfilePage = () => {
   const {
@@ -54,9 +55,7 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
       <div className='col-span-2 bg-gray-200'>
-        <button className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'>
-          Contactos
-        </button>
+        <ButtonDropDown />
         {allUsers?.map((contact) => (
           <UserCard
             key={contact._id}
