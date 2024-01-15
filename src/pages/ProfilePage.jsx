@@ -7,13 +7,14 @@ import FormsTaskCreate from '../components/FormsTaskCreate';
 import { useUser } from '../context/UserContext';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import UserCard from '../components/UserCard';
+
 import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
 import GroupPage from './GroupPage';
 import { useGroups } from '../context/GroupContext';
 import GroupCard from '../components/GroupCard';
 import ButtonDropDown from '../components/ButtonDropDown';
+import { TiMessages } from 'react-icons/ti';
 
 const ProfilePage = () => {
   const {
@@ -55,13 +56,15 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
       <div className='col-span-2 bg-gray-200'>
-        <ButtonDropDown />
-        {allUsers?.map((contact) => (
-          <UserCard
-            key={contact._id}
-            contact={contact}
-          />
-        ))}
+        <div className='flex items-center justify-center'>
+          <ButtonDropDown userContacts={allUsers} />
+        </div>
+        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
+
+        <div className='text-md flex items-center justify-around gap-3'>
+          <h1>CHATS </h1>
+          <TiMessages />
+        </div>
       </div>
       <div
         className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
