@@ -4,6 +4,7 @@
 import { createContext, useContext, useState } from 'react';
 
 import { getAllMessagesRequest, createMessageRequest } from '../api/message';
+import { updateLastMessageRequest } from '../api/groups.js';
 
 export const MessageContext = createContext();
 
@@ -34,10 +35,19 @@ export const MessageProvider = ({ children }) => {
 
   const createMessage = async (newMessage) => {
     console.log(newMessage, '<-- newMessage en createMessage');
+    const groupId = newMessage.group;
+    const messageBody = newMessage.body;
+    console.log(groupId, '<-- groupId en createMessage');
+    console.log(messageBody, '<-- messageBody en createMessage');
+
     try {
       const response = await createMessageRequest(newMessage);
+
       console.log(response.data, 'response.data del createMessage');
       setMessage([...message, response.data]);
+
+      const groupUpdated = await updateLastMessageRequest(groupId, messageBody);
+      console.log(groupUpdated, '<-- groupUpdated en createMessage');
     } catch (error) {
       console.log(error);
     }

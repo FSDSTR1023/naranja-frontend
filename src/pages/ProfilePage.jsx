@@ -15,6 +15,7 @@ import { useGroups } from '../context/GroupContext';
 import GroupCard from '../components/GroupCard';
 import ButtonDropDown from '../components/ButtonDropDown';
 import { TiMessages } from 'react-icons/ti';
+import PrivateChatCard from '../components/PrivateChatCard';
 
 const ProfilePage = () => {
   const {
@@ -62,9 +63,15 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1>Private Chats</h1>
+          <h1>Chats Privados</h1>
           <TiMessages />
         </div>
+        {groups?.map((group) => (
+          <PrivateChatCard
+            key={group.id}
+            group={group}
+          />
+        ))}
       </div>
       <div
         className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
