@@ -62,7 +62,7 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1>CHATS </h1>
+          <h1>Private Chats</h1>
           <TiMessages />
         </div>
       </div>
