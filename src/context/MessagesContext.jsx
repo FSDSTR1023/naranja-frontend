@@ -36,18 +36,24 @@ export const MessageProvider = ({ children }) => {
   const createMessage = async (newMessage) => {
     console.log(newMessage, '<-- newMessage en createMessage');
     const groupId = newMessage.group;
-    const messageBody = newMessage.body;
+
     console.log(groupId, '<-- groupId en createMessage');
-    console.log(messageBody, '<-- messageBody en createMessage');
 
     try {
       const response = await createMessageRequest(newMessage);
 
       console.log(response.data, 'response.data del createMessage');
       setMessage([...message, response.data]);
-
-      const groupUpdated = await updateLastMessageRequest(groupId, messageBody);
-      console.log(groupUpdated, '<-- groupUpdated en createMessage');
+      const messageBody = response.data._id;
+      console.log(messageBody, '<-- messageBody en createMessage');
+      const interval = setTimeout(async () => {
+        const groupUpdated = await updateLastMessageRequest(
+          groupId,
+          messageBody
+        );
+        console.log(groupUpdated, '<-- groupUpdated en createMessage');
+      }, 1000);
+      return () => clearTimeout(interval);
     } catch (error) {
       console.log(error);
     }
