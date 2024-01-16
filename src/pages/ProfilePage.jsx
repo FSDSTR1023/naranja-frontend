@@ -72,6 +72,18 @@ const ProfilePage = () => {
             group={group}
           />
         ))}
+        <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
+
+        <div className='text-md flex items-center justify-around gap-3'>
+          <h1>Chats de Grupo</h1>
+          <TiMessages />
+        </div>
+        {groups?.map((group) => (
+          <PrivateChatCard
+            key={group.id}
+            group={group}
+          />
+        ))}
       </div>
       <div
         className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 

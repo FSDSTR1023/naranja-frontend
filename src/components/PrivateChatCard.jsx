@@ -28,30 +28,35 @@ const PrivateChatCard = ({ group }) => {
         onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
           <div>
-            {group?.members?.length > 2 && (
+            {group?.members?.length > 2 ? (
               <>
                 <p className='font-bold text-sm'>{group?.name}</p>
-                <p className='font-bold text-sm'>
+                <p className='text-sm text-gray-500'>
                   {`${group?.members.length} Members`}{' '}
                 </p>
               </>
-            )}
-            {group?.members?.length === 2 &&
-            group?.members[0]?._id !== user?._id ? (
+            ) : group?.members?.length === 2 &&
+              group?.members[0]?._id !== user?._id ? (
               <p className='font-bold text-sm'>{group?.members[0].name}</p>
             ) : (
               <p className='font-bold text-sm'>{group?.members[1].name}</p>
             )}
           </div>
         </div>
-        <div className='flex flex-col justify-center'>
-          <p className='text-xs text-start  mb-1 truncate'>
-            {group?.lastMessage?.body}
+        {group?.hasLastMessage ? (
+          <div className='flex flex-col justify-center'>
+            <p className='text-xs text-start font-bold text-gray-700 mb-1 truncate'>
+              {group?.lastMessage?.body}
+            </p>
+            <p className='text-[10px] text-end'>
+              {format(new Date(group?.lastMessage?.createdAt), 'p')}
+            </p>
+          </div>
+        ) : (
+          <p className='text-xs text-start w-full mb-1 font-bold text-gray-700 truncate'>
+            No hay mensajes ...
           </p>
-          <p className='text-[10px] text-end'>
-            {format(new Date(group?.lastMessage?.createdAt), 'p')}
-          </p>
-        </div>
+        )}
       </div>
     </>
   );
