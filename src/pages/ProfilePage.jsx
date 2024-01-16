@@ -56,7 +56,7 @@ const ProfilePage = () => {
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
-      <div className='col-span-2 bg-gray-200'>
+      <div className='col-span-2 bg-gray-200  overflow-auto'>
         <div className='flex items-center justify-center'>
           <ButtonDropDown userContacts={allUsers} />
         </div>
@@ -74,8 +74,19 @@ const ProfilePage = () => {
         ))}
       </div>
       <div
+        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-start mb-1 gap-2 overflow-auto '>
+        <GroupPage />
+        {groups?.map((group) => (
+          <GroupCard
+            key={group.id}
+            group={group}
+          />
+        ))}
+      </div>
+      <div
         className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-start mb-1 overflow-x-scroll'>
+      items-center justify-start mb-1 overflow-auto'>
         <button
           className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
           onClick={handleForm}>
@@ -93,18 +104,8 @@ const ProfilePage = () => {
           ))}
         </div>
       </div>
-      <div
-        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-start mb-1 gap-2 overflow-y-scroll '>
-        <GroupPage />
-        {groups?.map((group) => (
-          <GroupCard
-            key={group.id}
-            group={group}
-          />
-        ))}
-      </div>
-      <div className='col-span-3 bg-gray-200 flex flex-col justify-between'>
+
+      <div className='col-span-3 bg-gray-200 flex flex-col justify-start'>
         <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
         <h3 className=''>
           {user?.name} {user?.surname}
