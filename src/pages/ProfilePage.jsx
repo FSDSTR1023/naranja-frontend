@@ -28,7 +28,7 @@ const ProfilePage = () => {
     usersChanges,
   } = useUser();
 
-  const { getAllGroups, groups } = useGroups();
+  const { getAllGroups, groups, privateGroups } = useGroups();
   const { allTasks, getAllTasks } = useTasks();
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const ProfilePage = () => {
           <h1>Chats Privados</h1>
           <TiMessages />
         </div>
-        {groups?.map((group) => (
+        {privateGroups?.map((group) => (
           <PrivateChatCard
             key={group.id}
             group={group}

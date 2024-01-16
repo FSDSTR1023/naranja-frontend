@@ -29,12 +29,16 @@ export const GroupProvider = ({ children }) => {
   const getAllGroups = async (userId) => {
     try {
       const response = await getAllGroupsRequest(userId);
-
+      setGroups([]);
+      setPrivateGroups([]);
       for (let i = 0; i < response.data.length; i++) {
         if (response.data[i].description === 'chat-privado') {
-          setPrivateGroups([...privateGroups, response.data[i]]);
+          setPrivateGroups((prevPrivateGroups) => [
+            ...prevPrivateGroups,
+            response.data[i],
+          ]);
         } else {
-          setGroups([...groups, response.data[i]]);
+          setGroups((prevGroups) => [...prevGroups, response.data[i]]);
         }
       }
     } catch (error) {
