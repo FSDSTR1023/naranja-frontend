@@ -3,17 +3,29 @@ import { format } from 'date-fns';
 
 import { useEffect } from 'react';
 import { useUser } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { useMessage } from '../context/MessagesContext';
 
 const PrivateChatCard = ({ group }) => {
-  const { user } = useUser();
+  const navigate = useNavigate();
+  const { setRoom } = useMessage();
+  const { user, setSelectedUser } = useUser();
   useEffect(() => {}, []);
-  const handleClick = async () => {};
+  const handleClick = async () => {
+    const contact = group?.members?.filter(
+      (member) => member._id !== user?._id
+    )[0];
+    setSelectedUser(contact);
+    setRoom(group?.id);
+
+    navigate(`/chat-page`);
+  };
 
   return (
     <>
       <div
         className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
-        onClick={() => handleClick(group?._id)}>
+        onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
           <div>
             {group?.members?.length > 2 && (
