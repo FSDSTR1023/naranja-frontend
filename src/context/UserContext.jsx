@@ -9,8 +9,10 @@ import {
   updateUserRequest,
   getAllUsersRequest,
   editUserPasswordRequest,
+  logOutRequest,
+  logInWithTokenRequest,
 } from '../api/user';
-import Cookies from 'js-cookie';
+
 import axios from 'axios';
 import io from 'socket.io-client';
 
@@ -32,6 +34,16 @@ export const UserProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [usersChanges, setUsersChanges] = useState(false);
+
+  useEffect(async () => {
+    const response = await logInWithTokenRequest();
+    console.log(response.data, '<-- response.data en useEffect de UserContext');
+    if (response.status === 200) {
+      setUser(response.data);
+      setIsAuthenticated(true);
+      setIsOnline(response.data.isOnline);
+    }
+  }, []);
 
   const registerUserRequest = async (data) => {
     try {
@@ -59,11 +71,6 @@ export const UserProvider = ({ children }) => {
       };
       const response = await sendLoginUserRequest(userToLogIn);
 
-      const token = Cookies.get('token');
-
-      if (!token) {
-        throw new Error('No hay token');
-      }
       const userToLogin = response.data;
 
       if (userToLogin.status === false) {
@@ -144,12 +151,14 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const logOutUser = () => {
+  const logOutUser = async () => {
     socket.emit('disconnect-user', user);
     updateIsOnline(user, 'Offline');
-    setUser(null);
-    setIsAuthenticated(false);
-    Cookies.remove('token');
+    const response = await logOutRequest(user);
+    if (response.status === 200) {
+      setUser(null);
+      setIsAuthenticated(false);
+    }
   };
   const socket = io.connect('http://localhost:4000');
 
