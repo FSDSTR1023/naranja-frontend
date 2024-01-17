@@ -35,6 +35,7 @@ const ProfilePage = () => {
   const [showForm, setShowForm] = useState(false);
 
   const handleClick = () => {
+    console.log('handleClick LogOut');
     logOutUser();
   };
 
