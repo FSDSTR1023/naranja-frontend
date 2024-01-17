@@ -10,6 +10,9 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { FaVideo } from 'react-icons/fa';
+import { FaVideoSlash } from 'react-icons/fa';
+import clsx from 'clsx';
 
 const ChatPage = () => {
   const { allUsers, user, selectedUser, socket } = useUser();
@@ -19,6 +22,7 @@ const ChatPage = () => {
   const [chatMessage, setChatMessage] = useState('');
   const [uplodedFile, setUploadedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [isVideo, setIsVideo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -100,122 +104,136 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='flex flex-row justify-center items-center w-full'>
-      <div className='w-full justify-center items-center flex flex-col'>
+    <div className='grid grid-cols-12 justify-center items-center w-full py-2 px-3'>
+      <div className='col-span-10 w-full justify-center items-center flex flex-col'>
         <div
-          className='flex flex-col  border-2 border-gray-400 rounded-md 
+          className='flex flex-col border-2 border-gray-400 rounded-md 
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
-          <div>
-            <div className='flex items-center justify-center w-full bg-zinc-500/50 text-white p-6 rounded md'>
-              <p className='text-[14px] justify-center flex text-black'>
-                Este es el comienzo de tu conversacion con {selectedUser.name}{' '}
-                {currentGroup._id}
-                {currentGroup.name}
+          <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
+            <div className='flex items-center jc'>
+              <img
+                className='w-6 h-6 rounded-full mr-3'
+                src={selectedUser?.avatar}
+                alt='avatar'
+              />
+              <p className='text-[14px] justify-center flex text-black mr-3'>
+                {selectedUser?.name} {selectedUser?.surname}
               </p>
+              {selectedUser?.isOnline === 'Online' ? (
+                <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+              ) : selectedUser?.isOnline === 'Busy' ? (
+                <div className='w-2 h-2 bg-yellow-500 rounded-full'></div>
+              ) : (
+                <div className='w-2 h-2 bg-red-500 rounded-full'></div>
+              )}
             </div>
+            <button
+              className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300'
+              onClick={() => setIsVideo(!isVideo)}>
+              {!isVideo ? <FaVideo /> : <FaVideoSlash />}
+            </button>
           </div>
-          <ul className='flex flex-col p-2 rounded-md overflow-y-scroll no-scrollbar'>
+          <ul className=' flex-col p-2 rounded-md overflow-y-scroll no-scrollbar w-full'>
             <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
               {message && message?.[0] !== '' ? (
-                message?.map(
-                  (m) => (
-                    console.log(m, '<-- m en map de message'),
-                    (
-                      <li
-                        key={m._id}
-                        className=' w-fit p-2 bg-blue-200 rounded-md self-end m-w-[calc(50%-50px)] mb-2'>
-                        <div className='flex gap-1 items-center justify-center'>
-                          <p className='text-[13px] text-start w-full'>
-                            {m.authorName}
-                          </p>
-                        </div>
-                        <div className='flex flex-wrap max-w-md'>
-                          <hr className=' border-1 w-full rounded-md border-grey-600' />
-                          <p className='text-[14px] text-start flex '>
-                            {m.body}
-                          </p>
-                          {m.image && (
-                            <img
-                              className='w-[150px] m-2'
-                              src={m.image}
-                              alt='file'
-                            />
-                          )}
-                        </div>
-                        <div>
-                          <p className='text-[10px] w-full text-end'>
-                            {format(new Date(m.time), 'p')}
-                          </p>
-                        </div>
-                      </li>
-                    )
-                  )
-                )
+                message?.map((m) => (
+                  <li
+                    key={m._id}
+                    className={clsx(
+                      'w-fit p-2  rounded-md  max-w-[calc(50%-50px)] mb-2 self-end',
+                      m._id === selectedUser?._id
+                        ? 'bg-blue-200'
+                        : 'bg-green-200'
+                    )}>
+                    <div className='flex gap-1 items-center justify-center'>
+                      <p className='text-[13px] text-start w-full'>
+                        {m.authorName}
+                      </p>
+                    </div>
+                    <div className='flex flex-wrap max-w-md'>
+                      <hr className=' border-1 w-full rounded-md border-grey-600' />
+                      <p className='text-[14px] text-start flex '>{m.body}</p>
+                      {m.image && (
+                        <img
+                          className='w-[150px] m-2'
+                          src={m.image}
+                          alt='file'
+                        />
+                      )}
+                    </div>
+                    <div>
+                      <p className='text-[10px] w-full text-end'>
+                        {format(new Date(m.time), 'p')}
+                      </p>
+                    </div>
+                  </li>
+                ))
               ) : (
                 <p className='text-[14px] text-start flex '>No hay mensajes</p>
               )}
             </ScrollToBottom>
           </ul>
-        </div>
-        <div className='flex flex-row justify-between rounded-md w-[calc(100%-115px)] p-1 border-2 border-gray-400'>
-          <form
-            className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
-            onSubmit={(e) => onSubmit(e)}>
-            <input
-              type='text'
-              placeholder='Mensaje...'
-              value={chatMessage}
-              className='border-none w-full rounded-md p-1'
-              onChange={(e) => {
-                setChatMessage(e.target.value);
-              }}
-            />
-            {previewImage && (
-              <img
-                className='w-12 h-12 object-cover align-center m-2'
-                src={previewImage}
-                alt=''
-                onClick={() => {
-                  URL.revokeObjectURL(previewImage);
-                  setPreviewImage(null);
+          <hr />
+          <div className='flex flex-row justify-between rounded-md w-full p-1  border-gray-400'>
+            <form
+              className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
+              onSubmit={(e) => onSubmit(e)}>
+              <input
+                type='text'
+                placeholder='Mensaje...'
+                value={chatMessage}
+                className='border-none w-full rounded-md p-1'
+                onChange={(e) => {
+                  setChatMessage(e.target.value);
                 }}
               />
-            )}
-            <Dropzone
-              acceptedFiles='.jpg, .png, .jpeg, .gif, .svg, .pdf'
-              multiple={false}
-              noClick={true}
-              onDrop={(acceptedFiles) => {
-                setUploadedFile(acceptedFiles[0]);
-                setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
-              }}>
-              {({ getRootProps, getInputProps, open }) => (
-                <section>
-                  <div
-                    {...getRootProps()}
-                    className='flex gap-2'>
-                    <input {...getInputProps()} />
-
-                    <PaperClipIcon
-                      className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
-                       hover:border-gray-400'
-                      onClick={open}
-                    />
-                  </div>
-                </section>
+              {previewImage && (
+                <img
+                  className='w-12 h-12 object-cover align-center m-2'
+                  src={previewImage}
+                  alt=''
+                  onClick={() => {
+                    URL.revokeObjectURL(previewImage);
+                    setPreviewImage(null);
+                  }}
+                />
               )}
-            </Dropzone>
+              <Dropzone
+                acceptedFiles='.jpg, .png, .jpeg, .gif, .svg, .pdf'
+                multiple={false}
+                noClick={true}
+                onDrop={(acceptedFiles) => {
+                  setUploadedFile(acceptedFiles[0]);
+                  setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
+                }}>
+                {({ getRootProps, getInputProps, open }) => (
+                  <section>
+                    <div
+                      {...getRootProps()}
+                      className='flex gap-2'>
+                      <input {...getInputProps()} />
 
-            <PaperAirplaneIcon
-              className='h-8 w-8 
+                      <PaperClipIcon
+                        className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
+                       hover:border-gray-400'
+                        onClick={open}
+                      />
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+
+              <PaperAirplaneIcon
+                className='h-8 w-8 
       cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90'
-              type='submit'
-              onClick={(e) => onSubmit(e)}
-            />
-          </form>
+                type='submit'
+                onClick={(e) => onSubmit(e)}
+              />
+            </form>
+          </div>
         </div>
       </div>
-      <div className='flex flex-col w-fit justify-start items-start self-start'>
+      <div className='col-span-2 flex flex-col flex-wrap w-fit justify-start items-start self-start'>
         {allUsers?.map((contact) => (
           <UserCard
             key={contact._id}

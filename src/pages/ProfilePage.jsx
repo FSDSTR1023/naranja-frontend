@@ -36,6 +36,7 @@ const ProfilePage = () => {
 
   const handleClick = () => {
     console.log('handleClick LogOut');
+
     logOutUser();
   };
 

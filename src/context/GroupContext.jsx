@@ -71,7 +71,7 @@ export const GroupProvider = ({ children }) => {
     <GroupContext.Provider
       value={{
         groups,
-        setGroups, // You can remove this if you don't intend to directly set groups from components
+        setGroups,
         getAllGroups,
         getGroupById,
         createGroup,

@@ -27,25 +27,55 @@ const PrivateChatCard = ({ group }) => {
         className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
         onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
-          <div>
+          <div className='flex w-full'>
             {group?.members?.length > 2 ? (
-              <>
-                <p className='font-bold text-sm'>{group?.name}</p>
+              <div className='flex flex-col'>
+                <p className='font-bold text-sm mb-2'>{group?.name}</p>
                 <p className='text-sm text-gray-500'>
                   {`${group?.members.length} Members`}{' '}
                 </p>
-              </>
+              </div>
             ) : group?.members?.length === 2 &&
               group?.members[0]?._id !== user?._id ? (
-              <p className='font-bold text-sm'>{group?.members[0].name}</p>
+              <div className='flex  flex-wrap items-center justify-between w-full'>
+                <img
+                  className='w-6 h-6 rounded-full'
+                  src={group?.members[0]?.avatar}
+                  alt='avatar'
+                />
+                <p className='font-bold text-sm'>{group?.members[0].name}</p>
+
+                {group.members[0]?.isOnline === 'Online' ? (
+                  <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                ) : group.members[0]?.isOnline === 'Busy' ? (
+                  <div className='w-2 h-2 bg-yellow-500 rounded-full'></div>
+                ) : (
+                  <div className='w-2 h-2 bg-red-500 rounded-full'></div>
+                )}
+              </div>
             ) : (
-              <p className='font-bold text-sm'>{group?.members[1].name}</p>
+              <div className='flex  flex-wrap items-center justify-between w-full '>
+                <img
+                  className='w-6 h-6 rounded-full'
+                  src={group?.members[1]?.avatar}
+                  alt='avatar'
+                />
+                <p className='font-bold text-sm'>{group?.members[1].name}</p>
+
+                {group.members[1]?.isOnline === 'Online' ? (
+                  <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                ) : group.members[1]?.isOnline === 'Busy' ? (
+                  <div className='w-2 h-2 bg-yellow-500 rounded-full'></div>
+                ) : (
+                  <div className='w-2 h-2 bg-red-500 rounded-full'></div>
+                )}
+              </div>
             )}
           </div>
         </div>
         {group?.hasLastMessage ? (
-          <div className='flex flex-col justify-center'>
-            <p className='text-xs text-start font-bold text-gray-700 mb-1 truncate'>
+          <div className='flex flex-col justify-center w-full'>
+            <p className='text-xs text-start font-bold text-gray-700 mb-1 truncate max-w-[70%]'>
               {group?.lastMessage?.body}
             </p>
             <p className='text-[10px] text-end'>
@@ -53,7 +83,7 @@ const PrivateChatCard = ({ group }) => {
             </p>
           </div>
         ) : (
-          <p className='text-xs text-start w-full mb-1 font-bold text-gray-700 truncate'>
+          <p className='text-xs text-start max-w-[70%] mb-1 font-bold text-gray-700 truncate'>
             No hay mensajes ...
           </p>
         )}
