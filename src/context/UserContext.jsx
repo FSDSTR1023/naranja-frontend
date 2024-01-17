@@ -15,6 +15,7 @@ import {
 
 import axios from 'axios';
 import io from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext();
 
@@ -34,6 +35,7 @@ export const UserProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [usersChanges, setUsersChanges] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(async () => {
     const response = await logInWithTokenRequest();
@@ -154,21 +156,21 @@ export const UserProvider = ({ children }) => {
   const logOutUser = async () => {
     socket.emit('disconnect-user', user);
     updateIsOnline(user, 'Offline');
-    const response = await logOutRequest(user);
-    if (response.status === 200) {
-      setUser(null);
-      setIsAuthenticated(false);
-    }
+    logOutRequest(user);
+    setUser(null);
+    setIsAuthenticated(false);
+    console.log('deslogueado');
+    navigate('/');
   };
   const socket = io.connect('http://localhost:4000');
 
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('conectado');
-    });
+    // socket.on('connect', () => {
+    //   console.log('conectado');
+    // });
 
-    socket.on('user-disconnected', (userId) => {
-      console.log('user desconectado', userId);
+    socket.on('user-disconnected', (user) => {
+      console.log('user desconectado', user);
       setUsersChanges(!usersChanges);
     });
 
@@ -181,10 +183,9 @@ export const UserProvider = ({ children }) => {
     });
 
     return () => {
-      console.log('desconectado');
       socket.off();
     };
-  }, [socket]);
+  }, [socket, usersChanges]);
 
   return (
     <UserContext.Provider

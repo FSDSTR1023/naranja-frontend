@@ -5,7 +5,7 @@ import PasswordUpdate from '../components/PasswordUpdate';
 import UserStatusHandler from '../components/UserStatusHandler';
 import FormsTaskCreate from '../components/FormsTaskCreate';
 import { useUser } from '../context/UserContext';
-import Cookies from 'js-cookie';
+
 import { useNavigate } from 'react-router-dom';
 
 import TaskCard from '../components/TaskCard';
@@ -44,15 +44,16 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    getAllUsers();
-    getAllTasks();
-    getAllGroups(user?._id);
     if (!user) {
       navigate('/');
       setUser(null);
       setIsAuthenticated(false);
-      Cookies.remove('token');
+
+      return;
     }
+    getAllUsers();
+    getAllTasks();
+    getAllGroups(user?._id);
   }, [user, usersChanges]);
 
   return (
