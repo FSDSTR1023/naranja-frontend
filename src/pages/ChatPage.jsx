@@ -99,6 +99,7 @@ const ChatPage = () => {
       await socket.emit('send-message', { room, messageData, user });
       console.log(messageData, '<-- messageData en onSubmit');
       await setMessage((list) => [...list, messageData]);
+      console.log(message, '<-- message en onSubmit');
       createMessage(messageData);
     }
   };
@@ -133,46 +134,49 @@ const ChatPage = () => {
               {!isVideo ? <FaVideo /> : <FaVideoSlash />}
             </button>
           </div>
-          <ul className=' flex-col p-2 rounded-md overflow-y-scroll no-scrollbar w-full'>
-            <ScrollToBottom className='overflow-y-scroll no-scrollbar w-full h-full'>
-              {message && message?.[0] !== '' ? (
-                message?.map((m) => (
-                  <li
-                    key={m._id}
-                    className={clsx(
-                      'w-fit p-2  rounded-md  max-w-[calc(50%-50px)] mb-2 self-end',
-                      m._id === selectedUser?._id
-                        ? 'bg-blue-200'
-                        : 'bg-green-200'
-                    )}>
-                    <div className='flex gap-1 items-center justify-center'>
-                      <p className='text-[13px] text-start w-full'>
-                        {m.authorName}
-                      </p>
+          <div className='flex flex-col p-2 rounded-md overflow-auto w-full'>
+            <ScrollToBottom
+              beheviour={'smooth'}
+              className='no-scrollbar w-full h-full '>
+              <div className='flex flex-col'>
+                {message &&
+                  message?.map((m) => (
+                    <div
+                      key={m._id}
+                      className={clsx(
+                        'w-fit p-2  rounded-md  max-w-[calc(50%-50px)] mb-2 min-w-[200px]',
+                        m.author._id !== selectedUser?._id
+                          ? 'bg-blue-200 self-end mr-2'
+                          : 'bg-green-200 self-start'
+                      )}>
+                      <div className='flex gap-1 items-center justify-center'>
+                        <p className='text-[13px] text-start w-full'>
+                          {m.authorName}
+                        </p>
+                      </div>
+                      <div className='flex flex-wrap max-w-md'>
+                        <hr className=' border-1 w-full rounded-md border-grey-600' />
+                        <p className='text-[14px] text-start flex mt-1 '>
+                          {m.body}
+                        </p>
+                        {m.image && (
+                          <img
+                            className='w-[150px] m-2'
+                            src={m.image}
+                            alt='file'
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <p className='text-[10px] w-full text-end'>
+                          {format(new Date(m.time), 'p')}
+                        </p>
+                      </div>
                     </div>
-                    <div className='flex flex-wrap max-w-md'>
-                      <hr className=' border-1 w-full rounded-md border-grey-600' />
-                      <p className='text-[14px] text-start flex '>{m.body}</p>
-                      {m.image && (
-                        <img
-                          className='w-[150px] m-2'
-                          src={m.image}
-                          alt='file'
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <p className='text-[10px] w-full text-end'>
-                        {format(new Date(m.time), 'p')}
-                      </p>
-                    </div>
-                  </li>
-                ))
-              ) : (
-                <p className='text-[14px] text-start flex '>No hay mensajes</p>
-              )}
+                  ))}
+              </div>
             </ScrollToBottom>
-          </ul>
+          </div>
           <hr />
           <div className='flex flex-row justify-between rounded-md w-full p-1  border-gray-400'>
             <form
