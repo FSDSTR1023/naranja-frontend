@@ -43,7 +43,7 @@ function App() {
                   element={<ChatPage />}
                 />
                 <Route
-                  path='/group-form-page'
+                  path='/groupboard/:groupId'
                   element={<GroupPage />}
                 />
                 <Route

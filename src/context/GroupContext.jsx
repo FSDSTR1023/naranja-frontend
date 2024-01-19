@@ -4,6 +4,7 @@ import { createContext, useContext, useState } from 'react';
 import {
   createGroupRequest,
   getAllGroupsRequest,
+  getCurrentGroupRequest,
   getGroupByIdOrCreate,
 } from '../api/groups.js';
 
@@ -65,6 +66,15 @@ export const GroupProvider = ({ children }) => {
     }
   };
 
+  const getCurrentGroup = async (groupId) => {
+    try {
+      const response = await getCurrentGroupRequest(groupId);
+      setCurrentGroup(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // <-- van todas las funciones del los grupos
 
   return (
@@ -81,6 +91,7 @@ export const GroupProvider = ({ children }) => {
         setGroupError,
         privateGroups,
         setPrivateGroups,
+        getCurrentGroup,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
