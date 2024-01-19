@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router-dom';
 
 import TaskCard from '../components/TaskCard';
 import { useTasks } from '../context/TasksContext';
-import GroupPage from './GroupPage';
+
 import { useGroups } from '../context/GroupContext';
 import GroupCard from '../components/GroupCard';
 import ButtonDropDown from '../components/ButtonDropDown';
 import { TiMessages } from 'react-icons/ti';
 import PrivateChatCard from '../components/PrivateChatCard';
+import CreateGroupButton from '../components/CreateGroupButton';
+import GroupChatCard from '../components/GroupChatCard';
 
 const ProfilePage = () => {
   const {
@@ -82,7 +84,7 @@ const ProfilePage = () => {
           <TiMessages />
         </div>
         {groups?.map((group) => (
-          <PrivateChatCard
+          <GroupChatCard
             key={group.id}
             group={group}
           />
@@ -91,7 +93,7 @@ const ProfilePage = () => {
       <div
         className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
       items-center justify-start mb-1 gap-2 overflow-auto '>
-        <GroupPage />
+        <CreateGroupButton />
         {groups?.map((group) => (
           <GroupCard
             key={group.id}

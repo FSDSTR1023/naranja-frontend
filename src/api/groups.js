@@ -10,3 +10,6 @@ export const getGroupByIdOrCreate = (group) =>
 
 export const updateLastMessageRequest = (groupId, messageBody) =>
   axios.patch(`/group/group/lastMessage/${groupId}`, { messageBody });
+
+export const getCurrentGroupRequest = (groupId) =>
+  axios.get(`/group/currentGroup/${groupId}`);
