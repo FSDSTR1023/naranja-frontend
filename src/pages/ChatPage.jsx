@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
 import clsx from 'clsx';
+import { VideoChat } from '../components/VideoChat';
 
 const ChatPage = () => {
   const { allUsers, user, selectedUser, socket } = useUser();
@@ -104,6 +105,10 @@ const ChatPage = () => {
     }
   };
 
+  const hendleVideoCall = () => {
+    setIsVideo(!isVideo);
+  };
+
   return (
     <div className='grid grid-cols-12 justify-center items-center w-full py-2 px-3'>
       <div className='col-span-10 w-full justify-center items-center flex flex-col'>
@@ -130,10 +135,17 @@ const ChatPage = () => {
             </div>
             <button
               className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300'
-              onClick={() => setIsVideo(!isVideo)}>
+              onClick={hendleVideoCall}>
               {!isVideo ? <FaVideo /> : <FaVideoSlash />}
             </button>
           </div>
+          {isVideo && (
+            <VideoChat
+              room={room}
+              video={true}
+              audio={true}
+            />
+          )}
           <div className='flex flex-col p-2 rounded-md overflow-auto w-full'>
             <ScrollToBottom
               beheviour={'smooth'}

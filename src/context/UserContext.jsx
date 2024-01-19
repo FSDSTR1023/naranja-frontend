@@ -37,14 +37,20 @@ export const UserProvider = ({ children }) => {
   const [usersChanges, setUsersChanges] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(async () => {
-    const response = await logInWithTokenRequest();
-    console.log(response.data, '<-- response.data en useEffect de UserContext');
-    if (response.status === 200) {
-      setUser(response.data);
-      setIsAuthenticated(true);
-      setIsOnline(response.data.isOnline);
-    }
+  useEffect(() => {
+    const logWithToken = async () => {
+      const response = await logInWithTokenRequest();
+      console.log(
+        response.data,
+        '<-- response.data en useEffect de UserContext'
+      );
+      if (response.status === 200) {
+        setUser(response.data);
+        setIsAuthenticated(true);
+        setIsOnline(response.data.isOnline);
+      }
+    };
+    logWithToken();
   }, []);
 
   const registerUserRequest = async (data) => {
