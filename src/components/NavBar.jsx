@@ -57,10 +57,8 @@ return (
                Home
                </Link>
             </li>
-            <li>
                {isAuthenticated ? (
                <>
-            <li>
                <Link
                   to='/profile-page'
                   className='block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent
@@ -68,7 +66,6 @@ return (
                   aria-current='page'>
                Profile
                </Link>
-            </li>
             <button
                onClick={logOutUser}
                className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
@@ -95,7 +92,6 @@ return (
             </Link>
             </>
             )}
-            </li>
          </ul>
       </div>
       )}
