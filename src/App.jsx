@@ -19,6 +19,7 @@ import VerifyEmail from './pages/VerifyEmail';
 import { TaskProvider } from './context/TasksContext';
 import FormsTaskCreate from './components/FormsTaskCreate';
 import { MessageProvider } from './context/MessagesContext';
+import RecoverPassword from './pages/RecoverPassword';
 // import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
                 <Route
                   path='/'
                   element={<HomePage />}
+                />
+                <Route
+                  path='/password-recovery'
+                  element={<RecoverPassword />}
                 />
                 <Route
                   path='/profile-page'

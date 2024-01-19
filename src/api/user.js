@@ -16,3 +16,6 @@ export const editUserPasswordRequest = (data) =>
 export const logOutRequest = (user) => axios.post('/logout', user);
 
 export const logInWithTokenRequest = () => axios.get('user/logInWithToken');
+
+export const sendForgotPasswordRequest = (email) =>
+  axios.post('/user/forgotPassword', email);

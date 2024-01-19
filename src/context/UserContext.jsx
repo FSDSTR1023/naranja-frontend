@@ -11,6 +11,7 @@ import {
   editUserPasswordRequest,
   logOutRequest,
   logInWithTokenRequest,
+  sendForgotPasswordRequest,
 } from '../api/user';
 
 import axios from 'axios';
@@ -159,6 +160,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const recoverPasswordRequest = async (data) => {
+    console.log(data, '<-- data en recoverPasswordRequest');
+    try {
+      await sendForgotPasswordRequest(data);
+    } catch (error) {
+      console.log(error, '<-- error en recoverPasswordRequest');
+    }
+  };
+
   const logOutUser = async () => {
     socket.emit('disconnect-user', user);
     updateIsOnline(user, 'Offline');
@@ -218,6 +228,7 @@ export const UserProvider = ({ children }) => {
         setSelectedUser,
         socket,
         usersChanges,
+        recoverPasswordRequest,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
