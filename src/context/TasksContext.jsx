@@ -29,11 +29,7 @@ export function TaskProvider({ children }) {
   const createNewTask = async (newTask) => {
     try {
       const response = await createTaskRequest(newTask);
-      console.log(response);
-      if (response.status === 200) {
-        console.log(response.data);
-        // setContainers([...containers, response.data]);
-      }
+      if (response.status === 200) return;
     } catch (error) {
       console.log(error);
     }
@@ -41,9 +37,7 @@ export function TaskProvider({ children }) {
   const deleteTask = async (taskId) => {
     try {
       const response = await deleteTaskRequest(taskId);
-      if (response.status === 200) {
-        console.log(response.data);
-      }
+      if (response.status === 200) return;
     } catch (error) {
       console.log(error);
     }
@@ -52,9 +46,7 @@ export function TaskProvider({ children }) {
   const updateTask = async (taskId, updatedTasks) => {
     try {
       const response = await updateTaskRequest(taskId, updatedTasks);
-      if (response.status === 200) {
-        console.log(response.data);
-      }
+      if (response.status === 200) return;
     } catch (error) {
       console.log(error);
     }
@@ -76,9 +68,7 @@ export function TaskProvider({ children }) {
   const updateManyTasks = async (groupId, updatedTasks) => {
     try {
       const response = await updateManyTasksRequest(groupId, updatedTasks);
-      if (response.status === 200) {
-        console.log(response.data);
-      }
+      if (response.status === 200) return;
     } catch (error) {
       console.log(error);
     }
@@ -90,9 +80,7 @@ export function TaskProvider({ children }) {
         containerId,
         updatedContainer
       );
-      if (response.status === 200) {
-        console.log(response.data);
-      }
+      if (response.status === 200) return;
     } catch (error) {
       console.log(error);
     }

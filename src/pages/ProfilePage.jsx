@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AvatarHandler from '../components/AvatarHandler';
 import PasswordUpdate from '../components/PasswordUpdate';
 import UserStatusHandler from '../components/UserStatusHandler';
-import FormsTaskCreate from '../components/FormsTaskCreate';
+
 import { useUser } from '../context/UserContext';
 
 import { useNavigate } from 'react-router-dom';
 
 import { useGroups } from '../context/GroupContext';
-import GroupCard from '../components/GroupCard';
+
 import ButtonDropDown from '../components/ButtonDropDown';
 import { TiMessages } from 'react-icons/ti';
 import PrivateChatCard from '../components/PrivateChatCard';
 import CreateGroupButton from '../components/CreateGroupButton';
 import GroupChatCard from '../components/GroupChatCard';
+import ChatPage from './ChatPage';
 
 const ProfilePage = () => {
   const {
@@ -31,16 +32,10 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
 
-  const [showForm, setShowForm] = useState(false);
-
   const handleClick = () => {
     console.log('handleClick LogOut');
 
     logOutUser();
-  };
-
-  const handleForm = () => {
-    setShowForm(true);
   };
 
   useEffect(() => {
@@ -58,8 +53,9 @@ const ProfilePage = () => {
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
-      <div className='col-span-2 bg-gray-200  overflow-auto'>
-        <div className='flex items-center justify-center'>
+      <div className='col-span-3 bg-gray-200  overflow-auto'>
+        <div className='flex flex-col items-center justify-center'>
+          <CreateGroupButton />
           <ButtonDropDown userContacts={allUsers} />
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
@@ -100,27 +96,11 @@ const ProfilePage = () => {
           />
         ))}
       </div>
-      <div
-        className='col-span-2 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-start mb-1 gap-2 overflow-auto '>
-        <CreateGroupButton />
-        {groups?.map((group) => (
-          <GroupCard
-            key={group.id}
-            group={group}
-          />
-        ))}
-      </div>
-      <div
-        className='col-span-5 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-start mb-1 overflow-auto'>
-        <button
-          className='bg-orange-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 mb-2'
-          onClick={handleForm}>
-          Crear Tarea
-        </button>
 
-        {showForm && <FormsTaskCreate users={allUsers} />}
+      <div
+        className='col-span-6 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-start mb-1 overflow-auto'>
+        <ChatPage />
       </div>
 
       <div className='col-span-3 bg-gray-200 flex flex-col justify-start'>

@@ -44,9 +44,9 @@ const DragDropContainer = ({
     if (!itemName) return;
     const id = `item-${uuidv4()}`;
     const container = containers.find((item) => item.id === currentId);
-    console.log(container, 'container');
+
     const updatedItems = [...container.items, { id, title: itemName }];
-    console.log(updatedItems, 'updatedItems');
+
     updateTask(container.id, updatedItems);
     if (!container) return;
     container.items.push({
@@ -59,12 +59,11 @@ const DragDropContainer = ({
     setAddNewItem(!addNewItem);
   };
   const onDeleteContainer = (id) => {
-    console.log(id);
     deleteTask(id);
     const filteredContainers = containers.filter(
       (container) => container.id !== id
     );
-    console.log(filteredContainers, 'filtered');
+
     setContainers(filteredContainers);
   };
 

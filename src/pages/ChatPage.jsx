@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
-import UserCard from '../components/UserCard';
+
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
@@ -16,7 +16,7 @@ import clsx from 'clsx';
 import { VideoChat } from '../components/VideoChat';
 
 const ChatPage = () => {
-  const { allUsers, user, selectedUser, socket } = useUser();
+  const { user, selectedUser, socket } = useUser();
   const { getGroupById, currentGroup } = useGroups();
   const { createMessage, getAllMessages, message, room, setMessage } =
     useMessage();
@@ -50,10 +50,8 @@ const ChatPage = () => {
   }, [room]);
 
   useEffect(() => {
-    console.log(socket, '<-- socket en useEffect');
     if (!socket) return;
     socket.on('receive-message', (data) => {
-      console.log(data, '<-- data del receive-message');
       setMessage((list) => [...list, data]);
     });
 
@@ -61,7 +59,6 @@ const ChatPage = () => {
   }, [socket]);
 
   const onSubmit = async (e) => {
-    console.log(uplodedFile, '<-- uplodedFile en onSubmit');
     e.preventDefault();
     if (uplodedFile) {
       const response = await uploadImage(uplodedFile);
@@ -81,7 +78,7 @@ const ChatPage = () => {
       setUploadedFile(null);
       await socket.emit('send-message', { room, messageData, user });
       await setMessage((list) => [...list, messageData]);
-      console.log(message, '<-- message en onSubmit');
+
       createMessage(messageData);
     } else if (chatMessage !== '') {
       const messageData = {
@@ -95,12 +92,12 @@ const ChatPage = () => {
         fileAtt: '',
         time: new Date(Date.now()),
       };
-      console.log(messageData);
+
       setChatMessage('');
       await socket.emit('send-message', { room, messageData, user });
       console.log(messageData, '<-- messageData en onSubmit');
       await setMessage((list) => [...list, messageData]);
-      console.log(message, '<-- message en onSubmit');
+
       createMessage(messageData);
     }
   };
@@ -110,11 +107,11 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='grid grid-cols-12 justify-center items-center w-full py-2 px-3'>
+    <div className='grid grid-cols-10 justify-center items-center w-full py-2 px-3'>
       <div className='col-span-10 w-full justify-center items-center flex flex-col'>
         <div
           className='flex flex-col border-2 border-gray-400 rounded-md 
-        w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)]'>
+        w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)] justify-between'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             <div className='flex items-center jc'>
               <img
@@ -146,7 +143,7 @@ const ChatPage = () => {
               audio={true}
             />
           )}
-          <div className='flex flex-col p-2 rounded-md overflow-auto w-full'>
+          <div className='flex flex-col p-2 rounded-md overflow-auto w-full h-full'>
             <ScrollToBottom
               beheviour={'smooth'}
               className='no-scrollbar w-full h-full '>
@@ -248,14 +245,6 @@ const ChatPage = () => {
             </form>
           </div>
         </div>
-      </div>
-      <div className='col-span-2 flex flex-col flex-wrap w-fit justify-start items-start self-start'>
-        {allUsers?.map((contact) => (
-          <UserCard
-            key={contact._id}
-            contact={contact}
-          />
-        ))}
       </div>
     </div>
   );

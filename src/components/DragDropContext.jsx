@@ -96,17 +96,16 @@ const DragDropContext = ({ containers, setContainers }) => {
       const activeContainerIndex = containers.findIndex(
         (container) => container.id === activeContainer.id
       );
-      console.log(activeContainerIndex, 'activeContainerIndex');
+
       const overContainerIndex = containers.findIndex(
         (container) => container.id === overContainer.id
       );
-      console.log(overContainerIndex, 'overContainerIndex');
 
       // Find the index of the active and over item
       const activeitemIndex = activeContainer.items.findIndex(
         (item) => item.id === active.id
       );
-      console.log(activeitemIndex, 'activeitemIndex');
+
       const overitemIndex = overContainer.items.findIndex(
         (item) => item.id === over.id
       );
@@ -118,7 +117,6 @@ const DragDropContext = ({ containers, setContainers }) => {
           activeitemIndex,
           overitemIndex
         );
-        console.log(newItems);
 
         setContainers(newItems);
         updateManyTasks(currentGroup?._id, newItems);
@@ -201,7 +199,7 @@ const DragDropContext = ({ containers, setContainers }) => {
       // Swap the active and over container
       let newItems = [...containers];
       newItems = arrayMove(newItems, activeContainerIndex, overContainerIndex);
-      console.log(newItems);
+
       setContainers(newItems);
       updateManyTasks(currentGroup?._id, newItems);
     }
@@ -243,7 +241,7 @@ const DragDropContext = ({ containers, setContainers }) => {
           activeitemIndex,
           overitemIndex
         );
-        console.log(newItems);
+
         setContainers(newItems);
         updateManyTasks(currentGroup?._id, newItems);
       } else {
@@ -258,7 +256,7 @@ const DragDropContext = ({ containers, setContainers }) => {
           0,
           removeditem
         );
-        console.log(newItems);
+
         setContainers(newItems);
         updateManyTasks(currentGroup?._id, newItems);
       }
@@ -295,7 +293,7 @@ const DragDropContext = ({ containers, setContainers }) => {
         1
       );
       newItems[overContainerIndex].items.push(removeditem);
-      console.log(newItems);
+
       setContainers(newItems);
     }
     setActiveId(null);
