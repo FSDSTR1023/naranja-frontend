@@ -37,7 +37,10 @@ const GroupChatCard = ({ group }) => {
               {group?.lastMessage?.body}
             </p>
             <p className='text-[10px] text-end'>
-              {format(new Date(group?.lastMessage?.createdAt), 'p')}
+              {format(
+                new Date(group?.lastMessage?.createdAt || Date.now()),
+                'p'
+              )}
             </p>
           </div>
         ) : (

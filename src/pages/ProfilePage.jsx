@@ -8,9 +8,6 @@ import { useUser } from '../context/UserContext';
 
 import { useNavigate } from 'react-router-dom';
 
-import TaskCard from '../components/TaskCard';
-import { useTasks } from '../context/TasksContext';
-
 import { useGroups } from '../context/GroupContext';
 import GroupCard from '../components/GroupCard';
 import ButtonDropDown from '../components/ButtonDropDown';
@@ -31,7 +28,7 @@ const ProfilePage = () => {
   } = useUser();
 
   const { getAllGroups, groups, privateGroups } = useGroups();
-  const { allTasks, getAllTasks } = useTasks();
+
   const navigate = useNavigate();
 
   const [showForm, setShowForm] = useState(false);
@@ -55,7 +52,7 @@ const ProfilePage = () => {
       return;
     }
     getAllUsers();
-    getAllTasks();
+
     getAllGroups(user?._id);
   }, [user, usersChanges]);
 
@@ -68,9 +65,16 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1>Chats Privados</h1>
+          <h1 className='text-xs font-bold'>Chats Privados</h1>
           <TiMessages />
         </div>
+        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
+        {privateGroups?.length === 0 && (
+          <div className='flex items-center justify-center text-xs font-bold'>
+            No tienes chats privados
+          </div>
+        )}
+
         {privateGroups?.map((group) => (
           <PrivateChatCard
             key={group.id}
@@ -80,9 +84,15 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1>Chats de Grupo</h1>
+          <h1 className='text-xs font-bold'>Chats de Grupo</h1>
           <TiMessages />
         </div>
+        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
+        {groups?.length === 0 && (
+          <div className='flex items-center justify-center text-xs font-bold'>
+            No tienes chats privados
+          </div>
+        )}
         {groups?.map((group) => (
           <GroupChatCard
             key={group.id}
@@ -111,15 +121,6 @@ const ProfilePage = () => {
         </button>
 
         {showForm && <FormsTaskCreate users={allUsers} />}
-
-        <div className='flex flex-wrap justify-center -mx-2'>
-          {allTasks?.map((task) => (
-            <TaskCard
-              key={task._id}
-              task={task}
-            />
-          ))}
-        </div>
       </div>
 
       <div className='col-span-3 bg-gray-200 flex flex-col justify-start'>
