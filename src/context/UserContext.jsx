@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import {
   registerRequest,
   sendTokenToServer,
@@ -8,9 +9,14 @@ import {
   updateUserRequest,
   getAllUsersRequest,
   editUserPasswordRequest,
+  logOutRequest,
+  logInWithTokenRequest,
+  sendForgotPasswordRequest,
 } from '../api/user';
-import Cookie from 'js-cookie';
+
 import axios from 'axios';
+import io from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext();
 
@@ -28,6 +34,25 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState([]);
   const [isOnline, setIsOnline] = useState('Offline');
   const [allUsers, setAllUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [usersChanges, setUsersChanges] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const logWithToken = async () => {
+      const response = await logInWithTokenRequest();
+      console.log(
+        response.data,
+        '<-- response.data en useEffect de UserContext'
+      );
+      if (response.status === 200) {
+        setUser(response.data);
+        setIsAuthenticated(true);
+        setIsOnline(response.data.isOnline);
+      }
+    };
+    logWithToken();
+  }, []);
 
   const registerUserRequest = async (data) => {
     try {
@@ -49,20 +74,22 @@ export const UserProvider = ({ children }) => {
 
   const loginUserRequest = async (data) => {
     try {
-      const response = await sendLoginUserRequest(data);
-      console.log(response.data, '<-- response.data en loginUserRequest');
-      const token = Cookie.get('token');
-      console.log(token, '<-- token en loginUserRequest');
-      if (!token) {
-        throw new Error('No hay token');
-      }
+      const userToLogIn = {
+        ...data,
+        isOnline: 'Online',
+      };
+      const response = await sendLoginUserRequest(userToLogIn);
+
       const userToLogin = response.data;
-      console.log(userToLogin, '<-- userToLogin en loginUserRequest');
+
       if (userToLogin.status === false) {
         throw new Error('No se pudo loguear, verifique su correo electronico');
       }
+
+      setIsOnline(userToLogin.isOnline);
       setUser(userToLogin);
       setIsAuthenticated(true);
+      socket.emit('new-user', userToLogin);
     } catch (error) {
       console.log(error, '<-- error en loginUserRequest');
       setError(error);
@@ -112,6 +139,7 @@ export const UserProvider = ({ children }) => {
     try {
       const userFound = await updateUserRequest(data);
       setUser({ ...user, isOnline: userFound.isOnline });
+      socket.emit('user-status');
     } catch (error) {
       console.log(error, '<-- error en updateIsOnline');
     }
@@ -125,12 +153,55 @@ export const UserProvider = ({ children }) => {
       const filteredUsers = users.filter((contact) => {
         return contact.email !== user.email;
       });
-      console.log(filteredUsers, '<-- filteredUsers en getAllUsers');
+
       setAllUsers(filteredUsers);
     } catch (error) {
       console.log(error, '<-- error en getAllUsers');
     }
   };
+
+  const recoverPasswordRequest = async (data) => {
+    console.log(data, '<-- data en recoverPasswordRequest');
+    try {
+      await sendForgotPasswordRequest(data);
+    } catch (error) {
+      console.log(error, '<-- error en recoverPasswordRequest');
+    }
+  };
+
+  const logOutUser = async () => {
+    socket.emit('disconnect-user', user);
+    updateIsOnline(user, 'Offline');
+    logOutRequest(user);
+    setUser(null);
+    setIsAuthenticated(false);
+    console.log('deslogueado');
+    navigate('/');
+  };
+  const socket = io.connect('http://localhost:4000');
+
+  useEffect(() => {
+    // socket.on('connect', () => {
+    //   console.log('conectado');
+    // });
+
+    socket.on('user-disconnected', (user) => {
+      console.log('user desconectado', user);
+      setUsersChanges(!usersChanges);
+    });
+
+    socket.on('new-user-online', () => {
+      setUsersChanges(!usersChanges);
+    });
+
+    socket.on('user-status-change', () => {
+      setUsersChanges(!usersChanges);
+    });
+
+    return () => {
+      socket.off();
+    };
+  }, [socket, usersChanges]);
 
   return (
     <UserContext.Provider
@@ -152,6 +223,12 @@ export const UserProvider = ({ children }) => {
         getAllUsers,
         allUsers,
         setAllUsers,
+        logOutUser,
+        selectedUser,
+        setSelectedUser,
+        socket,
+        usersChanges,
+        recoverPasswordRequest,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

@@ -1,27 +1,28 @@
-# TODO-MESSENGER-GROUP-MANAGER (TASKTALK)
+# TASKTALK v4
 
 ## Descripción General del Proyecto(TLDR)
 
-Este proyecto es una aplicación de gestión de tareas y mensajería grupal. Permite a los usuarios registrarse, crear tareas, asignarse entre sí y unirse a grupos para comunicarse a través de mensajes grupales o individuales (ya sea texto, vídeo, archivo o imágenes). El proyecto está en desarrollo, con la funcionalidad del chat y la mayoría del frontend pendientes de implementación.
+Este proyecto es una aplicación de gestión de tareas y mensajería grupal. Permite a los usuarios registrarse, crear tareas, asignarse entre sí y unirse a grupos para comunicarse a través de mensajes grupales o individuales (ya sea texto, vídeo, archivo o imágenes). Se espera que la aplicación sea de gran utilidad para trabajos y proyectos académicos en grupo.
 
 ## Instalación y Ejecución
 
 1. Clona el repositorio.
-2. Ejecuta `npm install` para instalar las dependencias.
-3. Configura las variables de entorno en un archivo `.env`.
+2. Ejecuta `npm install` para instalar las dependencias, indicadas en el apartado [tecnologías Utilizadas](#tecnologías-utilizadas).
+3. Configura las variables de entorno en un archivo `.env` (explicado en [requisitos para la integración](#requisitos-para-la-integración)).
 4. Ejecuta `npm run dev` para iniciar el servidor en modo de desarrollo con nodemon.
 
 ## Estado del Proyecto
 
-En desarrollo.
+El proyecto se encuentra en una fase de desarrollo, una buena parte de la funcionalidad se encuentra ya implementada, pendiente de más implementaciones, mejoras y actualización del frontal de la aplicación.
 
 ## Funcionalidades Principales
 
 - Registro de usuarios.
 - Autenticación y verificación de usuarios.
-- Creación, edición y eliminación de tareas.
+- Creación, edición, asignación y eliminación de tareas.
 - Gestión de grupos con operaciones como crear, editar, eliminar y agregar/eliminar miembros.
-- Mensajería grupal y P2P (pendiente de implementación).
+- Mensajería grupal y P2P.
+- Videollamadas grupales y P2P.
 
 ## Requisitos para la Integración
 
@@ -31,6 +32,7 @@ En desarrollo.
   - `DB_USER`, `DB_PASSWORD`, `DB_SERVER`, `DB_NAME` para la conexión a MongoDB.
   - `TOKEN_SECRET` para la generación de tokens de acceso.
   - `PORT` para el puerto en el que se ejecutará el servidor.
+  - `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`, `PUBLIC_LIVEKIT_URL` para la funcionalidad de videollamadas.
   - Otras variables de entorno según sea necesario.
 
 ## Tecnologías Utilizadas
@@ -51,6 +53,11 @@ En desarrollo.
 - [Cloudinary](https://cloudinary.com/documentation) para el almacenamiento y gestión de archivos multimedia en la nube.
 - [ESLint](https://eslint.org/docs/latest/) para el linting del código.
 - [Prettier](https://prettier.io) para el formateo consistente del código.
+- [React.js](https://reactjs.org/docs/getting-started.html) para el frontend.
+- [React Router](https://reactrouter.com/docs/en/v6/getting-started/overview) para la navegación dentro de la aplicación.
+- [Axios](https://axios-http.com/docs/intro) para realizar solicitudes HTTP a la API del backend.
+- [React Icons](https://react-icons.github.io/react-icons/) para la inclusión de iconos en la aplicación.
+- [LiveKit](https://docs.livekit.io/realtime/) para la funcionalidad de videollamadas.
 
 ## Arquitectura del Proyecto TaskTalk y Relaciones entre Entidades  
 
@@ -96,7 +103,7 @@ TaskTalk se construye como una aplicación web utilizando la pila MERN (MongoDB,
 ### Tarea
 
 - Una Tarea pertenece a un Usuario (creador/asignatario).
-- Una Tarea puede estar asociada con varios Usuarios (asignatarios).
+- Una Tarea puede estar asociada con varios Usuarios.
 - Las Tareas pueden pertenecer a uno o más Grupos.
 
 ### Grupo
@@ -115,10 +122,8 @@ Esta arquitectura y modelo de relaciones entre entidades proporcionan una base p
 
 ## Descripción extensa del proyecto, dirección del mismo y objetivos a lograr
 
-# TaskTalk(Nombre provisional)
-
 TaskTalk aspira a convertirse en una aplicación diseñada para el ámbito profesional y educativo. Se espera que su implementación en estos campos agilice y optimice tanto el trabajo como la comunicación en grupo, ya sea en entornos laborales o académicos. Además, se vislumbran posibles usos de la aplicación a nivel P2P o individual, facilitando la creación de tareas y listas para cualquier propósito.
 
-En la versión actual del proyecto, aunque dista de alcanzar la visión completa de la aplicación, ya cuenta con numerosas utilidades funcionales en el backend, como se detalla en **Funcionalidades Principales**. También presenta una versión inicial y rudimentaria del frontend, que será desarrollado de manera más completa, cómoda y estéticamente agradable.
+En la versión actual del proyecto, aunque dista de alcanzar la visión completa de la aplicación, ya cuenta con numerosas utilidades funcionales en el backend, como se detalla en [funcionalidades principales](#funcionalidades-principales). También presenta una versión inicial y rudimentaria del frontend, que será desarrollado de manera más completa, cómoda y estéticamente agradable.
 
-**Nota:** El proyecto está en desarrollo, por lo que la funcionalidad de mensajería al completo no existe en esta versión del proyecto, de igual manera, el frontend está en una fase muy primitiva y queda será mejorado enormemente.
+**Nota:** El proyecto está en desarrollo, por lo que el frontend está en una fase muy primitiva y será mejorado enormemente.

@@ -12,3 +12,10 @@ export const getAllUsersRequest = () => axios.get('/');
 
 export const editUserPasswordRequest = (data) =>
   axios.put('/user/password', data);
+
+export const logOutRequest = (user) => axios.post('/logout', user);
+
+export const logInWithTokenRequest = () => axios.get('user/logInWithToken');
+
+export const sendForgotPasswordRequest = (email) =>
+  axios.post('/user/forgotPassword', email);
