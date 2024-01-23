@@ -42,14 +42,20 @@ const ChatPage = () => {
     };
 
     const getInfo = async () => {
-      if (selectedUser === undefined || room === undefined) return;
       const response = await getGroupById(groupToGet);
 
       if (response) {
         await getAllMessages(response._id);
       }
     };
-    getInfo();
+
+    if (selectedUser.name === undefined || selectedUser.name === null) {
+      console.log(selectedUser.name, '<-- selectedUser.name');
+      return;
+    } else {
+      console.log('entro al else');
+      getInfo();
+    }
   }, [room]);
 
   useEffect(() => {
@@ -116,7 +122,7 @@ const ChatPage = () => {
           className='flex flex-col border-2 border-gray-400 rounded-md 
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)] justify-between'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
-            {room ? (
+            {selectedUser?.name ? (
               <div className='flex items-center justify-center'>
                 <img
                   className='w-6 h-6 rounded-full mr-3'

@@ -16,6 +16,7 @@ import PrivateChatCard from '../components/PrivateChatCard';
 import CreateGroupButton from '../components/CreateGroupButton';
 import GroupChatCard from '../components/GroupChatCard';
 import ChatPage from './ChatPage';
+import { LuLayoutPanelLeft } from 'react-icons/lu';
 
 const ProfilePage = () => {
   const {
@@ -53,7 +54,7 @@ const ProfilePage = () => {
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
-      <div className='col-span-3 bg-gray-200  overflow-auto'>
+      <div className='col-span-3 bg-gray-700  overflow-auto'>
         <div className='flex flex-col items-center justify-center'>
           <CreateGroupButton />
           <ButtonDropDown userContacts={allUsers} />
@@ -61,8 +62,8 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1 className='text-xs font-bold'>Chats Privados</h1>
-          <TiMessages />
+          <h1 className='text-xs font-bold text-white'>Chats Privados</h1>
+          <TiMessages className='text-white' />
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {privateGroups?.length === 0 && (
@@ -80,8 +81,8 @@ const ProfilePage = () => {
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
 
         <div className='text-md flex items-center justify-around gap-3'>
-          <h1 className='text-xs font-bold'>Chats de Grupo</h1>
-          <TiMessages />
+          <h1 className='text-xs font-bold text-white'>Paneles de Grupo</h1>
+          <LuLayoutPanelLeft className='text-white' />
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {groups?.length === 0 && (
@@ -98,8 +99,8 @@ const ProfilePage = () => {
       </div>
 
       <div
-        className='col-span-6 bg-gray-200 border-x-2 border-gray-700 flex flex-col 
-      items-center justify-start mb-1 overflow-auto'>
+        className='col-span-6 border-x-2 border-gray-700 flex flex-col 
+      items-center justify-start mb-1 overflow-auto bg-gray-700'>
         <ChatPage />
       </div>
 
