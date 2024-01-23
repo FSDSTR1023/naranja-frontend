@@ -28,22 +28,14 @@ const PrivateChatCard = ({ group }) => {
         onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
           <div className='flex w-full'>
-            {group?.members?.length > 2 ? (
-              <div className='flex flex-col'>
-                <p className='font-bold text-sm mb-2'>{group?.name}</p>
-                <p className='text-sm text-gray-500'>
-                  {`${group?.members.length} Members`}{' '}
-                </p>
-              </div>
-            ) : group?.members?.length === 2 &&
-              group?.members[0]?._id !== user?._id ? (
+            {group?.members[0]?._id !== user?._id ? (
               <div className='flex  flex-wrap items-center justify-between w-full'>
                 <img
                   className='w-6 h-6 rounded-full'
                   src={group?.members[0]?.avatar}
                   alt='avatar'
                 />
-                <p className='font-bold text-sm'>{group?.members[0].name}</p>
+                <p className='font-bold text-sm'>{group?.members[0]?.name}</p>
 
                 {group.members[0]?.isOnline === 'Online' ? (
                   <div className='w-2 h-2 bg-green-500 rounded-full'></div>
@@ -60,7 +52,7 @@ const PrivateChatCard = ({ group }) => {
                   src={group?.members[1]?.avatar}
                   alt='avatar'
                 />
-                <p className='font-bold text-sm'>{group?.members[1].name}</p>
+                <p className='font-bold text-sm'>{group?.members[1]?.name}</p>
 
                 {group.members[1]?.isOnline === 'Online' ? (
                   <div className='w-2 h-2 bg-green-500 rounded-full'></div>
@@ -79,7 +71,10 @@ const PrivateChatCard = ({ group }) => {
               {group?.lastMessage?.body}
             </p>
             <p className='text-[10px] text-end'>
-              {format(new Date(group?.lastMessage?.createdAt), 'p')}
+              {format(
+                new Date(group?.lastMessage?.createdAt || Date.now()),
+                'p'
+              )}
             </p>
           </div>
         ) : (
