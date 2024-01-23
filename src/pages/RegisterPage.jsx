@@ -2,11 +2,13 @@
 import { useForm } from 'react-hook-form';
 import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm();
   const { registerUserRequest, isAuthenticated } = useUser();
+  const [isEye, setIsEye] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
@@ -18,8 +20,9 @@ const RegisterPage = () => {
       navigate('/verify-email-page');
     }
   }, [isAuthenticated]);
+
   return (
-    <div className='flex flex-col items-center w-full h-full mt-[150px]'>
+    <div className='flex flex-col items-center w-full h-full pt-[150px] bg-gradient-to-b from-yellow-100 via-blue-300 to-blue-700'>
       <h2 className='text-2xl font-semibold mb-2'>Register</h2>
       <form
         className='w-full max-w-lg'
@@ -87,15 +90,26 @@ const RegisterPage = () => {
               htmlFor='grid-name'>
               Password
             </label>
-            <input
-              {...register('password', { required: true })}
-              type='password'
-              name='password'
-              id='password'
-              placeholder='Password'
-              className='appearance-none block w-full bg-gray-200 text-gray-700 border
+            <div className='relative'>
+              <input
+                {...register('password', { required: true })}
+                type={isEye ? 'text' : 'password'}
+                name='password'
+                id='password'
+                placeholder='Password'
+                className='appearance-none block w-full bg-gray-200 text-gray-700 border
                border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-            />
+              />
+              <span
+                className='absolute right-5 top-4 cursor-pointer'
+                onClick={() => setIsEye(!isEye)}>
+                {!isEye ? (
+                  <IoEyeOffOutline size={18} />
+                ) : (
+                  <IoEyeOutline size={18} />
+                )}
+              </span>
+            </div>
           </div>
         </div>
         <div className='flex flex-wrap -mx-3'>
