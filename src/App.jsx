@@ -17,7 +17,7 @@ import './App.css';
 import { UserProvider } from './context/UserContext';
 import VerifyEmail from './pages/VerifyEmail';
 import { TaskProvider } from './context/TasksContext';
-import FormsTaskCreate from './components/FormsTaskCreate';
+
 import { MessageProvider } from './context/MessagesContext';
 import RecoverPassword from './pages/RecoverPassword';
 // import ProtectedRoutes from './components/ProtectedRoutes';
@@ -58,10 +58,6 @@ function App() {
                 <Route
                   path='/login-page'
                   element={<LoginPage />}
-                />
-                <Route
-                  path='/forms-task-create'
-                  element={<FormsTaskCreate />}
                 />
                 <Route
                   path='/register-page'

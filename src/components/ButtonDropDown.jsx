@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Dropdown } from 'keep-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { useMessage } from '../context/MessagesContext';
 import { useUser } from '../context/UserContext';
 
 const ButtonDropDown = ({ userContacts }) => {
-  const navigate = useNavigate();
   const { setRoom } = useMessage();
   const { user, setSelectedUser } = useUser();
 
@@ -15,8 +14,6 @@ const ButtonDropDown = ({ userContacts }) => {
     contact._id > user._id
       ? setRoom(contact._id + user._id)
       : setRoom(user._id + contact._id);
-
-    navigate(`/chat-page`);
   };
 
   const [search, setSearch] = useState('');

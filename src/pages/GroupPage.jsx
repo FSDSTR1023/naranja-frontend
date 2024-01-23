@@ -6,6 +6,7 @@ import DragDropContext from '../components/DragDropContext';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '../context/UserContext';
 import { useTasks } from '../context/TasksContext';
+import ToolTip from '../components/ToolTip';
 
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
 
@@ -51,10 +52,10 @@ const GroupPage = () => {
 
   return (
     <div className='flex flex-col bg-gray-500 w-full h-full'>
-      <div className='flex w-full h-[50px] bg-orange-500 items-center justify-between gap-3'>
+      <div className='flex flex-wrap w-full h-[50px] bg-orange-500 items-center justify-between gap-3 box-border'>
         <div className='ml-3 flex flex-row gap-3 justify-center items-center'>
           <ButtonDropDownGroup groups={groups} />
-          <h1 className='text-sm font-bold text-gray-700'>
+          <h1 className='text-xs font-bold text-gray-700'>
             {currentGroup?.name}
           </h1>
         </div>
@@ -63,7 +64,7 @@ const GroupPage = () => {
           <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
             <button
               onClick={onAddContainer}
-              className='bg-gray-200 p-2 text-center text-gray-700 text-[11px]               
+              className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
               Add
             </button>
@@ -84,32 +85,36 @@ const GroupPage = () => {
         ) : (
           <div className='mr-3 flex flex-row'>
             <button
-              className='bg-gray-200 p-2 text-center text-gray-700 text-[11px]               
-              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'
+              className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              font-bold rounded-md hover:bg-gray-300 m-2 whitespace-nowrap'
               onClick={() => setAddContainerInput(!addContainerInput)}>
               Añadir Tablero
             </button>
             <div className='relative flex flex-row mr-3 items-center justify-center ml-3'>
               {currentGroup?.members?.map((member) => (
-                <img
-                  key={member._id}
-                  className='w-6 h-6 rounded-full relative left-0 top-0'
-                  src={member?.avatar}
-                  alt='Avatar'
-                />
+                <ToolTip
+                  key={member?._id}
+                  label={member?.email}>
+                  <img
+                    key={member?._id}
+                    className='w-6 h-6 rounded-full relative left-0 top-0'
+                    src={member?.avatar}
+                    alt='Avatar'
+                  />
+                </ToolTip>
               ))}
             </div>
 
             <div className='flex gap-2 items-center justify-center'>
               <button
-                className='bg-gray-200 p-2 text-center text-gray-700 text-[11px]               
-              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
+                className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                 Añadir Participante
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className='bg-gray-200 p-2 text-center text-gray-700 text-[11px]               
-              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
+                className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                 Open Chat
               </button>
             </div>

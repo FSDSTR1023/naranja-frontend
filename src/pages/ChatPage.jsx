@@ -35,12 +35,14 @@ const ChatPage = () => {
     socket.emit('join-room', room);
     const groupToGet = {
       groupId: room,
-      name: user.name + selectedUser.name,
+      name: user?.name + selectedUser?.name,
       description: 'chat-privado',
-      ownerUser: user._id,
-      members: [user._id, selectedUser._id],
+      ownerUser: user?._id,
+      members: [user?._id, selectedUser?._id],
     };
+
     const getInfo = async () => {
+      if (selectedUser === undefined || room === undefined) return;
       const response = await getGroupById(groupToGet);
 
       if (response) {

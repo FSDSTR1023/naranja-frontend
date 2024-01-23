@@ -33,7 +33,8 @@ const ButtonDropDownGroup = ({ groups }) => {
   return (
     <div className='flex flex-col justify-center items-center'>
       <Dropdown
-        className='bg-gray-200 mt-1 mb-1 text-gray-700 text-xs font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'
+        className='bg-gray-200 mt-1 mb-1 text-gray-700 text-[9px] 
+        font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'
         label='Group Boards'
         type='primary'
         size='xs'
