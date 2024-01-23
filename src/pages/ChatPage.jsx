@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
@@ -113,26 +114,36 @@ const ChatPage = () => {
           className='flex flex-col border-2 border-gray-400 rounded-md 
         w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)] justify-between'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
-            <div className='flex items-center jc'>
-              <img
-                className='w-6 h-6 rounded-full mr-3'
-                src={selectedUser?.avatar}
-                alt='avatar'
-              />
-              <p className='text-[14px] justify-center flex text-black mr-3'>
-                {selectedUser?.name} {selectedUser?.surname}
-              </p>
-              {selectedUser?.isOnline === 'Online' ? (
-                <div className='w-2 h-2 bg-green-500 rounded-full'></div>
-              ) : selectedUser?.isOnline === 'Busy' ? (
-                <div className='w-2 h-2 bg-yellow-500 rounded-full'></div>
-              ) : (
-                <div className='w-2 h-2 bg-red-500 rounded-full'></div>
-              )}
-            </div>
+            {room ? (
+              <div className='flex items-center justify-center'>
+                <img
+                  className='w-6 h-6 rounded-full mr-3'
+                  src={selectedUser?.avatar}
+                  alt='avatar'
+                />
+
+                <p className='text-[14px] justify-center flex text-black mr-3'>
+                  {selectedUser?.name} {selectedUser?.surname}
+                </p>
+                {selectedUser?.isOnline === 'Online' ? (
+                  <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                ) : selectedUser?.isOnline === 'Busy' ? (
+                  <div className='w-2 h-2 bg-yellow-500 rounded-full'></div>
+                ) : (
+                  <div className='w-2 h-2 bg-red-500 rounded-full'></div>
+                )}
+              </div>
+            ) : (
+              <div className='flex items-center justify-center'>
+                <p className='text-[14px] justify-center flex text-black mr-3'>
+                  No hay usuario seleccionado
+                </p>
+              </div>
+            )}
             <button
               className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300'
-              onClick={hendleVideoCall}>
+              onClick={hendleVideoCall}
+              disabled={room ? false : true}>
               {!isVideo ? <FaVideo /> : <FaVideoSlash />}
             </button>
           </div>
@@ -192,6 +203,7 @@ const ChatPage = () => {
               className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
               onSubmit={(e) => onSubmit(e)}>
               <input
+                disabled={room ? false : true}
                 type='text'
                 placeholder='Mensaje...'
                 value={chatMessage}
@@ -212,6 +224,7 @@ const ChatPage = () => {
                 />
               )}
               <Dropzone
+                disabled={room ? false : true}
                 acceptedFiles='.jpg, .png, .jpeg, .gif, .svg, .pdf'
                 multiple={false}
                 noClick={true}
@@ -237,6 +250,7 @@ const ChatPage = () => {
               </Dropzone>
 
               <PaperAirplaneIcon
+                disabled={room ? false : true}
                 className='h-8 w-8 
       cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90'
                 type='submit'

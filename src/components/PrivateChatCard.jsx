@@ -3,11 +3,10 @@ import { format } from 'date-fns';
 
 import { useEffect } from 'react';
 import { useUser } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+
 import { useMessage } from '../context/MessagesContext';
 
 const PrivateChatCard = ({ group }) => {
-  const navigate = useNavigate();
   const { setRoom } = useMessage();
   const { user, setSelectedUser } = useUser();
   useEffect(() => {}, []);
@@ -15,10 +14,9 @@ const PrivateChatCard = ({ group }) => {
     const contact = group?.members?.filter(
       (member) => member._id !== user?._id
     )[0];
+    console.log(contact);
     setSelectedUser(contact);
     setRoom(group?.id);
-
-    navigate(`/chat-page`);
   };
 
   return (

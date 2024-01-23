@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from 'react-router-dom';
+
 import { useMessage } from '../context/MessagesContext';
 import { useUser } from '../context/UserContext';
 
 const UserCard = ({ contact }) => {
-  const navigate = useNavigate();
   const { setRoom } = useMessage();
   const { user, setSelectedUser } = useUser();
 
@@ -13,8 +12,6 @@ const UserCard = ({ contact }) => {
     contact._id > user._id
       ? setRoom(contact._id + user._id)
       : setRoom(user._id + contact._id);
-
-    navigate(`/chat-page`);
   };
 
   return (
