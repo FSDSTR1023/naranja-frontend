@@ -21,6 +21,7 @@ const PasswordUpdate = () => {
     }
 
     updateUserPassword(user, password);
+    alert('Contraseña actualizada correctamente.');
   });
   return (
     <div className='my-4 flex justify-center w-auto border-2 border-gray-300 rounded-md p-2'>

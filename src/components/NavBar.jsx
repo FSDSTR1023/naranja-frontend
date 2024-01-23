@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { useUser } from '../context/UserContext';
 import logotask from '../assets/logotask.png';
 import { TbLogout } from 'react-icons/tb';
+import Profile from './Profile'
+
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, logOutUser } = useUser();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { isAuthenticated, logOutUser, user } = useUser();
   return (
     <nav className='bg-white border-gray-200 dark:bg-gray-900 p-4 block'>
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
@@ -71,6 +74,11 @@ const NavBar = () => {
                     aria-current='page'>
                     Profile
                   </Link>
+                  <img
+                    src={user?.avatar}
+                    alt='Avatar'
+                    className='w-12 h-12 rounded-full justify-center mx-auto my-2'
+                  />
                   <button
                     onClick={logOutUser}
                     className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
@@ -132,6 +140,21 @@ const NavBar = () => {
                     Profile
                   </Link>
                 </li>
+                <img
+                  src={user?.avatar}
+                  alt='Avatar'
+                  className='w-12 h-12 rounded-full justify-center mx-auto cursor-pointer'
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                />
+                {isProfileOpen && (
+                  <>
+                    <div className='fixed inset-x-120 top-20 w-[30%] mx-auto'>
+                      <div className='bg-white p-4 rounded-lg'>
+                        <Profile/>
+                      </div>
+                    </div>
+                  </>
+                )}
                 <button
                   onClick={logOutUser}
                   className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-2 md:border-orange-500
