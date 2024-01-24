@@ -3,10 +3,9 @@ import { useState } from 'react';
 import { useUser } from '../context/UserContext';
 import logotask from '../assets/logotask.png';
 import { TbLogout } from 'react-icons/tb';
-import Profile from './Profile'
+import Profile from './Profile';
 
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { isAuthenticated, logOutUser, user } = useUser();
   return (
@@ -23,96 +22,66 @@ const NavBar = () => {
           />
         </a>
         {/* Hamburger Menu Button (Shown only on small screens) */}
-        <button
-          type='button'
-          className='inline-flex items-center p-2 w-10 h-10 justify-center text-sm
-         text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2
-         focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
-          aria-expanded={isMenuOpen}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          data-collapse-toggle='navbar-default'
-          aria-controls='navbar-default'>
-          <span className='sr-only'>Open main menu</span>
-          <svg
-            className='w-5 h-5'
-            aria-hidden='true'
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 17 14'>
-            <path
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M1 1h15M1 7h15M1 13h15'
-            />
-          </svg>
-        </button>
-        {/* Responsive Menu (for smaller screens, toggled by hamburger button) */}
-        {isMenuOpen && (
-          <div
-            className='w-full md:hidden'
-            onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <ul
-              className='flex flex-col p-4 mt-4 border border-gray-100 rounded-lg
-            bg-gray-50 dark:bg-gray-800 dark:border-gray-700 gap-1'>
-              <li>
-                <Link
-                  to='/'
-                  className='block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent
-                  md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500'
-                  aria-current='page'>
-                  Home
-                </Link>
-              </li>
-              {isAuthenticated ? (
+        {isAuthenticated ? (
+          <>
+            <div className='flex items-center justify-center md:hidden gap-2'>
+              <Link
+                to='/profile-page'
+                className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500 text-sm
+               dark:hover:bg-gray-700 '
+                aria-current='page'>
+                Home
+              </Link>
+              <div className='dark:hover:bg-gray-700 p-2 rounded-md '>
+                <img
+                  src={user?.avatar}
+                  alt='Avatar'
+                  className='w-6 h-6 rounded-full justify-center mx-auto cursor-pointer'
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                />
+              </div>
+              {isProfileOpen && (
                 <>
-                  <Link
-                    to='/profile-page'
-                    className='block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent
-                  md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500'
-                    aria-current='page'>
-                    Profile
-                  </Link>
-                  <img
-                    src={user?.avatar}
-                    alt='Avatar'
-                    className='w-12 h-12 rounded-full justify-center mx-auto my-2'
-                  />
-                  <button
-                    onClick={logOutUser}
-                    className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
-               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent border-2 border-orange-500  '
-                    title='Logout'>
-                    <TbLogout
-                      size={20}
-                      strokeWidth={1.5}
-                    />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to='/login-page'
-                    className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
-               md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white
-               md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'>
-                    Login
-                  </Link>
-                  <Link
-                    to='/register-page'
-                    className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
-               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent'>
-                    Register
-                  </Link>
+                  <div className='w-fit mx-auto md:hidden absolute top-14 right-10 pointer-events-auto z-10'>
+                    <div className='bg-white p-4 rounded-lg  '>
+                      <Profile className='md:hidden ' />
+                    </div>
+                  </div>
                 </>
               )}
-            </ul>
+              <button
+                onClick={logOutUser}
+                className='block py-1 px-1 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 
+               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
+               dark:hover:text-white md:dark:hover:bg-transparent ml-2'
+                title='Logout'>
+                <TbLogout
+                  size={25}
+                  strokeWidth={1}
+                />
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className='flex items-center justify-end'>
+            <Link
+              to='/login-page'
+              className='md:hidden block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500
+               dark:hover:bg-gray-700 text-sm'>
+              Login
+            </Link>
+            <Link
+              to='/register-page'
+              className='md:hidden block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500 text-sm
+               dark:hover:bg-gray-700 '>
+              Register
+            </Link>
           </div>
         )}
-        {/* Full-Screen Menu (for larger screens) */}
+
         <div
           className='hidden w-full  md:w-auto md:flex md:items-center md:justify-center'
           id='navbar-default'>
@@ -120,68 +89,62 @@ const NavBar = () => {
             className='font-medium flex flex-col p-4 md:p-0 mt-4 border
             border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:items-center md:justify-center
             md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
-            <li>
-              <Link
-                to='/'
-                className='block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent
-                  md:text-orange-700 md:p-0 dark:text-white md:dark:text-orange-500'
-                aria-current='page'>
-                Home
-              </Link>
-            </li>
             {isAuthenticated ? (
-              <>
+              <div className='flex items-center justify-end gap-4'>
                 <li>
                   <Link
                     to='/profile-page'
-                    className='block py-2 px-3 text-white bg-orange-500 rounded md:bg-transparent md:text-orange-700 
-                  md:p-0 dark:text-white md:dark:text-orange-500'
+                    className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500
+               dark:hover:bg-gray-700 text-sm '
                     aria-current='page'>
-                    Profile
+                    Home
                   </Link>
                 </li>
-                <img
-                  src={user?.avatar}
-                  alt='Avatar'
-                  className='w-12 h-12 rounded-full justify-center mx-auto cursor-pointer'
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                />
+                <div className='dark:hover:bg-gray-700 p-2 rounded-md '>
+                  <img
+                    src={user?.avatar}
+                    alt='Avatar'
+                    className='w-6 h-6 rounded-full justify-center mx-auto cursor-pointer dark:hover:bg-gray-700 '
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  />
+                </div>
                 {isProfileOpen && (
                   <>
-                    <div className='fixed inset-x-120 top-20 w-fit mx-auto'>
+                    <div className='w-fit mx-auto absolute top-14 right-10 pointer-events-auto z-10'>
                       <div className='bg-white p-4 rounded-lg'>
-                        <Profile/>
+                        <Profile />
                       </div>
                     </div>
                   </>
                 )}
                 <button
                   onClick={logOutUser}
-                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-2 md:border-orange-500
-               md:hover:text-orange-500  dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent border-2 border-orange-600 md:p-1 md:text-center  '
+                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500
+               dark:hover:bg-gray-700 '
                   title='Logout'>
                   <TbLogout
-                    size={20}
-                    strokeWidth={1.5}
+                    size={25}
+                    strokeWidth={1}
                   />
                 </button>
-              </>
+              </div>
             ) : (
               <>
                 <Link
-                  to='/register-page'
-                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
-               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent'>
-                  Register
+                  to='/login-page'
+                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500
+               dark:hover:bg-gray-700 text-sm'>
+                  Login
                 </Link>
                 <Link
-                  to='/login-page'
-                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
-               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent'>
-                  Login
+                  to='/register-page'
+                  className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
+               dark:text-white dark:hover:text-orange-500 text-sm
+               dark:hover:bg-gray-700 '>
+                  Register
                 </Link>
               </>
             )}

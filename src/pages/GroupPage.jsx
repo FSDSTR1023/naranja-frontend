@@ -52,7 +52,7 @@ const GroupPage = () => {
 
   return (
     <div className='flex flex-col bg-gray-500 w-full h-full'>
-      <div className='flex flex-wrap w-full h-[50px] bg-orange-500 items-center justify-between gap-3 box-border'>
+      <div className='flex flex-wrap w-full  bg-orange-500 items-center justify-center gap-3 box-border md:justify-between'>
         <div className='ml-3 flex flex-row gap-3 justify-center items-center'>
           <ButtonDropDownGroup groups={groups} />
           <h1 className='text-xs font-bold text-gray-700'>

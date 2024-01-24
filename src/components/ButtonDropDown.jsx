@@ -28,7 +28,7 @@ const ButtonDropDown = ({ userContacts }) => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center pt-2'>
+    <div className='flex flex-col justify-center items-center pt-2 '>
       <Dropdown
         className='bg-orange-600 mt-4 text-white text-sm font-bold rounded-md hover:bg-orange-800 m-2 pointer-events-auto'
         label='Contacts'
