@@ -21,9 +21,10 @@ const PasswordUpdate = () => {
     }
 
     updateUserPassword(user, password);
+    alert('Contraseña actualizada correctamente.');
   });
   return (
-    <div className='my-4 flex justify-center w-auto border-2 border-gray-300 rounded-md p-2'>
+    <div className='my-4 flex justify-center w-auto  rounded-md p-1'>
       <form onSubmit={onSubmit}>
         <div>
           <div className='flex justify-between'>

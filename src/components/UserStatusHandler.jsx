@@ -11,7 +11,7 @@ const UserStatusHandler = () => {
   });
 
   return (
-    <div className='border-2 border-gray-300 rounded-md w-full'>
+    <div className=' rounded-md w-full'>
       <form onSubmit={onSubmit}>
         <label
           htmlFor='isOnline'

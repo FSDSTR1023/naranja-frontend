@@ -39,7 +39,7 @@ const PrivateChatCard = ({ group }) => {
                     src={group?.members[0]?.avatar}
                     alt='avatar'
                   />
-                  <p className='font-bold text-sm ml-2'>
+                  <p className='font-bold ml-2 text-sm ml-2'>
                     {group?.members[0]?.name}
                   </p>
                 </div>
