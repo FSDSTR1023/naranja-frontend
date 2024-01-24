@@ -6,10 +6,15 @@ import { useUser } from '../context/UserContext';
 
 import { useMessage } from '../context/MessagesContext';
 
+import { useGroups } from '../context/GroupContext';
+
 const PrivateChatCard = ({ group }) => {
   const { setRoom } = useMessage();
-  const { user, setSelectedUser } = useUser();
-  useEffect(() => {}, []);
+  const { user, setSelectedUser, selectedUser } = useUser();
+  const { getAllGroups } = useGroups();
+  useEffect(() => {
+    getAllGroups(user?._id);
+  }, [selectedUser]);
   const handleClick = async () => {
     const contact = group?.members?.filter(
       (member) => member._id !== user?._id
@@ -22,18 +27,20 @@ const PrivateChatCard = ({ group }) => {
   return (
     <>
       <div
-        className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer'
+        className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer bg-orange-500/90'
         onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
           <div className='flex w-full'>
             {group?.members[0]?._id !== user?._id ? (
-              <div className='flex  flex-wrap items-center justify-between w-full'>
-                <img
-                  className='w-6 h-6 rounded-full'
-                  src={group?.members[0]?.avatar}
-                  alt='avatar'
-                />
-                <p className='font-bold text-sm'>{group?.members[0]?.name}</p>
+              <div className='flex  items-center justify-between w-full'>
+                <div className='flex items-center justify-start w-full'>
+                  <img
+                    className='w-6 h-6 rounded-full'
+                    src={group?.members[0]?.avatar}
+                    alt='avatar'
+                  />
+                  <p className='font-bold text-sm'>{group?.members[0]?.name}</p>
+                </div>
 
                 {group.members[0]?.isOnline === 'Online' ? (
                   <div className='w-2 h-2 bg-green-500 rounded-full'></div>
@@ -44,13 +51,15 @@ const PrivateChatCard = ({ group }) => {
                 )}
               </div>
             ) : (
-              <div className='flex  flex-wrap items-center justify-between w-full '>
-                <img
-                  className='w-6 h-6 rounded-full'
-                  src={group?.members[1]?.avatar}
-                  alt='avatar'
-                />
-                <p className='font-bold text-sm'>{group?.members[1]?.name}</p>
+              <div className='flex  items-center justify-between w-full '>
+                <div className='flex items-center justify-start w-full gap-2'>
+                  <img
+                    className='w-6 h-6 rounded-full'
+                    src={group?.members[1]?.avatar}
+                    alt='avatar'
+                  />
+                  <p className='font-bold text-sm'>{group?.members[1]?.name}</p>
+                </div>
 
                 {group.members[1]?.isOnline === 'Online' ? (
                   <div className='w-2 h-2 bg-green-500 rounded-full'></div>

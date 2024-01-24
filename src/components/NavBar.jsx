@@ -148,7 +148,7 @@ const NavBar = () => {
                 />
                 {isProfileOpen && (
                   <>
-                    <div className='fixed inset-x-120 top-20 w-[30%] mx-auto'>
+                    <div className='fixed inset-x-120 top-20 w-fit mx-auto'>
                       <div className='bg-white p-4 rounded-lg'>
                         <Profile/>
                       </div>

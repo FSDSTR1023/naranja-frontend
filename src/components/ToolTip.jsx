@@ -9,7 +9,7 @@ const ToolTip = ({ label, children }) => {
       {show && (
         <p
           className='absolute flex justify-center items-center z-10
-         -top-8 -left-1/2 bg-gray-700 text-white text-[8px] rounded-md w-[90px] p-3'>
+         -top-8 -left-1/2 bg-gray-700 text-white text-[8px] rounded-md min-w-[90px] p-3'>
           {label}
         </p>
       )}
