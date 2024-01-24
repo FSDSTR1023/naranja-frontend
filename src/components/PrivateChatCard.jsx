@@ -39,7 +39,9 @@ const PrivateChatCard = ({ group }) => {
                     src={group?.members[0]?.avatar}
                     alt='avatar'
                   />
-                  <p className='font-bold text-sm'>{group?.members[0]?.name}</p>
+                  <p className='font-bold text-sm ml-2'>
+                    {group?.members[0]?.name}
+                  </p>
                 </div>
 
                 {group.members[0]?.isOnline === 'Online' ? (
