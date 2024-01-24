@@ -61,7 +61,7 @@ const ProfilePage = () => {
           <div className='flex items-center justify-center text-xs font-bold'>
             No tienes chats privados
           </div>
-        )}
+        )}galizaragoza
 
         {privateGroups?.map((group) => (
           <PrivateChatCard
@@ -90,7 +90,7 @@ const ProfilePage = () => {
       </div>
 
       <div
-        className='col-span-6 border-x-2 border-gray-700 flex flex-col 
+        className='col-span-9 border-x-2 border-gray-700 flex flex-col 
       items-center justify-start mb-1 overflow-auto bg-gray-700'>
         <ChatPage />
       </div>
