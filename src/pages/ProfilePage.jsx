@@ -1,8 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import AvatarHandler from '../components/AvatarHandler';
-import PasswordUpdate from '../components/PasswordUpdate';
-import UserStatusHandler from '../components/UserStatusHandler';
 
 import { useUser } from '../context/UserContext';
 
@@ -25,7 +22,6 @@ const ProfilePage = () => {
     setIsAuthenticated,
     allUsers,
     getAllUsers,
-    logOutUser,
     usersChanges,
   } = useUser();
 
@@ -33,11 +29,6 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    console.log('handleClick LogOut');
-
-    logOutUser();
-  };
 
   useEffect(() => {
     if (!user) {
@@ -102,23 +93,6 @@ const ProfilePage = () => {
         className='col-span-6 border-x-2 border-gray-700 flex flex-col 
       items-center justify-start mb-1 overflow-auto bg-gray-700'>
         <ChatPage />
-      </div>
-
-      <div className='col-span-3 bg-gray-200 flex flex-col justify-start'>
-        <h1 className=' text-center text-2xl font-bold mt-6'>Perfil</h1>
-        <h3 className=''>
-          {user?.name} {user?.surname}
-        </h3>
-        <AvatarHandler />
-        <PasswordUpdate />
-        <UserStatusHandler />
-        <div className='flex flex-col items-center justify-center'>
-          <button
-            className='bg-red-600 mt-4 text-white font-bold py-2 px-4 rounded-md hover:bg-red-800'
-            onClick={handleClick}>
-            LogOut →
-          </button>
-        </div>
       </div>
     </div>
   );

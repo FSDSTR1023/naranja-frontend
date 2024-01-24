@@ -17,7 +17,7 @@ const AvatarHandler = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-2 justify-center items-center border-2 border-gray-300 p-4 rounded-lg my-4'>
+      <div className='flex flex-col gap-2 justify-center items-center p-2 mt-2 rounded-lg'>
         <p>Cambia tu Avatar</p>
         <div className='flex justify-center w-full '>
           <img
@@ -27,7 +27,7 @@ const AvatarHandler = () => {
           />
         </div>
 
-        <div className='flex flex-row gap-2 items-center my-2'>
+        <div className='flex flex-row gap-2 items-center'>
           <Dropzone
             acceptedFiles='.jpg, .png, .jpeg, .gif, .svg'
             multiple={false}
