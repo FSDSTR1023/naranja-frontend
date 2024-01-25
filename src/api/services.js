@@ -7,7 +7,7 @@ export const uploadImage = async (file) => {
   formData.append('upload_preset', 'emnwqxan');
   try {
     const response = await axios.post(
-      'https://api.cloudinary.com/v1_1/daoxla1fg/image/upload',
+      'https://api.cloudinary.com/v1_1/daoxla1fg/auto/upload',
       formData
     );
     const uploadedData = response.data.url;

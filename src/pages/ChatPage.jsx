@@ -70,26 +70,50 @@ const ChatPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (uplodedFile) {
+      console.log(uplodedFile, '<-- uplodedFile');
       const response = await uploadImage(uplodedFile);
-      setPreviewImage(null);
+      const extencion = response.split('.').pop();
+      if (extencion === 'pdf') {
+        setPreviewImage(null);
+        console.log('entro al pdf');
+        const messageData = {
+          group: currentGroup._id,
+          room: room,
+          body: chatMessage === '' ? 'PDF' : chatMessage,
+          author: user._id,
+          authorName: user.name,
+          image: '',
+          video: '',
+          fileAtt: response,
+          time: new Date(Date.now()),
+        };
+        setChatMessage('');
+        setUploadedFile(null);
+        await socket.emit('send-message', { room, messageData, user });
+        await setMessage((list) => [...list, messageData]);
 
-      const messageData = {
-        group: currentGroup._id,
-        room: room,
-        body: chatMessage === '' ? 'Image' : chatMessage,
-        author: user._id,
-        authorName: user.name,
-        image: response,
-        video: '',
-        fileAtt: '',
-        time: new Date(Date.now()),
-      };
-      setChatMessage('');
-      setUploadedFile(null);
-      await socket.emit('send-message', { room, messageData, user });
-      await setMessage((list) => [...list, messageData]);
+        createMessage(messageData);
+      } else if (extencion !== 'pdf') {
+        setPreviewImage(null);
 
-      createMessage(messageData);
+        const messageData = {
+          group: currentGroup._id,
+          room: room,
+          body: chatMessage === '' ? 'Image' : chatMessage,
+          author: user._id,
+          authorName: user.name,
+          image: response,
+          video: '',
+          fileAtt: '',
+          time: new Date(Date.now()),
+        };
+        setChatMessage('');
+        setUploadedFile(null);
+        await socket.emit('send-message', { room, messageData, user });
+        await setMessage((list) => [...list, messageData]);
+
+        createMessage(messageData);
+      }
     } else if (chatMessage !== '') {
       const messageData = {
         group: currentGroup._id,
@@ -111,7 +135,6 @@ const ChatPage = () => {
       createMessage(messageData);
     }
   };
-
   const hendleVideoCall = () => {
     setIsVideo(!isVideo);
   };
@@ -241,6 +264,7 @@ const ChatPage = () => {
                 noClick={true}
                 onDrop={(acceptedFiles) => {
                   setUploadedFile(acceptedFiles[0]);
+                  if (acceptedFiles[0].type.includes('pdf')) return;
                   setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
                 }}>
                 {({ getRootProps, getInputProps, open }) => (
