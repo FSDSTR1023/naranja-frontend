@@ -11,7 +11,7 @@ import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
 import { useNavigate } from 'react-router-dom';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
 import clsx from 'clsx';
@@ -54,7 +54,7 @@ const ChatPage = () => {
       console.log(selectedUser.name, '<-- selectedUser.name');
       return;
     } else {
-      console.log('entro al else');
+      console.log('entro al else', selectedUser.name, room, user?._id);
       getInfo();
     }
   }, [room]);
