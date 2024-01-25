@@ -72,10 +72,11 @@ const ChatPage = () => {
     if (uplodedFile) {
       const response = await uploadImage(uplodedFile);
       setPreviewImage(null);
+
       const messageData = {
         group: currentGroup._id,
         room: room,
-        body: chatMessage,
+        body: chatMessage === '' ? response : chatMessage,
         author: user._id,
         authorName: user.name,
         image: response,
@@ -184,9 +185,11 @@ const ChatPage = () => {
                       </div>
                       <div className='flex flex-wrap max-w-md'>
                         <hr className=' border-1 w-full rounded-md border-grey-600' />
-                        <p className='text-[14px] text-start flex mt-1 '>
+
+                        <p className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
                           {m.body}
                         </p>
+
                         {m.image && (
                           <img
                             className='w-[150px] m-2'
