@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
+import PDF from '../assets/PDF.png';
 
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
@@ -10,7 +11,7 @@ import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
 import clsx from 'clsx';
@@ -220,6 +221,23 @@ const ChatPage = () => {
                             alt='file'
                           />
                         )}
+                        {m.fileAtt && (
+                          <>
+                            <a
+                              className='w-[150px] m-2 text-sky-600 underline'
+                              href={m.fileAtt}
+                              target='_blank'
+                              rel='noreferrer'>
+                              <p className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
+                                {m.fileAtt}
+                              </p>
+                            </a>
+                            <iframe
+                              src={m.fileAtt}
+                              height='auto'
+                              width='190px'></iframe>
+                          </>
+                        )}
                       </div>
                       <div>
                         <p className='text-[10px] w-full text-end'>
@@ -249,10 +267,11 @@ const ChatPage = () => {
               {previewImage && (
                 <img
                   className='w-12 h-12 object-cover align-center m-2'
-                  src={previewImage}
+                  src={PDF}
                   alt=''
                   onClick={() => {
                     URL.revokeObjectURL(previewImage);
+                    setUploadedFile(null);
                     setPreviewImage(null);
                   }}
                 />
@@ -264,7 +283,9 @@ const ChatPage = () => {
                 noClick={true}
                 onDrop={(acceptedFiles) => {
                   setUploadedFile(acceptedFiles[0]);
-                  if (acceptedFiles[0].type.includes('pdf')) return;
+                  if (acceptedFiles[0].type.includes('pdf')) {
+                    setPreviewImage(PDF);
+                  }
                   setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
                 }}>
                 {({ getRootProps, getInputProps, open }) => (
