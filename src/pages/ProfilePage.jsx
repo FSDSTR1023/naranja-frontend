@@ -29,7 +29,6 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -45,13 +44,12 @@ const ProfilePage = () => {
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
-      <div className='col-span-3 bg-gray-700  overflow-auto'>
-        <div className='flex flex-col items-center justify-center'>
+      <div className='col-span-3 bg-gray-700  overflow-auto p-1'>
+        <div className='flex flex-col items-center justify-center lg:flex-row '>
           <CreateGroupButton />
           <ButtonDropDown userContacts={allUsers} />
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
-
         <div className='text-md flex items-center justify-around gap-3'>
           <h1 className='text-xs font-bold text-white'>Chats Privados</h1>
           <TiMessages className='text-white' />
@@ -61,7 +59,7 @@ const ProfilePage = () => {
           <div className='flex items-center justify-center text-xs font-bold'>
             No tienes chats privados
           </div>
-        )}galizaragoza
+        )}
 
         {privateGroups?.map((group) => (
           <PrivateChatCard
@@ -70,7 +68,6 @@ const ProfilePage = () => {
           />
         ))}
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
-
         <div className='text-md flex items-center justify-around gap-3'>
           <h1 className='text-xs font-bold text-white'>Paneles de Grupo</h1>
           <LuLayoutPanelLeft className='text-white' />

@@ -7,7 +7,7 @@ const CreateGroupButton = () => {
       <button
         className='bg-orange-600 mt-4
        text-white font-bold py-2 px-4 rounded-md hover:bg-orange-800 
-       mb-2'
+       mb-2 whitespace-nowrap'
         onClick={() => navigate('/create-group')}>
         Crear Grupo
       </button>
