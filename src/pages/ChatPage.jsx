@@ -249,7 +249,7 @@ const ChatPage = () => {
 
                       <PaperClipIcon
                         className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
-                       hover:border-gray-400'
+                       hover:border-gray-400 text-white'
                         onClick={open}
                       />
                     </div>
@@ -260,7 +260,7 @@ const ChatPage = () => {
               <PaperAirplaneIcon
                 disabled={room ? false : true}
                 className='h-8 w-8 
-      cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90'
+      cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90 text-white'
                 type='submit'
                 onClick={(e) => onSubmit(e)}
               />
