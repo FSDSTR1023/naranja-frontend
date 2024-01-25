@@ -76,7 +76,7 @@ const ChatPage = () => {
       const messageData = {
         group: currentGroup._id,
         room: room,
-        body: chatMessage === '' ? response : chatMessage,
+        body: chatMessage === '' ? 'Image' : chatMessage,
         author: user._id,
         authorName: user.name,
         image: response,
