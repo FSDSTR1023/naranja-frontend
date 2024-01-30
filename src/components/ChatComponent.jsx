@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
-
+import PDF from '../assets/PDF.png';
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
@@ -28,6 +28,7 @@ const ChatComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(room, '<-- room en ChatComponent');
     if (!user) {
       navigate('/');
     }
@@ -39,8 +40,9 @@ const ChatComponent = () => {
         await getAllMessages(room);
       }
     };
+
     getInfo();
-  }, [room]);
+  }, []);
 
   useEffect(() => {
     if (!socket) return;
@@ -52,28 +54,52 @@ const ChatComponent = () => {
   }, [socket]);
 
   const onSubmit = async (e) => {
-    console.log(uplodedFile, '<-- uplodedFile en onSubmit');
     e.preventDefault();
     if (uplodedFile) {
+      console.log(uplodedFile, '<-- uplodedFile');
       const response = await uploadImage(uplodedFile);
-      setPreviewImage(null);
-      const messageData = {
-        group: room,
-        room: room,
-        body: chatMessage,
-        author: user._id,
-        authorName: user.name,
-        image: response,
-        video: '',
-        fileAtt: '',
-        time: new Date(Date.now()),
-      };
-      setChatMessage('');
-      setUploadedFile(null);
-      await socket.emit('send-message', { room, messageData, user });
-      await setMessage((list) => [...list, messageData]);
-      console.log(message, '<-- message en onSubmit');
-      createMessage(messageData);
+      const extencion = response.split('.').pop();
+      if (extencion === 'pdf') {
+        setPreviewImage(null);
+        console.log('entro al pdf');
+        const messageData = {
+          group: room,
+          room: room,
+          body: chatMessage === '' ? 'PDF' : chatMessage,
+          author: user._id,
+          authorName: user.name,
+          image: '',
+          video: '',
+          fileAtt: response,
+          time: new Date(Date.now()),
+        };
+        setChatMessage('');
+        setUploadedFile(null);
+        await socket.emit('send-message', { room, messageData, user });
+        await setMessage((list) => [...list, messageData]);
+
+        createMessage(messageData);
+      } else if (extencion !== 'pdf') {
+        setPreviewImage(null);
+
+        const messageData = {
+          group: room,
+          room: room,
+          body: chatMessage === '' ? 'Image' : chatMessage,
+          author: user._id,
+          authorName: user.name,
+          image: response,
+          video: '',
+          fileAtt: '',
+          time: new Date(Date.now()),
+        };
+        setChatMessage('');
+        setUploadedFile(null);
+        await socket.emit('send-message', { room, messageData, user });
+        await setMessage((list) => [...list, messageData]);
+
+        createMessage(messageData);
+      }
     } else if (chatMessage !== '') {
       const messageData = {
         group: room,
@@ -86,12 +112,12 @@ const ChatComponent = () => {
         fileAtt: '',
         time: new Date(Date.now()),
       };
-      console.log(messageData);
+
       setChatMessage('');
       await socket.emit('send-message', { room, messageData, user });
       console.log(messageData, '<-- messageData en onSubmit');
       await setMessage((list) => [...list, messageData]);
-      console.log(message, '<-- message en onSubmit');
+
       createMessage(messageData);
     }
   };
@@ -157,6 +183,23 @@ const ChatComponent = () => {
                             alt='file'
                           />
                         )}
+                        {m.fileAtt && (
+                          <>
+                            <a
+                              className='w-[150px] m-2 text-sky-600 underline'
+                              href={m.fileAtt}
+                              target='_blank'
+                              rel='noreferrer'>
+                              <p className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
+                                {m.fileAtt}
+                              </p>
+                            </a>
+                            <iframe
+                              src={m.fileAtt}
+                              height='auto'
+                              width='190px'></iframe>
+                          </>
+                        )}
                       </div>
                       <div>
                         <p className='text-[10px] w-full text-end'>
@@ -199,6 +242,9 @@ const ChatComponent = () => {
                 noClick={true}
                 onDrop={(acceptedFiles) => {
                   setUploadedFile(acceptedFiles[0]);
+                  if (acceptedFiles[0].type.includes('pdf' || 'Ai')) {
+                    setPreviewImage(PDF);
+                  }
                   setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
                 }}>
                 {({ getRootProps, getInputProps, open }) => (

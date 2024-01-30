@@ -33,7 +33,6 @@ const LoginPage = () => {
         onSubmit={onSubmit}>
         <div className='flex flex-wrap -mx-3 mb-6'>
           <div className='w-full px-3'>
-            {/* creo que iria aqui el label del email */}
             <label
               className='block text-start tracking-wide text-gray-700 text-sm font-bold mb-2 ml-2'
               htmlFor='email'>

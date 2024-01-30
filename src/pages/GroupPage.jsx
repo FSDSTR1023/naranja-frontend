@@ -9,6 +9,7 @@ import { useTasks } from '../context/TasksContext';
 import ToolTip from '../components/ToolTip';
 
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
+import { useMessage } from '../context/MessagesContext';
 
 const GroupPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +19,14 @@ const GroupPage = () => {
   const { currentGroup, groups } = useGroups();
   const { user } = useUser();
   const { createNewTask, containers, setContainers, getAllTasks } = useTasks();
+  const { setRoom } = useMessage();
 
   useEffect(() => {
     getAllTasks(currentGroup?._id);
+
+    return () => {
+      setRoom('');
+    };
   }, [currentGroup?._id]);
 
   const onAddContainer = () => {
@@ -133,7 +139,7 @@ const GroupPage = () => {
 
         <div
           className={clsx(
-            'h-full w-[90%] transition',
+            'md:h-[87%] w-[90%] transition h-[82%]',
             !isOpen ? 'hidden' : null
           )}>
           <ChatComponent />

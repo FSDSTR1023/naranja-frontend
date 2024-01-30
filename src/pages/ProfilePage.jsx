@@ -14,6 +14,7 @@ import CreateGroupButton from '../components/CreateGroupButton';
 import GroupChatCard from '../components/GroupChatCard';
 import ChatPage from './ChatPage';
 import { LuLayoutPanelLeft } from 'react-icons/lu';
+import { useMessage } from '../context/MessagesContext';
 
 const ProfilePage = () => {
   const {
@@ -26,6 +27,7 @@ const ProfilePage = () => {
   } = useUser();
 
   const { getAllGroups, groups, privateGroups } = useGroups();
+  const { room } = useMessage();
 
   const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ const ProfilePage = () => {
     getAllUsers();
 
     getAllGroups(user?._id);
-  }, [user, usersChanges]);
+  }, [user, usersChanges, room]);
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-grey-900'>
