@@ -131,7 +131,7 @@ const DragDropContainer = ({
           </button>
         </div>
       </div>
-      <div className='flex flex-col justify-start'>{children}</div>
+      <div className='flex flex-col justify-start h-full'>{children}</div>
       {!addNewItem ? (
         <button
           className='border-2 p-2 rounded-md hover:border-2 hover:p-2 text-xs hover:rounded-md hover:border-gray-300 hover:bg-slate-50/10 flex font-bold items-center bg-gray-200'

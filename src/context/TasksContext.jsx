@@ -25,6 +25,7 @@ export function TaskProvider({ children }) {
   const [myOwnTasks, setMyOwnTasks] = useState([]);
   const [myAssignedTasks, setMyAssignedTasks] = useState([]);
   const [containers, setContainers] = useState([]);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const createNewTask = async (newTask) => {
     try {
@@ -54,6 +55,7 @@ export function TaskProvider({ children }) {
 
   const getAllTasks = async (groupId) => {
     try {
+      setPageLoading(true);
       const response = await getAllTasksRequest(groupId);
       if (response.status === 200) {
         const allTasks = response.data;
@@ -62,6 +64,8 @@ export function TaskProvider({ children }) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setPageLoading(false);
     }
   };
 
@@ -105,6 +109,7 @@ export function TaskProvider({ children }) {
         setContainers,
         updateManyTasks,
         updateTitleContainer,
+        pageLoading,
         // <-- van todas las funciones de las tasks para exportarlas
       }}>
       {children}

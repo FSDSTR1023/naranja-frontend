@@ -7,9 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '../context/UserContext';
 import { useTasks } from '../context/TasksContext';
 import ToolTip from '../components/ToolTip';
+import loadingGif from '../assets/loadingPage.png';
 
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
 import { useMessage } from '../context/MessagesContext';
+import { BiPlusCircle } from 'react-icons/bi';
 
 const GroupPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +20,8 @@ const GroupPage = () => {
   const [containerName, setContainerName] = useState('');
   const { currentGroup, groups } = useGroups();
   const { user } = useUser();
-  const { createNewTask, containers, setContainers, getAllTasks } = useTasks();
+  const { createNewTask, containers, setContainers, getAllTasks, pageLoading } =
+    useTasks();
   const { setRoom } = useMessage();
 
   useEffect(() => {
@@ -55,6 +58,9 @@ const GroupPage = () => {
     setAddContainerInput(!addContainerInput);
     createNewTask(newContainer);
   };
+
+  const handleAddMember = () => {};
+  const handleLeaveGroup = () => {};
 
   return (
     <div className='flex flex-col bg-gray-500 w-full h-full'>
@@ -112,11 +118,28 @@ const GroupPage = () => {
             </div>
 
             <div className='flex gap-2 items-center justify-center'>
-              <button
-                className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              {user?._id === currentGroup?.ownerUser ? (
+                <button
+                  onClick={() => handleAddMember()}
+                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
-                Añadir Participante
-              </button>
+                  <div className='flex items-center justify-center gap-1'>
+                    <BiPlusCircle className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
+                    <span>Miembro</span>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleLeaveGroup()}
+                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+                  <div className='flex items-center justify-center gap-1'>
+                    <BiPlusCircle className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
+                    <span>Miembro</span>
+                  </div>
+                </button>
+              )}
+
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
@@ -127,24 +150,34 @@ const GroupPage = () => {
           </div>
         )}
       </div>
-      <div className='flex flex-row h-full w-full '>
-        <div className='h-[90%] w-full bg-gray-300 overflow-auto'>
-          <DragDropContext
-            containerName={containerName}
-            setContainerName={setContainerName}
-            containers={containers}
-            setContainers={setContainers}
+      {pageLoading ? (
+        <div className='w-full h-full flex items-start justify-center transition '>
+          <img
+            className='w-[450px] h-[450px] ease-in-out animate-spin duration-500'
+            src={loadingGif}
+            alt='loading'
           />
         </div>
+      ) : (
+        <div className='flex flex-row h-full w-full '>
+          <div className='h-[90%] w-full bg-gray-300 overflow-auto'>
+            <DragDropContext
+              containerName={containerName}
+              setContainerName={setContainerName}
+              containers={containers}
+              setContainers={setContainers}
+            />
+          </div>
 
-        <div
-          className={clsx(
-            'md:h-[87%] w-[90%] transition h-[82%]',
-            !isOpen ? 'hidden' : null
-          )}>
-          <ChatComponent />
+          <div
+            className={clsx(
+              'md:h-[87%] w-[90%] transition h-[82%]',
+              !isOpen ? 'hidden' : null
+            )}>
+            <ChatComponent />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
