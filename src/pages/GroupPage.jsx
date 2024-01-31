@@ -10,7 +10,7 @@ import ToolTip from '../components/ToolTip';
 import loadingGif from '../assets/loadingPage.png';
 
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
-import { useMessage } from '../context/MessagesContext';
+
 import { BiPlusCircle } from 'react-icons/bi';
 
 const GroupPage = () => {
@@ -22,14 +22,9 @@ const GroupPage = () => {
   const { user } = useUser();
   const { createNewTask, containers, setContainers, getAllTasks, pageLoading } =
     useTasks();
-  const { setRoom } = useMessage();
 
   useEffect(() => {
     getAllTasks(currentGroup?._id);
-
-    return () => {
-      setRoom('');
-    };
   }, [currentGroup?._id]);
 
   const onAddContainer = () => {

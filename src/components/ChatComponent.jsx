@@ -242,8 +242,10 @@ const ChatComponent = () => {
                 noClick={true}
                 onDrop={(acceptedFiles) => {
                   setUploadedFile(acceptedFiles[0]);
-                  if (acceptedFiles[0].type.includes('pdf' || 'Ai')) {
+                  console.log(acceptedFiles[0], '<-- acceptedFiles[0]');
+                  if (acceptedFiles[0].type.includes('pdf' || 'PDF')) {
                     setPreviewImage(PDF);
+                    return;
                   }
                   setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
                 }}>
