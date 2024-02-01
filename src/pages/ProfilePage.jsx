@@ -46,16 +46,15 @@ const ProfilePage = () => {
 
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-gray-900'>
-
-{/* Panel */}
+      {/* Panel */}
       <div className='col-span-3 overflow-auto p-4'>
-{/* botones */}
-<div className='flex flex-wrap items-center justify-center gap-x-4 mt-2 mb-7'>
-  <CreateGroupButton />
-  <ButtonDropDown userContacts={allUsers} />
-</div>
+        {/* botones */}
+        <div className='flex flex-wrap items-center justify-center gap-4 mt-2 mb-7'>
+          <CreateGroupButton />
+          <ButtonDropDown userContacts={allUsers} />
+        </div>
 
-{/* Chats */}
+        {/* Chats */}
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         <div className='text-md flex items-center justify-around gap-3'>
           <h1 className='text-xs font-bold text-white'>Chats Privados</h1>
@@ -76,7 +75,7 @@ const ProfilePage = () => {
         ))}
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
 
-{/* Paneles */}
+        {/* Paneles */}
         <div className='text-md flex items-center justify-around gap-3'>
           <h1 className='text-xs font-bold text-white'>Paneles de Grupo</h1>
           <LuLayoutPanelLeft className='text-white' />
@@ -96,7 +95,7 @@ const ProfilePage = () => {
         ))}
       </div>
 
-{/* CHAT GRANDE */}
+      {/* CHAT GRANDE */}
       <div
         className='col-span-9 border-x-2 border-gray-700 flex flex-col 
       items-center justify-start mb-1 overflow-aut'>
