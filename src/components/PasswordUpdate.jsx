@@ -24,7 +24,7 @@ const PasswordUpdate = () => {
     alert('Contraseña actualizada correctamente.');
   });
   return (
-    <div className='my-4 flex justify-center w-auto  rounded-md p-1'>
+    <div className='mb-2 flex justify-center w-auto rounded-md p-1'>
       <form onSubmit={onSubmit}>
         <div>
           <div className='flex justify-between'>

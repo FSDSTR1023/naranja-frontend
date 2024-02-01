@@ -13,6 +13,9 @@ export default {
       height: {
         custom: 'calc(100vh - 175px)',
       },
+      colors: {
+        customGray: '#a0a1a5',
+      },
     },
   },
   plugins: [import('flowbite/plugin')],
