@@ -15,6 +15,7 @@ export default {
       },
       colors: {
         customGray: '#a0a1a5',
+        chatGray: '#1e2635',
       },
     },
   },

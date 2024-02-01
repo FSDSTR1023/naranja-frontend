@@ -27,7 +27,7 @@ const PrivateChatCard = ({ group }) => {
   return (
     <>
       <div
-        className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer bg-orange-500/90'
+        className='flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-3 cursor-pointer bg-orange-500/90'
         onClick={() => handleClick(group?.id)}>
         <div className='flex w-full justify-between items-center p-2'>
           <div className='flex w-full'>
@@ -87,7 +87,7 @@ const PrivateChatCard = ({ group }) => {
             </p>
           </div>
         ) : (
-          <p className='text-xs text-start max-w-[70%] mb-1 font-bold text-gray-700 truncate'>
+          <p className='text-xs text-start max-w-[70%] mb-1 text-white truncate'>
             No hay mensajes ...
           </p>
         )}

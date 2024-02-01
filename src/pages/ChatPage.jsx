@@ -145,11 +145,11 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='grid grid-cols-10 justify-center items-center w-full py-2 px-3'>
-      <div className='col-span-10 w-full justify-center items-center flex flex-col'>
+    <div className='grid grid-cols-10 justify-center items-center w-full py-2 px-3 mt-4'>
+      <div className='col-span-10 w-full justify-center items-center flex flex-co'>
         <div
           className='flex flex-col border-2 border-gray-400 rounded-md 
-        w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)] justify-between'>
+        w-[calc(100%-100px)] p-2 h-[calc(100vh-130px)] justify-between bg-chatGray'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             {room && selectedUser?.name ? (
               <div className='flex items-center justify-center'>
@@ -172,7 +172,7 @@ const ChatPage = () => {
               </div>
             ) : (
               <div className='flex items-center justify-center'>
-                <p className='text-[14px] justify-center flex text-black mr-3'>
+                <p className='text-[14px] justify-center flex text-white mr-3'>
                   No hay usuario seleccionado
                 </p>
               </div>

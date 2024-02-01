@@ -28,8 +28,8 @@ const GroupChatCard = ({ group }) => {
         <div className='flex w-full'>
           <div className='  flex flex-col'>
             <div className='flex flex-col items-start mb-2'>
-              <p className='font-bold text-sm'>{group?.name}</p>
-              <p className='text-[9px] text-gray-600'>
+              <p className='font-bold text-sm text-black'>{group?.name}</p>
+              <p className='text-[9px] text-white'>
                 {`${group?.members.length} Members`}{' '}
               </p>
               <BiPlusCircle
@@ -80,7 +80,7 @@ const GroupChatCard = ({ group }) => {
           </p>
         </div>
       ) : (
-        <p className='text-xs text-start max-w-[70%] mb-1 font-bold text-gray-700 truncate'>
+        <p className='text-xs text-start max-w-[70%] mb-1 text-white truncate'>
           No hay mensajes ...
         </p>
       )}
