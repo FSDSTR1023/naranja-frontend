@@ -6,10 +6,7 @@ export const uploadImage = async (file) => {
   formData.append('file', file);
   formData.append('upload_preset', 'emnwqxan');
   try {
-    const response = await axios.post(
-      'https://api.cloudinary.com/v1_1/daoxla1fg/auto/upload',
-      formData
-    );
+    const response = await axios.post(import.meta.env.VITE_COUDINARY, formData);
     const uploadedData = response.data.url;
     return uploadedData;
   } catch (error) {

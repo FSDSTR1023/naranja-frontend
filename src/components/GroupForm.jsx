@@ -86,7 +86,6 @@ const GroupForm = () => {
                    focus:border-gray-500 my-2'></textarea>
         </div>
         <div className='flex flex-wrap'>
-          {console.log(allUsers)}
           {allUsers.map((contact) => (
             <button
               key={contact._id}

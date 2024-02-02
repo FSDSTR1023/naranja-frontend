@@ -9,8 +9,7 @@ import GroupForm from './components/GroupForm';
 import LoginPage from './pages/LoginPage';
 
 import RegisterPage from './pages/RegisterPage';
-import TaskFormPage from './pages/TaskFormPage';
-import TaskPage from './pages/TaskPage';
+
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import NavBar from './components/NavBar';
 import './App.css';
@@ -62,15 +61,6 @@ function App() {
                 <Route
                   path='/register-page'
                   element={<RegisterPage />}
-                />
-                <Route
-                  path='/task-form-page/:id'
-                  element={<TaskFormPage />}
-                />
-
-                <Route
-                  path='/task-page'
-                  element={<TaskPage />}
                 />
 
                 <Route

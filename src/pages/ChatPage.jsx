@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
 import PDF from '../assets/PDF.png';
+import loadingPage from '../assets/loadingPage.png';
 
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
@@ -26,6 +27,7 @@ const ChatPage = () => {
   const [uplodedFile, setUploadedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,6 +69,7 @@ const ChatPage = () => {
     if (!socket) return;
     socket.on('receive-message', (data) => {
       setMessage((list) => [...list, data]);
+      setIsLoading(false);
     });
 
     return () => socket.off('receive-message');
@@ -237,6 +240,7 @@ const ChatPage = () => {
                               </p>
                             </a>
                             <iframe
+                              className='scrollbar'
                               src={m.fileAtt}
                               height='auto'
                               width='190px'></iframe>
@@ -277,7 +281,15 @@ const ChatPage = () => {
                     URL.revokeObjectURL(previewImage);
                     setUploadedFile(null);
                     setPreviewImage(null);
+                    setIsLoading(true);
                   }}
+                />
+              )}
+              {isLoading && (
+                <img
+                  src={loadingPage}
+                  alt='loading'
+                  className='w-12 h-12 animate-spin'
                 />
               )}
               <Dropzone
@@ -287,6 +299,7 @@ const ChatPage = () => {
                 noClick={true}
                 onDrop={(acceptedFiles) => {
                   setUploadedFile(acceptedFiles[0]);
+                  console.log(acceptedFiles[0], '<-- acceptedFiles[0]');
                   if (acceptedFiles[0].type.includes('pdf')) {
                     setPreviewImage(PDF);
                   }

@@ -8,10 +8,12 @@ import { useUser } from '../context/UserContext';
 import { useTasks } from '../context/TasksContext';
 import ToolTip from '../components/ToolTip';
 import loadingGif from '../assets/loadingPage.png';
-
+import { FiUserPlus } from 'react-icons/fi';
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
+import Modal from '../components/Modal';
 
 import { BiPlusCircle } from 'react-icons/bi';
+import AddMemberForm from '../components/AddMemberForm';
 
 const GroupPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +24,8 @@ const GroupPage = () => {
   const { user } = useUser();
   const { createNewTask, containers, setContainers, getAllTasks, pageLoading } =
     useTasks();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const toggleModal = () => setIsModalVisible(!isModalVisible);
 
   useEffect(() => {
     getAllTasks(currentGroup?._id);
@@ -54,7 +58,6 @@ const GroupPage = () => {
     createNewTask(newContainer);
   };
 
-  const handleAddMember = () => {};
   const handleLeaveGroup = () => {};
 
   return (
@@ -115,11 +118,11 @@ const GroupPage = () => {
             <div className='flex gap-2 items-center justify-center'>
               {user?._id === currentGroup?.ownerUser ? (
                 <button
-                  onClick={() => handleAddMember()}
-                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+                  onClick={() => toggleModal()}
+                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]  w-fit             
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                   <div className='flex items-center justify-center gap-1'>
-                    <BiPlusCircle className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
+                    <FiUserPlus className=' text-gray-800 w-4 h-4 ' />{' '}
                     <span>Miembro</span>
                   </div>
                 </button>
@@ -145,6 +148,11 @@ const GroupPage = () => {
           </div>
         )}
       </div>
+      <Modal
+        isVisible={isModalVisible}
+        onClose={toggleModal}>
+        <AddMemberForm />
+      </Modal>
       {pageLoading ? (
         <div className='w-full h-full flex items-start justify-center transition '>
           <img
