@@ -47,7 +47,7 @@ const ProfilePage = () => {
   return (
     <div className='grid grid-cols-12 h-[100vh] bg-gray-900'>
       {/* Panel */}
-      <div className='col-span-3 overflow-auto p-4'>
+      <div className='col-span-3 overflow-auto p-4 scrollbar'>
         {/* botones */}
         <div className='flex flex-wrap items-center justify-center gap-4 mt-2 mb-7'>
           <CreateGroupButton />

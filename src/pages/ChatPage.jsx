@@ -191,7 +191,7 @@ const ChatPage = () => {
               audio={true}
             />
           )}
-          <div className='flex flex-col p-2 rounded-md overflow-auto w-full h-full'>
+          <div className='flex flex-col p-2 rounded-md overflow-auto w-full h-full scrollbar'>
             <ScrollToBottom
               beheviour={'smooth'}
               className='no-scrollbar w-full h-full '>

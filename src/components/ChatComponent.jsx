@@ -139,7 +139,7 @@ const ChatComponent = () => {
               </p>
             </div>
             <button
-              className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300'
+              className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300 '
               onClick={hendleVideoCall}>
               {!isVideo ? <FaVideo /> : <FaVideoSlash />}
             </button>
@@ -151,7 +151,7 @@ const ChatComponent = () => {
               audio={true}
             />
           )}
-          <div className='flex flex-col p-2 rounded-md  w-full  h-[calc(100vh-230px)] bg-grey-300'>
+          <div className='flex scrollbar2 flex-col p-2 rounded-md  w-full  h-[calc(100vh-230px)] bg-grey-300'>
             <ScrollToBottom
               beheviour={'smooth'}
               className='no-scrollbar w-full h-full'>
