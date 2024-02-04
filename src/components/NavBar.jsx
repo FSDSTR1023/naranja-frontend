@@ -48,7 +48,7 @@ const NavBar = () => {
               {isProfileOpen && (
                 <>
                   <div className='w-fit mx-auto  absolute top-14 right-10 pointer-events-auto z-10'>
-                    <div className='bg-white p-4 rounded-lg  '>
+                    <div className='bg-gray-200 p-4 rounded-lg  '>
                       <Profile />
                     </div>
                   </div>
