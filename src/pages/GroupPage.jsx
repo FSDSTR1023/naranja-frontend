@@ -152,7 +152,7 @@ const GroupPage = () => {
                               onClick={() =>
                                 handleDeletMemberFromGroup(currentMember)
                               }>
-                              Confrim
+                              Confirm
                             </button>
                           </div>
                         </div>

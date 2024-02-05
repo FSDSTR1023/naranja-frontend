@@ -6,24 +6,63 @@ import { useMessage } from '../context/MessagesContext';
 import { BiPlusCircle } from 'react-icons/bi';
 import clsx from 'clsx';
 import { useState } from 'react';
+import { TbTrash } from 'react-icons/tb';
+import { useUser } from '../context/UserContext';
+
+import { useGroups } from '../context/GroupContext';
 
 const GroupChatCard = ({ group }) => {
   const navigate = useNavigate();
   const { setRoom } = useMessage();
   const [showDetails, setShowDetails] = useState(false);
+  const { user } = useUser();
+  const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
+  const { deleteGroup } = useGroups();
 
   const handleClick = async (e) => {
+    e.stopPropagation();
     e.preventDefault();
 
     setRoom(group?._id);
 
     navigate(`/groupboard/${group?._id}`);
   };
-
+  const handleDeleteGroup = async (groupId) => {
+    await deleteGroup(groupId);
+    setIsConfirmationVisible(false);
+  };
   return (
     <div
       className=' flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer bg-orange-500/90'
       onClick={(e) => handleClick(e, group?._id)}>
+      {isConfirmationVisible && (
+        <div className='z-20 fixed top-0 left-0  w-screen h-screen bg-gray-500/20'>
+          <div className='absolute top-56 right-56 translate-y-32 -translate-x-24 bg-white p-6 rounded-md'>
+            <div className='flex flex-col items-center justify-center p-2 h-auto w-[250px]'>
+              <p className='text-sm font-bold text-gray-700'>
+                Are sure you want to delete{' '}
+                <em className='text-red-500'>{group?.name} </em>
+                group ?
+              </p>
+              <div className='flex items-center justify-center p-2 mt-2 gap-6'>
+                <button
+                  className='bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsConfirmationVisible(false);
+                  }}>
+                  Cancel
+                </button>
+                <button
+                  className='bg-red-500 text-white p-2 rounded-md hover:bg-red-600'
+                  onClick={() => handleDeleteGroup(group?._id)}>
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className='relative flex w-full justify-between items-center p-2'>
         <div className='flex w-full'>
           <div className='  flex flex-col'>
@@ -32,10 +71,21 @@ const GroupChatCard = ({ group }) => {
               <p className='text-[9px] text-white'>
                 {`${group?.members.length} Members`}{' '}
               </p>
+              {user?._id === group?.ownerUser && (
+                <TbTrash
+                  className=' absolute z-10 top-0 right-8 text-gray-200 w-5 h-5 rounded-full'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsConfirmationVisible(true);
+                  }}
+                />
+              )}
               <BiPlusCircle
-                className=' absolute z-10 top-0 right-0 text-gray-800 w-5 h-5 rounded-full'
-                onMouseEnter={() => setShowDetails(true)}
-                onMouseLeave={() => setShowDetails(false)}
+                className=' absolute z-10 top-0 right-0 text-gray-200 w-5 h-5 rounded-full'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetails(!showDetails);
+                }}
               />
             </div>
 

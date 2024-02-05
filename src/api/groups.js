@@ -19,3 +19,6 @@ export const editGroupRequest = (groupId, group, contact) =>
 
 export const deleteMemberFromGroupRequest = (groupId, user) =>
   axios.patch(`/group/member/${groupId}`, { user });
+
+export const deleteGroupRequest = (groupId) =>
+  axios.delete(`/group/${groupId}`);

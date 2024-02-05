@@ -8,6 +8,7 @@ import {
   getCurrentGroupRequest,
   getGroupByIdOrCreate,
   deleteMemberFromGroupRequest,
+  deleteGroupRequest,
 } from '../api/groups.js';
 
 export const GroupContext = createContext();
@@ -96,6 +97,14 @@ export const GroupProvider = ({ children }) => {
     }
   };
 
+  const deleteGroup = async (groupId) => {
+    try {
+      await deleteGroupRequest(groupId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // <-- van todas las funciones del los grupos
 
   return (
@@ -115,6 +124,7 @@ export const GroupProvider = ({ children }) => {
         getCurrentGroup,
         editMembersFromGroup,
         deleteMemberFromGroup,
+        deleteGroup,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>
