@@ -14,7 +14,7 @@ const NavBar = () => {
   const { setCurrentGroup } = useGroups();
 
   return (
-    <nav className='bg-white border-gray-200 dark:bg-gray-900 p-4 block'>
+    <nav className='bg-white border-gray-200  p-4 block'>
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
         <a
           href='/'
@@ -31,9 +31,9 @@ const NavBar = () => {
             <div className='flex items-center justify-center  gap-2'>
               <Link
                 to='/profile-page'
-                className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
-               dark:text-white dark:hover:text-orange-500 text-sm
-               dark:hover:bg-gray-700 '
+                className='block py-2 px-3 text-gray-900 rounded hover:bg-orange-600 hover:text-white
+              text-sm
+              '
                 aria-current='page'
                 onClick={() => {
                   setRoom('');
@@ -41,7 +41,7 @@ const NavBar = () => {
                 }}>
                 Home
               </Link>
-              <div className='dark:hover:bg-gray-700 p-2 rounded-md '>
+              <div className='hover:bg-orange-600 p-2 rounded-md '>
                 <img
                   src={user?.avatar}
                   alt='Avatar'
@@ -64,9 +64,9 @@ const NavBar = () => {
                   setCurrentGroup({});
                   setRoom('');
                 }}
-                className='block py-1 px-1 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 
-               md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700
-               dark:hover:text-white md:dark:hover:bg-transparent ml-2'
+                className='block py-1.5 px-1.5 text-gray-900 rounded hover:bg-orange-600  md:border-0 
+           hover:text-white
+               ml-2'
                 title='Logout'>
                 <TbLogout
                   size={25}
@@ -79,16 +79,16 @@ const NavBar = () => {
           <div className='flex items-center justify-end'>
             <Link
               to='/login-page'
-              className=' block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
-               dark:text-white dark:hover:text-orange-500
-               dark:hover:bg-gray-700 text-sm'>
+              className=' block py-2 px-3  rounded hover:bg-orange-500 hover:text-white
+            
+               text-sm'>
               Login
             </Link>
             <Link
               to='/register-page'
-              className=' block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
-               dark:text-white dark:hover:text-orange-500 text-sm
-               dark:hover:bg-gray-700 '>
+              className=' block py-2 px-3  rounded hover:bg-orange-500 hover:text-white
+              text-sm
+              '>
               Register
             </Link>
           </div>

@@ -11,6 +11,7 @@ import GroupChatCard from '../components/GroupChatCard';
 import ChatPage from './ChatPage';
 import { LuLayoutPanelLeft } from 'react-icons/lu';
 import { useMessage } from '../context/MessagesContext';
+import clsx from 'clsx';
 
 const ProfilePage = () => {
   const {
@@ -47,37 +48,37 @@ const ProfilePage = () => {
     <div className='grid grid-cols-12 h-[100vh] bg-gray-900'>
       {/* CHAT GRANDE */}
       <div
-        className={`col-span-${panelOpen ? '9' : '12'} flex flex-col items-center justify-start mb-1 overflow-auto p-4 sm:p-0 sm:mb-0`}
-      >
+        className={clsx(
+          ` flex flex-col items-center justify-start mb-1 overflow-auto p-4 sm:p-0 sm:mb-0`,
+          panelOpen ? 'hidden' : 'col-span-12'
+        )}>
         <ChatPage />
       </div>
 
       {/* Button to open/close the panel */}
       <button
         onClick={togglePanel}
-        className={`bg-orange-500 absolute mt-[0px] right-0 px-3 py-4 z-10 text-white text-xs rounded-lg rounded-r-none ${
+        className={clsx(
+          `bg-orange-500 absolute mt-[0px] right-0 px-3 py-4 z-10 text-white text-xs rounded-lg rounded-r-none md:hidden`,
           panelOpen ? 'hidden' : ''
-        }`}
-      >
+        )}>
         Abrir
       </button>
       <button
         onClick={togglePanel}
-        className={`absolute mt-[7px] right-4 z-10 text-white text-2xl ${
+        className={clsx(
+          `absolute mt-[7px] right-4 z-10 text-white text-2xl`,
           panelOpen ? '' : 'hidden'
-        }`}
-      >
+        )}>
         x
       </button>
 
       {/* Panel */}
       <div
-        className={`col-span-3 overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900${
-          panelOpen ? '' : 'hidden'
-        } ${panelOpen ? 'absolute top-13 h-full right-0' : 'hidden'} ${
-          window.innerWidth > 622 ? 'absolute top-13 h-full right-0' : 'w-full '
-        }`}
-      >
+        className={clsx(
+          `col-span-3 overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900`,
+          panelOpen ? 'absolute top-13 h-full right-0' : 'hidden'
+        )}>
         {/* botones */}
         <div className='flex flex-wrap items-center justify-center gap-4 mt-10 mb-7'>
           <CreateGroupButton />
@@ -97,10 +98,12 @@ const ProfilePage = () => {
           </div>
         )}
         {privateGroups?.map((group) => (
-          <PrivateChatCard key={group.id} group={group} />
+          <PrivateChatCard
+            key={group.id}
+            group={group}
+          />
         ))}
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
-
 
         {/* Paneles */}
         <div className='text-md flex items-center justify-around gap-3'>
@@ -114,7 +117,10 @@ const ProfilePage = () => {
           </div>
         )}
         {groups?.map((group) => (
-          <GroupChatCard key={group.id} group={group} />
+          <GroupChatCard
+            key={group.id}
+            group={group}
+          />
         ))}
       </div>
     </div>
