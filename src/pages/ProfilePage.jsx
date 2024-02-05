@@ -75,7 +75,7 @@ const ProfilePage = () => {
         className={`col-span-3 overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900${
           panelOpen ? '' : 'hidden'
         } ${panelOpen ? 'absolute top-13 h-full right-0' : 'hidden'} ${
-          window.innerWidth > 622 ? 'absolute top-13 h-full right-0' : ''
+          window.innerWidth > 622 ? 'absolute top-13 h-full right-0' : 'w-full '
         }`}
       >
         {/* botones */}
