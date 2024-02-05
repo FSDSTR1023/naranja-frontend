@@ -10,7 +10,7 @@ const Profile = () => {
     const { user } = useUser();
 
     return (
-        <div className='col-span-3 bg-gray-200 flex flex-col justify-start pb-5 px-8'>
+        <div className='col-span-3 bg-white flex flex-col justify-start pb-5 px-8 rounded-lg'>
             <h1 className='text-center text-2xl font-bold mt-6'>Perfil</h1>
             <h3 className=''>
                 {user?.name} {user?.surname}

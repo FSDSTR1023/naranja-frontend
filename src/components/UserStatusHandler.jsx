@@ -36,7 +36,7 @@ const UserStatusHandler = () => {
             onSubmit();
           }}
           type='button'
-          className='cursor-pointer bg-orange-400 text-white p-2 my-2 rounded-md hover:bg-orange-700'>
+          className='cursor-pointer bg-orange-400 mt-6 px-3 py-3 text-sm font-semibold w-full text-white my-2 rounded-md hover:bg-orange-700'>
           Change Status
         </button>
       </form>

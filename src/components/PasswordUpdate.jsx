@@ -85,10 +85,10 @@ const PasswordUpdate = () => {
             onSubmit();
           }}
           type='button'
-          className='inline-flex  mt-4 items-center gap-x-1.5 rounded-md
-           bg-orange-400 px-2.5 py-1.5 text-sm font-semibold
+          className='inline-flex  mt-7 items-center gap-x-1.5 rounded-md
+           bg-orange-400 px-3 py-3 text-sm font-semibold
             text-white shadow-sm hover:bg-orange-700 
-            focus-visible:outline focus-visible:outline-2 
+            focus-visible:outline focus-visible:outline-2 w-full
             focus-visible:outline-offset-2 focus-visible:outline-orange-600'>
           <CheckCircleIcon
             className='-ml-0.5 h-5 w-5'
