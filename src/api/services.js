@@ -7,7 +7,7 @@ export const uploadImage = async (file) => {
   formData.append('upload_preset', 'emnwqxan');
   try {
     const response = await axios.post(import.meta.env.VITE_COUDINARY, formData);
-    const uploadedData = response.data.url;
+    const uploadedData = response.data.secure_url;
     return uploadedData;
   } catch (error) {
     console.error(error);
