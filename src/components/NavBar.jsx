@@ -10,7 +10,7 @@ import { useGroups } from '../context/GroupContext';
 const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { isAuthenticated, logOutUser, user } = useUser();
-  const { setRoom } = useMessage();
+  const { setRoom, setMessage } = useMessage();
   const { setCurrentGroup } = useGroups();
 
   return (
@@ -34,7 +34,11 @@ const NavBar = () => {
                 className='block py-2 px-3 text-gray-900 rounded hover:bg-gray-100
                dark:text-white dark:hover:text-orange-500 text-sm
                dark:hover:bg-gray-700 '
-                aria-current='page'>
+                aria-current='page'
+                onClick={() => {
+                  setRoom('');
+                  setMessage([]);
+                }}>
                 Home
               </Link>
               <div className='dark:hover:bg-gray-700 p-2 rounded-md '>

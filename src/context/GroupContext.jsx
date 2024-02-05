@@ -3,9 +3,11 @@
 import { createContext, useContext, useState } from 'react';
 import {
   createGroupRequest,
+  editGroupRequest,
   getAllGroupsRequest,
   getCurrentGroupRequest,
   getGroupByIdOrCreate,
+  deleteMemberFromGroupRequest,
 } from '../api/groups.js';
 
 export const GroupContext = createContext();
@@ -70,6 +72,25 @@ export const GroupProvider = ({ children }) => {
     try {
       const response = await getCurrentGroupRequest(groupId);
       setCurrentGroup(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editMembersFromGroup = async (groupId, group, contact) => {
+    try {
+      const response = await editGroupRequest(groupId, group, contact);
+      setCurrentGroup(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteMemberFromGroup = async (groupId, member) => {
+    try {
+      const response = await deleteMemberFromGroupRequest(groupId, member);
+      setCurrentGroup(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +113,8 @@ export const GroupProvider = ({ children }) => {
         privateGroups,
         setPrivateGroups,
         getCurrentGroup,
+        editMembersFromGroup,
+        deleteMemberFromGroup,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

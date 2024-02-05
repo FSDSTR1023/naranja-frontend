@@ -1,11 +1,18 @@
 import { useUser } from '../context/UserContext';
 import { useState } from 'react';
+import { useGroups } from '../context/GroupContext';
 
-const AddMemberForm = () => {
+const AddMemberForm = ({ toggleModal }) => {
   const [filteredUsers, setFilteredUsers] = useState(null);
   const { allUsers } = useUser();
-  const handleAddMember = (contact) => {
+  const { editMembersFromGroup, currentGroup } = useGroups();
+  const handleAddMember = async (contact) => {
     console.log(contact);
+    const group = currentGroup;
+
+    const groupId = currentGroup?._id;
+    await editMembersFromGroup(groupId, group, contact);
+    toggleModal();
   };
   return (
     <div className='h-[500px] w-[400px] text-xl bg-slate-500 p-5 rounded-md'>

@@ -8,7 +8,7 @@ import { uploadImage } from '../api/services';
 import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
@@ -18,14 +18,14 @@ import { VideoChat } from '../components/VideoChat';
 const ChatComponent = () => {
   const { user, socket } = useUser();
   const { getCurrentGroup, currentGroup } = useGroups();
-  const { createMessage, getAllMessages, message, room, setMessage } =
-    useMessage();
+  const { createMessage, getAllMessages, message, setMessage } = useMessage();
   const [chatMessage, setChatMessage] = useState('');
   const [uplodedFile, setUploadedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
 
   const navigate = useNavigate();
+  const room = useParams().groupId;
 
   useEffect(() => {
     console.log(room, '<-- room en ChatComponent');
@@ -36,13 +36,14 @@ const ChatComponent = () => {
 
     const getInfo = async () => {
       const response = await getCurrentGroup(room);
+      console.log(response, '<-- response en getInfo');
       if (response) {
         await getAllMessages(room);
       }
     };
 
     getInfo();
-  }, []);
+  }, [room]);
 
   useEffect(() => {
     if (!socket) return;

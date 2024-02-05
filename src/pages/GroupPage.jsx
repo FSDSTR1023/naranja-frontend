@@ -12,24 +12,34 @@ import { FiUserPlus } from 'react-icons/fi';
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
 import Modal from '../components/Modal';
 
-import { BiPlusCircle } from 'react-icons/bi';
+import { BiExit } from 'react-icons/bi';
 import AddMemberForm from '../components/AddMemberForm';
+import { useNavigate } from 'react-router-dom';
 
 const GroupPage = () => {
+  const [currentMember, setCurrentMember] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [addContainerInput, setAddContainerInput] = useState(false);
-
+  const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
   const [containerName, setContainerName] = useState('');
-  const { currentGroup, groups } = useGroups();
+  const { currentGroup, groups, deleteMemberFromGroup } = useGroups();
   const { user } = useUser();
   const { createNewTask, containers, setContainers, getAllTasks, pageLoading } =
     useTasks();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigate();
   const toggleModal = () => setIsModalVisible(!isModalVisible);
+  const filteredMembers = currentGroup?.members?.filter((member) => {
+    return member._id !== user?._id;
+  });
 
   useEffect(() => {
     getAllTasks(currentGroup?._id);
-  }, [currentGroup?._id]);
+  }, [
+    currentGroup?._id,
+    isModalVisible === false,
+    isConfirmationVisible === false,
+  ]);
 
   const onAddContainer = () => {
     if (!containerName) return;
@@ -58,7 +68,10 @@ const GroupPage = () => {
     createNewTask(newContainer);
   };
 
-  const handleLeaveGroup = () => {};
+  const handleDeletMemberFromGroup = async (member) => {
+    await deleteMemberFromGroup(currentGroup?._id, member);
+    setIsConfirmationVisible(false);
+  };
 
   return (
     <div className='flex flex-col bg-gray-500 w-full h-full'>
@@ -101,16 +114,51 @@ const GroupPage = () => {
               Añadir Tablero
             </button>
             <div className='relative flex flex-row mr-3 items-center justify-center ml-3'>
-              {currentGroup?.members?.map((member) => (
+              {filteredMembers?.map((member) => (
                 <ToolTip
                   key={member?._id}
                   label={member?.email}>
                   <img
+                    onClick={() => {
+                      user?._id === currentGroup?.ownerUser
+                        ? (setIsConfirmationVisible(true),
+                          setCurrentMember(member))
+                        : null;
+                    }}
                     key={member?._id}
-                    className='w-6 h-6 rounded-full relative left-0 top-0'
+                    className='w-6 h-6 rounded-full relative left-0 top-0 cursor-pointer'
                     src={member?.avatar}
                     alt='Avatar'
                   />
+                  {isConfirmationVisible && (
+                    <div className='z-20 fixed top-0 left-0 w-screen h-screen bg-gray-500/20'>
+                      <div className='absolute top-36 right-56 bg-white p-6 rounded-md'>
+                        <div className='flex flex-col items-center justify-center p-2 h-auto w-[250px]'>
+                          <p className='text-sm font-bold text-gray-700'>
+                            Are sure you want to delete{' '}
+                            <em className='text-red-500'>
+                              {currentMember?.email}{' '}
+                            </em>
+                            from this group ?
+                          </p>
+                          <div className='flex items-center justify-center p-2 mt-2 gap-6'>
+                            <button
+                              className='bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600'
+                              onClick={() => setIsConfirmationVisible(false)}>
+                              Cancel
+                            </button>
+                            <button
+                              className='bg-red-500 text-white p-2 rounded-md hover:bg-red-600'
+                              onClick={() =>
+                                handleDeletMemberFromGroup(currentMember)
+                              }>
+                              Confrim
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </ToolTip>
               ))}
             </div>
@@ -128,12 +176,15 @@ const GroupPage = () => {
                 </button>
               ) : (
                 <button
-                  onClick={() => handleLeaveGroup()}
+                  onClick={() => {
+                    deleteMemberFromGroup(currentGroup?._id, user);
+                    navigate('/profile-page');
+                  }}
                   className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                   <div className='flex items-center justify-center gap-1'>
-                    <BiPlusCircle className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
-                    <span>Miembro</span>
+                    <BiExit className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
+                    <span>Group</span>
                   </div>
                 </button>
               )}
@@ -151,7 +202,7 @@ const GroupPage = () => {
       <Modal
         isVisible={isModalVisible}
         onClose={toggleModal}>
-        <AddMemberForm />
+        <AddMemberForm toggleModal={toggleModal} />
       </Modal>
       {pageLoading ? (
         <div className='w-full h-full flex items-start justify-center transition '>

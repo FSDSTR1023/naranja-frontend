@@ -13,3 +13,9 @@ export const updateLastMessageRequest = (groupId, messageBody) =>
 
 export const getCurrentGroupRequest = (groupId) =>
   axios.get(`/group/currentGroup/${groupId}`);
+
+export const editGroupRequest = (groupId, group, contact) =>
+  axios.put(`/group/${groupId}`, { group, contact });
+
+export const deleteMemberFromGroupRequest = (groupId, user) =>
+  axios.patch(`/group/member/${groupId}`, { user });
