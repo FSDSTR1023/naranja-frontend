@@ -59,7 +59,7 @@ const ProfilePage = () => {
       <button
         onClick={togglePanel}
         className={clsx(
-          `bg-orange-500 absolute mt-[0px] right-0 px-3 py-4 z-10 text-white text-xs rounded-lg rounded-r-none md:hidden`,
+          `bg-orange-500 absolute mt-[0px] right-0 px-3 py-4 z-10 text-white text-xs rounded-lg rounded-r-none `,
           panelOpen ? 'hidden' : ''
         )}>
         Abrir

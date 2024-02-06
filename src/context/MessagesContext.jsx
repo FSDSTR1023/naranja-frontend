@@ -3,7 +3,12 @@
 
 import { createContext, useContext, useState } from 'react';
 
-import { getAllMessagesRequest, createMessageRequest } from '../api/message';
+import {
+  getAllMessagesRequest,
+  createMessageRequest,
+  editMessageRequest,
+  deleteMessageRequest,
+} from '../api/message';
 import { updateLastMessageRequest } from '../api/groups.js';
 
 export const MessageContext = createContext();
@@ -34,31 +39,46 @@ export const MessageProvider = ({ children }) => {
   };
 
   const createMessage = async (newMessage) => {
-    console.log(newMessage, '<-- newMessage en createMessage');
     const groupId = newMessage.group;
-
-    console.log(groupId, '<-- groupId en createMessage');
-
     try {
       const response = await createMessageRequest(newMessage);
 
       console.log(response.data, 'response.data del createMessage');
       setMessage([...message, response.data]);
       const messageBody = response.data._id;
-      console.log(messageBody, '<-- messageBody en createMessage');
-      const interval = setTimeout(async () => {
-        const groupUpdated = await updateLastMessageRequest(
-          groupId,
-          messageBody
-        );
-        console.log(groupUpdated, '<-- groupUpdated en createMessage');
-      }, 1000);
-      return () => clearTimeout(interval);
+
+      updateLastMessage(groupId, messageBody);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
   };
 
+  const updateLastMessage = (groupId, messageBody) => {
+    const interval = setTimeout(async () => {
+      await updateLastMessageRequest(groupId, messageBody);
+    }, 1000);
+    return () => clearTimeout(interval);
+  };
+
+  const editMessage = async (message) => {
+    const { messageId } = message;
+
+    try {
+      const response = await editMessageRequest(messageId, message);
+      return response.data;
+    } catch (error) {
+      console.log(error, '<-- error del editMessage');
+    }
+  };
+  const deleteMessage = async (messageId) => {
+    try {
+      const response = await deleteMessageRequest(messageId);
+      return response.data;
+    } catch (error) {
+      console.log(error, '<-- error del deleteMessage');
+    }
+  };
   // <-- van todas las funciones del los grupos
 
   return (
@@ -70,6 +90,8 @@ export const MessageProvider = ({ children }) => {
         createMessage,
         room,
         setRoom,
+        editMessage,
+        deleteMessage,
 
         // <-- van todas las funciones del los grupos para exportarlas
       }}>

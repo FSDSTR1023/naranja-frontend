@@ -8,3 +8,9 @@ export const createMessageRequest = (message) =>
 
 export const getLiveKitToken = (room, username) =>
   axios.get(`/video/${room}&${username}`);
+
+export const editMessageRequest = (messageId, message) =>
+  axios.put(`/messages/edit-message/${messageId}`, { message });
+
+export const deleteMessageRequest = (messageId) =>
+  axios.put(`/messages/delete-message/${messageId}`);

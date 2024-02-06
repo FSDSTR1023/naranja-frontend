@@ -3,7 +3,7 @@ import { GroupProvider } from './context/GroupContext';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import NotFound from './pages/NotFound';
-import ChatPage from './pages/ChatPage';
+
 import GroupPage from './pages/GroupPage';
 import GroupForm from './components/GroupForm';
 import LoginPage from './pages/LoginPage';
@@ -42,10 +42,7 @@ function App() {
                   path='/profile-page'
                   element={<ProfilePage />}
                 />
-                <Route
-                  path='/chat-page'
-                  element={<ChatPage />}
-                />
+
                 <Route
                   path='/groupboard/:groupId'
                   element={<GroupPage />}

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import ChatComponent from '../components/ChatComponent';
+
 import { useEffect, useState } from 'react';
 import { useGroups } from '../context/GroupContext';
 import DragDropContext from '../components/DragDropContext';
@@ -15,6 +15,8 @@ import Modal from '../components/Modal';
 import { BiExit } from 'react-icons/bi';
 import AddMemberForm from '../components/AddMemberForm';
 import { useNavigate } from 'react-router-dom';
+
+import ChatComponent from '../components/ChatComponent';
 
 const GroupPage = () => {
   const [currentMember, setCurrentMember] = useState({});

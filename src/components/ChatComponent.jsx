@@ -9,20 +9,31 @@ import { useMessage } from '../context/MessagesContext';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { useGroups } from '../context/GroupContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
 import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
-import clsx from 'clsx';
 import { VideoChat } from '../components/VideoChat';
+import MessageCard from './MessageCard';
 
 const ChatComponent = () => {
   const { user, socket } = useUser();
   const { getCurrentGroup, currentGroup } = useGroups();
-  const { createMessage, getAllMessages, message, setMessage } = useMessage();
+  const {
+    createMessage,
+    getAllMessages,
+    message,
+    setMessage,
+    deleteMessage,
+    editMessage,
+  } = useMessage();
   const [chatMessage, setChatMessage] = useState('');
   const [uplodedFile, setUploadedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
+
+  const [editPanel, setEditPanel] = useState(false);
+  const [isEditing, setIsEditing] = useState(null);
+  const [editedMessage, setEditedMessage] = useState('');
+  const [editedMessageId, setEditedMessageId] = useState('');
 
   const navigate = useNavigate();
   const room = useParams().groupId;
@@ -62,7 +73,7 @@ const ChatComponent = () => {
       const extencion = response.split('.').pop();
       if (extencion === 'pdf') {
         setPreviewImage(null);
-        console.log('entro al pdf');
+
         const messageData = {
           group: room,
           room: room,
@@ -116,7 +127,7 @@ const ChatComponent = () => {
 
       setChatMessage('');
       await socket.emit('send-message', { room, messageData, user });
-      console.log(messageData, '<-- messageData en onSubmit');
+
       await setMessage((list) => [...list, messageData]);
 
       createMessage(messageData);
@@ -125,6 +136,29 @@ const ChatComponent = () => {
 
   const hendleVideoCall = () => {
     setIsVideo(!isVideo);
+  };
+  const handleEdit = (message) => {
+    setEditPanel(false);
+    setEditedMessage(message.body);
+    setEditedMessageId(message._id);
+    setIsEditing(message._id);
+  };
+  const handleDelete = async (messageToDelete) => {
+    const messageFound = message.find((m) => m._id === messageToDelete._id);
+    messageFound.isDeleted = true;
+    setEditPanel(false);
+    await deleteMessage(messageFound._id);
+  };
+  const onSubmitEdit = async () => {
+    const messageData = {
+      messageId: editedMessageId,
+      body: editedMessage,
+      isEdited: true,
+    };
+    const messageFound = message.find((m) => m._id === editedMessageId);
+    messageFound.body = editedMessage;
+    messageFound.isEdited = true;
+    await editMessage(messageData);
   };
 
   return (
@@ -159,55 +193,18 @@ const ChatComponent = () => {
               <div className='flex flex-col'>
                 {message &&
                   message?.map((m) => (
-                    <div
+                    <MessageCard
+                      m={m}
                       key={m._id}
-                      className={clsx(
-                        'w-fit p-2  rounded-md  max-w-[calc(50%-50px)] mb-2 min-w-[200px]',
-                        m.author._id !== user?._id
-                          ? 'bg-blue-200 self-end mr-2'
-                          : 'bg-green-200 self-start'
-                      )}>
-                      <div className='flex gap-1 items-center justify-center'>
-                        <p className='text-[13px] text-start w-full'>
-                          {m.authorName}
-                        </p>
-                      </div>
-                      <div className='flex flex-wrap max-w-md'>
-                        <hr className=' border-1 w-full rounded-md border-grey-600' />
-                        <p className='text-[14px] text-start flex mt-1 '>
-                          {m.body}
-                        </p>
-                        {m.image && (
-                          <img
-                            className='w-[150px] m-2'
-                            src={m.image}
-                            alt='file'
-                          />
-                        )}
-                        {m.fileAtt && (
-                          <>
-                            <a
-                              className='w-[150px] m-2 text-sky-600 underline'
-                              href={m.fileAtt}
-                              target='_blank'
-                              rel='noreferrer'>
-                              <p className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
-                                {m.fileAtt}
-                              </p>
-                            </a>
-                            <iframe
-                              src={m.fileAtt}
-                              height='auto'
-                              width='190px'></iframe>
-                          </>
-                        )}
-                      </div>
-                      <div>
-                        <p className='text-[10px] w-full text-end'>
-                          {format(new Date(m.time), 'p')}
-                        </p>
-                      </div>
-                    </div>
+                      handleEdit={handleEdit}
+                      handleDelete={handleDelete}
+                      isEditing={isEditing}
+                      setIsEditing={setIsEditing}
+                      editedMessage={editedMessage}
+                      setEditedMessage={setEditedMessage}
+                      onSubmitEdit={onSubmitEdit}
+                      editPanel={editPanel}
+                    />
                   ))}
               </div>
             </ScrollToBottom>
