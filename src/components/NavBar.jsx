@@ -6,12 +6,30 @@ import { TbLogout } from 'react-icons/tb';
 import Profile from './Profile';
 import { useMessage } from '../context/MessagesContext';
 import { useGroups } from '../context/GroupContext';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { isAuthenticated, logOutUser, user } = useUser();
   const { setRoom, setMessage } = useMessage();
   const { setCurrentGroup } = useGroups();
+  const profileRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    if (isProfileOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isProfileOpen]);
 
   return (
     <nav className='bg-white border-gray-200  p-4 block'>
@@ -46,13 +64,13 @@ const NavBar = () => {
                   src={user?.avatar}
                   alt='Avatar'
                   className='w-6 h-6 rounded-full justify-center mx-auto cursor-pointer'
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  
                 />
               </div>
               {isProfileOpen && (
                 <>
                   <div className='w-fit mx-auto  absolute top-14 right-10 pointer-events-auto z-10'>
-                    <div className='bg-gray-200 p-4 rounded-lg  '>
+                    <div className='bg-white p-4 rounded-lg  '>
                       <Profile />
                     </div>
                   </div>
