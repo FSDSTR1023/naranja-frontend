@@ -37,11 +37,7 @@ const GroupPage = () => {
 
   useEffect(() => {
     getAllTasks(currentGroup?._id);
-  }, [
-    currentGroup?._id,
-    isModalVisible === false,
-    isConfirmationVisible === false,
-  ]);
+  }, [currentGroup?._id, !isModalVisible, !isConfirmationVisible]);
 
   const onAddContainer = () => {
     if (!containerName) return;
