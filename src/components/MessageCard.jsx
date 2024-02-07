@@ -31,8 +31,6 @@ const MessageCard = ({
           ? 'bg-blue-200 self-end mr-2'
           : 'bg-green-200 self-start'
       )}>
-      {console.log(user._id, '<-- User._ID**********')}
-      {console.log(m.author, '<-- AuthorID**********')}
       <div className='flex gap-1 items-center justify-center'>
         <p className='text-[13px] text-start w-full'>{m.authorName}</p>
         <button>
