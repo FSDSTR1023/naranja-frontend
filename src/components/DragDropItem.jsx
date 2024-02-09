@@ -8,10 +8,19 @@ import { BiPencil } from 'react-icons/bi';
 import { useTasks } from '../context/TasksContext';
 import Tooltip from '../components/ToolTip';
 
-const DragDropItem = ({ id, title, containerId }) => {
+const DragDropItem = ({
+  id,
+  title,
+  containerId,
+  toggleEditTask,
+  setTaskInfoToEdit,
+  item,
+  containerTitle,
+}) => {
   const { containers, setContainers, updateTask } = useTasks();
   const [isEditing, setIsEditing] = useState(false);
   const [titleEditing, setTitleEditing] = useState(title);
+
   const {
     attributes,
     listeners,
@@ -62,6 +71,12 @@ const DragDropItem = ({ id, title, containerId }) => {
       style={{
         transition,
         transform: CSS.Translate.toString(transform),
+      }}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setTaskInfoToEdit({ item, containerId, containerTitle });
+        toggleEditTask();
       }}
       className={clsx(
         `flex flex-wrap px-2 py-4 bg-white shadow-md rounded-xl w-full border border-transparent hover:border-gray-200 

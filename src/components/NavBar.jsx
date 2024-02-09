@@ -7,7 +7,6 @@ import Profile from './Profile';
 import { useMessage } from '../context/MessagesContext';
 import { useGroups } from '../context/GroupContext';
 import { useRef } from 'react';
-import { useEffect } from 'react';
 
 const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -15,21 +14,12 @@ const NavBar = () => {
   const { setRoom, setMessage } = useMessage();
   const { setCurrentGroup } = useGroups();
   const profileRef = useRef(null);
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setIsProfileOpen(false);
-      }
-    };
 
-    if (isProfileOpen) {
-      document.addEventListener('click', handleOutsideClick);
+  const handleClickOutside = (event) => {
+    if (profileRef.current && !profileRef.current.contains(event.target)) {
+      setIsProfileOpen(false);
     }
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [isProfileOpen]);
+  };
 
   return (
     <nav className='bg-white border-gray-200  p-4 block'>
@@ -64,14 +54,20 @@ const NavBar = () => {
                   src={user?.avatar}
                   alt='Avatar'
                   className='w-6 h-6 rounded-full justify-center mx-auto cursor-pointer'
-                  
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
                 />
               </div>
               {isProfileOpen && (
                 <>
-                  <div className='w-fit mx-auto  absolute top-14 right-10 pointer-events-auto z-10'>
-                    <div className='bg-white p-4 rounded-lg  '>
-                      <Profile />
+                  <div
+                    className='h-full w-full absolute top-0 right-0 bg-gray-500/75 z-10'
+                    onClick={handleClickOutside}>
+                    <div className='w-fit mx-auto  absolute top-14 right-10 pointer-events-auto z-100'>
+                      <div
+                        className='bg-white p-4 rounded-lg  '
+                        ref={profileRef}>
+                        <Profile />
+                      </div>
                     </div>
                   </div>
                 </>
