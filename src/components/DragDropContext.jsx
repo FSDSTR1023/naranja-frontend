@@ -19,7 +19,12 @@ import { useGroups } from '../context/GroupContext';
 
 // Components
 
-const DragDropContext = ({ containers, setContainers }) => {
+const DragDropContext = ({
+  containers,
+  setContainers,
+  toggleEditTask,
+  setTaskInfoToEdit,
+}) => {
   const [activeId, setActiveId] = useState(null);
   const [currentContainerId, setCurrentContainerId] = useState();
 
@@ -329,10 +334,14 @@ const DragDropContext = ({ containers, setContainers }) => {
                       {container?.items?.map((i) => (
                         <DragDropItem
                           containerId={container?.id}
+                          item={i}
                           title={i.title}
                           id={i.id}
                           key={i.id}
                           onDeleteItem={() => {}}
+                          toggleEditTask={toggleEditTask}
+                          setTaskInfoToEdit={setTaskInfoToEdit}
+                          containerTitle={container.title}
                         />
                       ))}
                     </div>

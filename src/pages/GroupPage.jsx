@@ -17,6 +17,7 @@ import AddMemberForm from '../components/AddMemberForm';
 import { useNavigate } from 'react-router-dom';
 
 import ChatComponent from '../components/ChatComponent';
+import TaskEditionPanel from '../components/TaskEditionPanel';
 
 const GroupPage = () => {
   const [currentMember, setCurrentMember] = useState({});
@@ -26,8 +27,11 @@ const GroupPage = () => {
   const [containerName, setContainerName] = useState('');
   const { currentGroup, groups, deleteMemberFromGroup } = useGroups();
   const { user } = useUser();
+  const [taskInfoToEdit, setTaskInfoToEdit] = useState({});
   const { createNewTask, containers, setContainers, getAllTasks, pageLoading } =
     useTasks();
+  const [isModalTaskVisible, setIsModalTaskVisible] = useState(false);
+  const toggleEditTask = () => setIsModalTaskVisible(!isModalTaskVisible);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   const toggleModal = () => setIsModalVisible(!isModalVisible);
@@ -198,6 +202,15 @@ const GroupPage = () => {
         )}
       </div>
       <Modal
+        isVisible={isModalTaskVisible}
+        onClose={toggleEditTask}>
+        <TaskEditionPanel
+          toggleEditTask={toggleEditTask}
+          taskInfoToEdit={taskInfoToEdit}
+        />
+      </Modal>
+
+      <Modal
         isVisible={isModalVisible}
         onClose={toggleModal}>
         <AddMemberForm toggleModal={toggleModal} />
@@ -218,6 +231,8 @@ const GroupPage = () => {
               setContainerName={setContainerName}
               containers={containers}
               setContainers={setContainers}
+              toggleEditTask={toggleEditTask}
+              setTaskInfoToEdit={setTaskInfoToEdit}
             />
           </div>
 
