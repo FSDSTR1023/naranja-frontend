@@ -45,13 +45,29 @@ const DragDropContainer = ({
     const id = `item-${uuidv4()}`;
     const container = containers.find((item) => item.id === currentId);
 
-    const updatedItems = [...container.items, { id, title: itemName }];
+    const updatedItems = [
+      ...container.items,
+      {
+        id,
+        title: itemName,
+        description: '',
+        fileAt: '',
+        completed: false,
+        assignedTo: null,
+        followers: [],
+      },
+    ];
 
     updateTask(container.id, updatedItems);
     if (!container) return;
     container.items.push({
       id,
       title: itemName,
+      description: '',
+      fileAt: '',
+      completed: false,
+      assignedTo: null,
+      followers: [],
     });
 
     setContainers([...containers]);

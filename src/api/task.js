@@ -14,3 +14,6 @@ export const updateManyTasksRequest = (groupId, tasks) =>
 
 export const updateTitleTaskRequest = (containerId, task) =>
   axios.put(`/task/updateTitle/${containerId}`, task);
+
+export const updateTaskInfoRequest = (containerId, task) =>
+  axios.put(`/task/updateTaskInfo/${containerId}`, task);

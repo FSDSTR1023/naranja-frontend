@@ -93,7 +93,7 @@ const ProfilePage = () => {
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {privateGroups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold'>
+          <div className='flex items-center justify-center text-xs font-bold text-white'>
             No tienes chats privados.
           </div>
         )}
@@ -112,7 +112,7 @@ const ProfilePage = () => {
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {groups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold'>
+          <div className='flex items-center justify-center text-xs font-bold text-white'>
             No tienes grupos.
           </div>
         )}

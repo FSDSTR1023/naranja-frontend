@@ -72,7 +72,7 @@ const DragDropItem = ({
         transition,
         transform: CSS.Translate.toString(transform),
       }}
-      onClick={(e) => {
+      onContextMenu={(e) => {
         e.preventDefault();
         e.stopPropagation();
         setTaskInfoToEdit({ item, containerId, containerTitle });

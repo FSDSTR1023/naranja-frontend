@@ -74,7 +74,7 @@ const MessageCard = ({
         <div className='flex flex-col flex-wrap max-w-md'>
           <hr className=' border-1 w-full rounded-md border-grey-600' />
 
-          <p className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
+          <div className='text-[12px] text-start mt-1 max-w-[190px] break-words'>
             {m.isDeleted ? (
               <em>{`(Message deleted)`}</em>
             ) : m.isEdited ? (
@@ -85,7 +85,7 @@ const MessageCard = ({
             ) : (
               m.body
             )}
-          </p>
+          </div>
           {m.image && (
             <img
               className='w-[150px] m-2'

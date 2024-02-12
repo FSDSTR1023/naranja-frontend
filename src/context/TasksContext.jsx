@@ -8,6 +8,7 @@ import {
   deleteTaskRequest,
   updateManyTasksRequest,
   updateTitleTaskRequest,
+  updateTaskInfoRequest,
 } from '../api/task';
 
 const TaskContext = createContext();
@@ -89,6 +90,16 @@ export function TaskProvider({ children }) {
       console.log(error);
     }
   };
+  const editTaskInfo = async (containerId, taskData, currentGroupId) => {
+    try {
+      const response = await updateTaskInfoRequest(containerId, taskData);
+      if (response.status === 200) {
+        await getAllTasks(currentGroupId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // crear estados y funciones relacionadas con las tareas
 
@@ -110,6 +121,7 @@ export function TaskProvider({ children }) {
         updateManyTasks,
         updateTitleContainer,
         pageLoading,
+        editTaskInfo,
         // <-- van todas las funciones de las tasks para exportarlas
       }}>
       {children}
