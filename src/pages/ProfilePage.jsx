@@ -12,6 +12,7 @@ import ChatPage from './ChatPage';
 import { LuLayoutPanelLeft } from 'react-icons/lu';
 import { useMessage } from '../context/MessagesContext';
 import clsx from 'clsx';
+import './styles/slider.css';
 
 const ProfilePage = () => {
   const {
@@ -45,12 +46,12 @@ const ProfilePage = () => {
   }, [user, usersChanges, room]);
 
   return (
-    <div className='grid grid-cols-12 h-[100vh] bg-gray-900'>
+    <div className='flex h-[100vh] bg-gray-900'>
       {/* CHAT GRANDE */}
       <div
         className={clsx(
-          ` flex flex-col items-center justify-start mb-1 overflow-auto p-4 sm:p-0 sm:mb-0`,
-          panelOpen ? 'hidden' : 'col-span-12'
+          `chat-column flex-grow flex flex-col items-center justify-start mb-1 overflow-auto p-4`,
+          `transition-all duration-300 ease-in-out w-full`
         )}>
         <ChatPage />
       </div>
@@ -58,26 +59,19 @@ const ProfilePage = () => {
       {/* Button to open/close the panel */}
       <button
         onClick={togglePanel}
-        className={clsx(
-          `bg-orange-500 absolute mt-[0px] right-0 px-3 py-4 z-10 text-white text-xs rounded-lg rounded-r-none `,
-          panelOpen ? 'hidden' : ''
-        )}>
-        Abrir
-      </button>
-      <button
-        onClick={togglePanel}
-        className={clsx(
-          `absolute mt-[7px] right-4 z-10 text-white text-2xl`,
-          panelOpen ? '' : 'hidden'
-        )}>
-        x
+        className={`panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none ${
+          panelOpen
+            ? 'text-white'
+            : 'bg-orange-500 text-white border-2 border-gray-200'
+        }`}>
+        {panelOpen ? 'X' : 'Open'}
       </button>
 
       {/* Panel */}
       <div
         className={clsx(
-          `col-span-3 overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900`,
-          panelOpen ? 'absolute top-13 h-full right-0' : 'hidden'
+          `panel-column overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900`,
+          panelOpen ? 'block' : 'hidden'
         )}>
         {/* botones */}
         <div className='flex flex-wrap items-center justify-center gap-4 mt-10 mb-7'>
@@ -93,7 +87,7 @@ const ProfilePage = () => {
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {privateGroups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold text-white'>
+          <div className='flex items-center justify-center text-xs font-bold'>
             No tienes chats privados.
           </div>
         )}
@@ -105,14 +99,14 @@ const ProfilePage = () => {
         ))}
         <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
 
-        {/* Paneles */}
+        {/* Paneles contenido */}
         <div className='text-md flex items-center justify-around gap-3'>
           <h1 className='text-xs font-bold text-white'>Paneles de Grupo</h1>
           <LuLayoutPanelLeft className='text-white' />
         </div>
         <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {groups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold text-white'>
+          <div className='flex items-center justify-center text-xs font-bold'>
             No tienes grupos.
           </div>
         )}
