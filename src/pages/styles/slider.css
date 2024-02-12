@@ -1,3 +1,4 @@
+  /* Profile Page */
   .panel-toggle-button {
     display: none;
   }
@@ -5,6 +6,13 @@
   .panel-column {
     width: 400px; 
   }
+
+  /* Group Page */
+    .group-page-chat{
+        position: absolute;
+        right: 0;
+        width: 421px;
+    }
 
   @media (max-width: 1507px) {
     .panel-toggle-button {
@@ -22,6 +30,9 @@
   @media (max-width: 820px) {
     .panel-column {
       width: 100%; 
+    }
+    .group-page-chat{
+        width: 100%; 
     }
   }
  
