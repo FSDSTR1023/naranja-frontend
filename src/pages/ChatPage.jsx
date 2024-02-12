@@ -4,7 +4,6 @@ import Dropzone from 'react-dropzone';
 import { PaperClipIcon } from '@heroicons/react/solid';
 import { PaperAirplaneIcon } from '@heroicons/react/solid';
 import PDF from '../assets/PDF.png';
-import loadingPage from '../assets/loadingPage.png';
 
 import { useUser } from '../context/UserContext';
 import { uploadImage } from '../api/services';
@@ -278,11 +277,9 @@ const ChatPage = () => {
                 />
               )}
               {isLoading && (
-                <img
-                  src={loadingPage}
-                  alt='loading'
-                  className='w-12 h-12 animate-spin'
-                />
+                <div className='w-full h-full flex items-center justify-center'>
+                <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
+                </div>
               )}
               <Dropzone
                 disabled={room ? false : true}

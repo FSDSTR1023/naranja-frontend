@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '../context/UserContext';
 import { useTasks } from '../context/TasksContext';
 import ToolTip from '../components/ToolTip';
-import loadingGif from '../assets/loadingPage.png';
 import { FiUserPlus } from 'react-icons/fi';
 import ButtonDropDownGroup from '../components/ButtonDropDownGroup';
 import Modal from '../components/Modal';
@@ -18,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 import ChatComponent from '../components/ChatComponent';
 import TaskEditionPanel from '../components/TaskEditionPanel';
+import "./styles/slider.css"
 
 const GroupPage = () => {
   const [currentMember, setCurrentMember] = useState({});
@@ -76,8 +76,10 @@ const GroupPage = () => {
   };
 
   return (
-    <div className='flex flex-col bg-gray-500 w-full h-full'>
-      <div className='flex flex-wrap w-full  bg-orange-500 items-center justify-center gap-3 box-border md:justify-between'>
+    <div className='flex flex-col w-full h-full'>
+
+      {/* task navbar */}
+      <div className='flex flex-wrap w-full bg-orange-500 items-center justify-center gap-3 box-border md:justify-between'>
         <div className='ml-3 flex flex-row gap-3 justify-center items-center'>
           <ButtonDropDownGroup groups={groups} />
           <h1 className='text-xs font-bold text-gray-700'>
@@ -201,6 +203,7 @@ const GroupPage = () => {
           </div>
         )}
       </div>
+
       <Modal
         isVisible={isModalTaskVisible}
         onClose={toggleEditTask}>
@@ -210,22 +213,21 @@ const GroupPage = () => {
         />
       </Modal>
 
+
       <Modal
         isVisible={isModalVisible}
         onClose={toggleModal}>
         <AddMemberForm toggleModal={toggleModal} />
       </Modal>
+
       {pageLoading ? (
-        <div className='w-full h-full flex items-start justify-center transition '>
-          <img
-            className='w-[450px] h-[450px] ease-in-out animate-spin duration-500'
-            src={loadingGif}
-            alt='loading'
-          />
+        <div className='w-full h-full flex items-center justify-center'>
+         <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
         </div>
+
       ) : (
         <div className='flex flex-row h-full w-full '>
-          <div className='h-[90%] w-full bg-gray-300 overflow-auto'>
+          <div className='h-[90%] w-full bg-gray-100 overflow-auto'>
             <DragDropContext
               containerName={containerName}
               setContainerName={setContainerName}
@@ -238,7 +240,7 @@ const GroupPage = () => {
 
           <div
             className={clsx(
-              'md:h-[87%] w-[90%] transition h-[82%]',
+              'group-page-chat transition h-[82%]',
               !isOpen ? 'hidden' : null
             )}>
             <ChatComponent />

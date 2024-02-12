@@ -162,7 +162,7 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full  h-full'>
+    <div className='flex flex-col justify-center items-center w-full  h-full bg-gray-100'>
       <div className='w-full justify-center items-center flex flex-col'>
         <div
           className='flex flex-col border-2 border-gray-400 rounded-md 
