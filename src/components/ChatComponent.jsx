@@ -186,7 +186,7 @@ const ChatComponent = () => {
               audio={true}
             />
           )}
-          <div className='flex scrollbar2 flex-col p-2 rounded-md  w-full  h-[calc(100vh-230px)] bg-grey-300'>
+          <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-230px)] bg-grey-300'>
             <ScrollToBottom
               beheviour={'smooth'}
               className='no-scrollbar w-full h-full'>

@@ -22,8 +22,8 @@ const NavBar = () => {
   };
 
   return (
-    <nav className='bg-white border-gray-200  p-4 block'>
-      <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto'>
+    <nav className='bg-white border-gray-200 p-4 block'>
+      <div className='flex flex-wrap items-center justify-between'>
         <a
           href='/'
           className='flex items-center rtl:space-x-reverse'>
@@ -78,12 +78,11 @@ const NavBar = () => {
                   setCurrentGroup({});
                   setRoom('');
                 }}
-                className='block py-1.5 px-1.5 text-gray-900 rounded hover:bg-orange-600  md:border-0 
-           hover:text-white
-               ml-2'
+                className='block py-1 px-2 text-gray-900 rounded hover:bg-orange-600 md:border-0 
+           hover:text-white'
                 title='Logout'>
                 <TbLogout
-                  size={25}
+                  size={20}
                   strokeWidth={1}
                 />
               </button>
