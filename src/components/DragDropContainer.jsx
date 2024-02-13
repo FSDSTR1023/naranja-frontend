@@ -105,7 +105,7 @@ const DragDropContainer = ({
         transform: CSS.Translate.toString(transform),
       }}
       className={clsx(
-        'card-container w-full h-full p-4 bg-orange-300 rounded-xl flex flex-col gap-y-4 justify-between',
+        'card-container w-full h-full p-4 bg-orange-400 rounded-xl flex flex-col gap-y-4 justify-between',
         isDragging && 'opacity-50'
       )}>
       <div className='flex items-center justify-between flex-wrap'>
@@ -150,7 +150,7 @@ const DragDropContainer = ({
       <div className='flex flex-col justify-start h-full'>{children}</div>
       {!addNewItem ? (
         <button
-          className='border-2 p-2 rounded-md hover:border-2 hover:p-2 text-xs hover:rounded-md hover:border-gray-300 hover:bg-slate-50/10 flex font-bold items-center bg-gray-200'
+          className='p-2 rounded-md hover:p-2 text-xs hover:rounded-md hover:bg-gray-100 flex font-bold items-center bg-white'
           onClick={() => setAddNewItem(!addNewItem)}>
           <GoPlusCircle
             size={14}
@@ -173,7 +173,7 @@ const DragDropContainer = ({
               (e.key === 'Escape' && setAddNewItem(!addNewItem)) ||
               (e.key === 'Enter' && onAddItem(itemName, id))
             }
-            className='border-2 border-gray-500 rounded-md p-1 w-full'
+            className='border-2 border-gray-500 rounded-md p-1 w-full text-sm'
           />
           <button
             className='border-2 p-2 rounded-md hover:border-2 
