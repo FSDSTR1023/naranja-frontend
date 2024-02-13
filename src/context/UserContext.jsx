@@ -49,6 +49,7 @@ export const UserProvider = ({ children }) => {
         setUser(response.data);
         setIsAuthenticated(true);
         setIsOnline(response.data.isOnline);
+        socket.emit('new-user', response.data);
       }
     };
     logWithToken();
@@ -191,6 +192,7 @@ export const UserProvider = ({ children }) => {
     });
 
     socket.on('new-user-online', () => {
+      console.log('nuevo usuario conectado', user);
       setUsersChanges(!usersChanges);
     });
 
