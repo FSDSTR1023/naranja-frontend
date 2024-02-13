@@ -80,6 +80,8 @@ const GroupPage = () => {
 
       {/* task navbar */}
       <div className='flex flex-wrap w-full bg-orange-500 items-center justify-center gap-3 box-border md:justify-between'>
+
+        {/* group name */}
         <div className='ml-3 flex flex-row gap-3 justify-center items-center'>
           <ButtonDropDownGroup groups={groups} />
           <h1 className='text-xs font-bold text-gray-700'>
@@ -87,6 +89,8 @@ const GroupPage = () => {
           </h1>
         </div>
 
+
+{/* Añadir tablero */}
         {addContainerInput ? (
           <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
             <button
@@ -117,6 +121,8 @@ const GroupPage = () => {
               onClick={() => setAddContainerInput(!addContainerInput)}>
               Añadir Tablero
             </button>
+
+{/* avatars */}
             <div className='relative flex flex-row mr-3 items-center justify-center ml-3'>
               {filteredMembers?.map((member) => (
                 <ToolTip
@@ -167,6 +173,9 @@ const GroupPage = () => {
               ))}
             </div>
 
+
+{/* together */}
+{/* miembro */}
             <div className='flex gap-2 items-center justify-center'>
               {user?._id === currentGroup?.ownerUser ? (
                 <button
@@ -192,7 +201,7 @@ const GroupPage = () => {
                   </div>
                 </button>
               )}
-
+{/* Abrir chat */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
@@ -200,6 +209,7 @@ const GroupPage = () => {
                 Open Chat
               </button>
             </div>
+
           </div>
         )}
       </div>

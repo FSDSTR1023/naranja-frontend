@@ -18,7 +18,6 @@ import { useTasks } from '../context/TasksContext';
 import { useGroups } from '../context/GroupContext';
 
 // Components
-
 const DragDropContext = ({
   containers,
   setContainers,
@@ -309,7 +308,7 @@ const DragDropContext = ({
       {/* Add Item Modal */}
 
       <div className='mt-3 mx-3'>
-        <div className='grid grid-cols-4 gap-6'>
+      <div className='card-layout grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
           <DndContext
             sensors={sensors}
             collisionDetection={closestCorners}
