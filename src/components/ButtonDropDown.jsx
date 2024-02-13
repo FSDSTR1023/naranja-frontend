@@ -30,7 +30,7 @@ const ButtonDropDown = ({ userContacts }) => {
   return (
     <div className='flex flex-col justify-center items-center'>
       <Dropdown
-        className='bg-orange-600 text-white text-sm font-bold rounded-md py-1 px-1'
+        className='bg-orange-500 text-white text-xs rounded-md py-1 px-1'
         label='Contacts'
         type='primary'
         size='sm'
@@ -81,7 +81,7 @@ const ButtonDropDown = ({ userContacts }) => {
                 key={contact?._id}
                 id={contact?.name}
                 onClick={() => handleClick(contact)}>
-                <div className='flex text-sm items-center justify-between w-full'>
+                <div className='flex text-xs items-center justify-between w-full'>
                   <img
                     className='w-10 h-10 rounded-full'
                     src={contact?.avatar}

@@ -105,7 +105,7 @@ const DragDropContainer = ({
         transform: CSS.Translate.toString(transform),
       }}
       className={clsx(
-        'card-container w-full h-full p-4 bg-orange-500 rounded-xl flex flex-col gap-y-4 justify-between',
+        'card-container w-full h-full p-4 bg-orange-300 rounded-xl flex flex-col gap-y-4 justify-between',
         isDragging && 'opacity-50'
       )}>
       <div className='flex items-center justify-between flex-wrap'>

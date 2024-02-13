@@ -33,7 +33,7 @@ const GroupChatCard = ({ group }) => {
   };
   return (
     <div
-      className=' flex flex-col flex-wrap w-full border-2 border-gray-400 rounded-md p-2 my-1 cursor-pointer bg-orange-500/90'
+      className=' flex flex-col flex-wrap w-full rounded-md p-2 my-1 mt-4 cursor-pointer bg-orange-500'
       onClick={(e) => handleClick(e, group?._id)}>
       {isConfirmationVisible && (
         <div className='z-20 fixed top-0 left-0  w-screen h-screen bg-gray-500/20'>
@@ -122,15 +122,15 @@ const GroupChatCard = ({ group }) => {
       </div>
       {group?.hasLastMessage ? (
         <div className='flex flex-col justify-center w-full'>
-          <p className='text-xs text-start font-bold text-gray-700 mb-1 truncate max-w-[70%]'>
+          <p className='text-xs text-start text-gray-200 font-light pl-2 mb-1 truncate max-w-[70%]'>
             {group?.lastMessage?.body}
           </p>
-          <p className='text-[10px] text-end'>
+          <p className='text-[10px] text-end text-gray-200'>
             {format(new Date(group?.lastMessage?.createdAt || Date.now()), 'p')}
           </p>
         </div>
       ) : (
-        <p className='text-xs text-start max-w-[70%] mb-1 text-white truncate'>
+        <p className='text-xs text-start mb-1 text-gray-200 pl-2 truncate'>
           No hay mensajes ...
         </p>
       )}

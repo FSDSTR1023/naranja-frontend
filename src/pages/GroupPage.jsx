@@ -79,12 +79,12 @@ const GroupPage = () => {
     <div className='flex flex-col w-full h-full'>
 
       {/* task navbar */}
-      <div className='flex flex-wrap w-full bg-orange-500 items-center justify-center gap-3 box-border md:justify-between'>
+      <div className='flex flex-wrap w-full bg-gray-800 items-center justify-center gap-3 box-border md:justify-between'>
 
         {/* group name */}
         <div className='ml-3 flex flex-row gap-3 justify-center items-center'>
           <ButtonDropDownGroup groups={groups} />
-          <h1 className='text-xs font-bold text-gray-700'>
+          <h1 className='text-xs font-bold text-gray-100'>
             {currentGroup?.name}
           </h1>
         </div>
@@ -95,7 +95,7 @@ const GroupPage = () => {
           <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
             <button
               onClick={onAddContainer}
-              className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              className='bg-gray-100 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
               Add
             </button>
@@ -116,7 +116,7 @@ const GroupPage = () => {
         ) : (
           <div className='mr-3 flex flex-row'>
             <button
-              className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+              className='bg-gray-100 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 whitespace-nowrap'
               onClick={() => setAddContainerInput(!addContainerInput)}>
               Añadir Tablero
@@ -180,7 +180,7 @@ const GroupPage = () => {
               {user?._id === currentGroup?.ownerUser ? (
                 <button
                   onClick={() => toggleModal()}
-                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]  w-fit             
+                  className='bg-gray-100 p-2 text-center text-gray-700 text-[9px]  w-fit             
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                   <div className='flex items-center justify-center gap-1'>
                     <FiUserPlus className=' text-gray-800 w-4 h-4 ' />{' '}
@@ -193,7 +193,7 @@ const GroupPage = () => {
                     deleteMemberFromGroup(currentGroup?._id, user);
                     navigate('/profile-page');
                   }}
-                  className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+                  className='bg-gray-100 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                   <div className='flex items-center justify-center gap-1'>
                     <BiExit className=' text-gray-800 w-5 h-5 rounded-full' />{' '}
@@ -204,7 +204,7 @@ const GroupPage = () => {
 {/* Abrir chat */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className='bg-gray-200 p-2 text-center text-gray-700 text-[9px]               
+                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px]               
               font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
                 Open Chat
               </button>
@@ -222,8 +222,6 @@ const GroupPage = () => {
           taskInfoToEdit={taskInfoToEdit}
         />
       </Modal>
-
-
       <Modal
         isVisible={isModalVisible}
         onClose={toggleModal}>
@@ -236,8 +234,8 @@ const GroupPage = () => {
         </div>
 
       ) : (
-        <div className='flex flex-row h-full w-full '>
-          <div className='h-[90%] w-full bg-gray-100 overflow-auto'>
+        <div className='flex flex-row h-full w-full overflow-auto mb-5 bg-gray-100'>
+          <div className='h-[90%] w-full flex-grow overflow-auto'>
             <DragDropContext
               containerName={containerName}
               setContainerName={setContainerName}
