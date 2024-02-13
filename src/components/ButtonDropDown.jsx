@@ -30,7 +30,7 @@ const ButtonDropDown = ({ userContacts }) => {
   return (
     <div className='flex flex-col justify-center items-center'>
       <Dropdown
-        className='bg-orange-500 text-white text-xs rounded-md py-1 px-1'
+        className='bg-orange-500 hover:bg-orange-600 hover:border-orange-600 text-white text-xs rounded-md py-1 px-1'
         label='Contacts'
         type='primary'
         size='sm'

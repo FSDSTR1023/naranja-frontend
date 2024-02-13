@@ -64,7 +64,7 @@ const ProfilePage = () => {
           `panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none`,
           panelOpen
             ? 'text-white'
-            : 'bg-orange-500 text-white border-2 border-gray-200'
+            : 'bg-orange-400 text-white border-2 border-gray-200'
         )}>
         {panelOpen ? 'X' : 'Open'}
       </button>
