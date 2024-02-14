@@ -104,15 +104,10 @@ export const UserProvider = ({ children }) => {
       formData.append('file', data);
       formData.append('upload_preset', 'emnwqxan');
       console.log(formData);
-      axios
-        .post(
-          'https://api.cloudinary.com/v1_1/daoxla1fg/image/upload',
-          formData
-        )
-        .then((response) => {
-          setUser({ ...user, avatar: response.data.url });
-          updateUserRequest(user);
-        });
+      axios.post(import.meta.env.VITE_COUDINARY, formData).then((response) => {
+        setUser({ ...user, avatar: response.data.url });
+        updateUserRequest(user);
+      });
     } catch (error) {
       console.log(error, '<-- error en uploadProfilePicture');
     }
