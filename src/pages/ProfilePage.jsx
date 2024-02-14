@@ -46,7 +46,7 @@ const ProfilePage = () => {
   }, [user, usersChanges, room]);
 
   return (
-    <div className='flex h-[100vh] bg-gray-900'>
+    <div className='flex h-[100vh] bg-gray-100'>
       {/* CHAT GRANDE */}
       <div
         className={clsx(
@@ -56,6 +56,7 @@ const ProfilePage = () => {
         <ChatPage />
       </div>
 
+
       {/* Button to open/close the panel */}
       <button
         onClick={togglePanel}
@@ -63,7 +64,7 @@ const ProfilePage = () => {
           `panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none`,
           panelOpen
             ? 'text-white'
-            : 'bg-orange-500 text-white border-2 border-gray-200'
+            : 'bg-orange-400 text-white border-2 border-gray-200'
         )}>
         {panelOpen ? 'X' : 'Open'}
       </button>
@@ -71,24 +72,27 @@ const ProfilePage = () => {
       {/* Panel */}
       <div
         className={clsx(
-          `panel-column overflow-auto p-4 scrollbar border-x-2 border-gray-400 bg-gray-900`,
+          `panel-column overflow-auto p-4 scrollba bg-chatGray`,
           panelOpen ? 'block' : 'hidden'
         )}>
+
+        <div className='text-md flex items-center justify-between gap-3 mt-4'>
+          <h1 className='text-sm text-white'>Menu</h1>
+        </div>
         {/* botones */}
-        <div className='flex flex-wrap items-center justify-center gap-4 mt-10 mb-7'>
+        <div className='flex flex-wrap items-center justify-center gap-4 mt-2 mb-7 font-light'>
           <CreateGroupButton />
           <ButtonDropDown userContacts={allUsers} />
         </div>
 
         {/* Chats */}
-        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
-        <div className='text-md flex items-center justify-around gap-3'>
-          <h1 className='text-xs font-bold text-white'>Chats Privados</h1>
+        <hr className='h-[1px] my-2 bg-gray-400 border-0 mb-5' />
+        <div className='text-md flex items-center justify-between gap-3'>
+          <h1 className='text-sm text-white'>Chats Privados</h1>
           <TiMessages className='text-white' />
         </div>
-        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {privateGroups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold'>
+          <div className='flex justify-center text-xs text-gray-400 mt-3'>
             No tienes chats privados.
           </div>
         )}
@@ -98,16 +102,15 @@ const ProfilePage = () => {
             group={group}
           />
         ))}
-        <hr className='h-[1px] my-2 bg-gray-400 border-0 mt-4' />
+        <hr className='h-[1px] bg-gray-400 border-0 mt-5 mb-5' />
 
         {/* Paneles contenido */}
-        <div className='text-md flex items-center justify-around gap-3'>
-          <h1 className='text-xs font-bold text-white'>Paneles de Grupo</h1>
+        <div className='text-md flex items-center justify-between gap-3'>
+          <h1 className='text-sm text-white'>Paneles de Grupo</h1>
           <LuLayoutPanelLeft className='text-white' />
         </div>
-        <hr className='h-[1px] my-2 bg-gray-400 border-0' />
         {groups?.length === 0 && (
-          <div className='flex items-center justify-center text-xs font-bold'>
+          <div className='flex items-center justify-center text-xs text-gray-400'>
             No tienes grupos.
           </div>
         )}

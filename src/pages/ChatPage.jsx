@@ -185,7 +185,7 @@ const ChatPage = () => {
       <div className='col-span-12 w-full justify-center items-center flex flex-co'>
         <div
           className='flex flex-col border-2 border-gray-400 rounded-md 
-        w-[calc(100%-15px)] p-2 h-[calc(100vh-135px)] justify-between bg-chatGray'>
+        w-[calc(100%-15px)] p-2 h-[calc(100vh-135px)] justify-between bg-white'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             {room && selectedUser?.name ? (
               <div className='flex items-center justify-center'>
@@ -304,8 +304,8 @@ const ChatPage = () => {
                       <input {...getInputProps()} />
 
                       <PaperClipIcon
-                        className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
-                       hover:border-gray-400 text-white'
+                        className='h-9 w-9 cursor-pointer border-2 border-gray-200 px-2 py-1 rounded-md
+                       hover:border-gray-400 text-black'
                         onClick={open}
                       />
                     </div>
@@ -315,8 +315,8 @@ const ChatPage = () => {
 
               <PaperAirplaneIcon
                 disabled={room ? false : true}
-                className='h-8 w-8 
-      cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90 text-white'
+                className='h-9 w-9 cursor-pointer border-2 border-gray-200 px-2 py-1 rounded-md
+                hover:border-gray-400 text-black'
                 type='submit'
                 onClick={(e) => onSubmit(e)}
               />
