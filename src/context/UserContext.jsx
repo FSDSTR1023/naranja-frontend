@@ -174,7 +174,9 @@ export const UserProvider = ({ children }) => {
     console.log('deslogueado');
     navigate('/');
   };
-  const socket = io.connect('http://localhost:4000');
+  const socket = io.connect(
+    'https://naranja-tasktalk-backend.onrender.com/' || 'http://localhost:4000'
+  );
 
   useEffect(() => {
     // socket.on('connect', () => {
