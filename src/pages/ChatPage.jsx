@@ -79,7 +79,9 @@ const ChatPage = () => {
       setIsLoading(false);
     });
 
-    return () => socket.off('receive-message');
+    return () => {
+      socket.off('receive-message');
+    };
   }, [socket]);
 
   const onSubmit = async (e) => {
@@ -278,7 +280,7 @@ const ChatPage = () => {
               )}
               {isLoading && (
                 <div className='w-full h-full flex items-center justify-center'>
-                <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
+                  <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
                 </div>
               )}
               <Dropzone
