@@ -19,12 +19,15 @@ export const VideoChat = ({ room, audio, video }) => {
     const connection = async () => {
       try {
         const resp = await getLiveKitToken(room, username);
-        console.log(resp, '<-- resp en VideoChat');
+        console.log(resp, '<-- resp en VideoChat******************');
 
         const data = await resp.data.videoToken;
         console.log(data, '<-- data en VideoChat');
         setLiveKitToken(data);
-        console.log(liveKitToken, '<-- liveKitToken en VideoChat');
+        console.log(
+          liveKitToken,
+          '<-- liveKitToken en VideoChat*****************'
+        );
       } catch (error) {
         console.log(error);
       }
@@ -41,14 +44,16 @@ export const VideoChat = ({ room, audio, video }) => {
     );
   }
   return (
-    <LiveKitRoom
-      data-lk-theme='default'
-      serverUrl='wss://team-chat-app-7keim926.livekit.cloud'
-      token={liveKitToken}
-      connect={true}
-      video={video}
-      audio={audio}>
-      <VideoConference />
-    </LiveKitRoom>
+    liveKitToken && (
+      <LiveKitRoom
+        data-lk-theme='default'
+        serverUrl='wss://team-chat-app-7keim926.livekit.cloud'
+        token={liveKitToken}
+        connect={true}
+        video={video}
+        audio={audio}>
+        <VideoConference />
+      </LiveKitRoom>
+    )
   );
 };
