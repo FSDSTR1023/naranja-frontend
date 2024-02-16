@@ -19,9 +19,10 @@ export const VideoChat = ({ room, audio, video }) => {
     const connection = async () => {
       try {
         const resp = await getLiveKitToken(room, username);
+        console.log(resp, '<-- resp en VideoChat');
 
         const data = await resp.data.videoToken;
-
+        console.log(data, '<-- data en VideoChat');
         setLiveKitToken(data);
         console.log(liveKitToken, '<-- liveKitToken en VideoChat');
       } catch (error) {
