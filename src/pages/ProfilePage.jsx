@@ -11,7 +11,6 @@ import GroupChatCard from '../components/GroupChatCard';
 import ChatPage from './ChatPage';
 import { LuLayoutPanelLeft } from 'react-icons/lu';
 import { useMessage } from '../context/MessagesContext';
-import clsx from 'clsx';
 import './styles/slider.css';
 
 const ProfilePage = () => {
@@ -48,11 +47,7 @@ const ProfilePage = () => {
   return (
     <div className='flex h-[100vh] bg-gray-100'>
       {/* CHAT GRANDE */}
-      <div
-        className={clsx(
-          `chat-column flex-grow flex flex-col items-center justify-start mb-1 overflow-auto p-4`,
-          `transition-all duration-300 ease-in-out w-full`
-        )}>
+      <div className="group-page-chat flex-grow lg:w-3/4 w-full overflow-auto p-4">
         <ChatPage />
       </div>
 
@@ -60,22 +55,12 @@ const ProfilePage = () => {
       {/* Button to open/close the panel */}
       <button
         onClick={togglePanel}
-        className={clsx(
-          `panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none`,
-          panelOpen
-            ? 'text-white'
-            : 'bg-orange-400 text-white border-2 border-gray-200'
-        )}>
+        className={`panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none ${panelOpen ? 'bg-orange-500 text-white' : 'text-white bg-orange-400 border-2 border-gray-200'}`}>
         {panelOpen ? 'X' : 'Open'}
       </button>
 
       {/* Panel */}
-      <div
-        className={clsx(
-          `panel-column overflow-auto p-4 scrollba bg-chatGray`,
-          panelOpen ? 'block' : 'hidden'
-        )}>
-
+      <div className={`panel-column ${panelOpen ? 'lg:w-1/5' : 'w-0 hidden'} overflow-auto p-4 scrollbar bg-chatGray`}>
         <div className='text-md flex items-center justify-between gap-3 mt-4'>
           <h1 className='text-sm text-white'>Menu</h1>
         </div>
@@ -91,6 +76,8 @@ const ProfilePage = () => {
           <h1 className='text-sm text-white'>Chats Privados</h1>
           <TiMessages className='text-white' />
         </div>
+
+
         {privateGroups?.length === 0 && (
           <div className='flex justify-center text-xs text-gray-400 mt-3'>
             No tienes chats privados.

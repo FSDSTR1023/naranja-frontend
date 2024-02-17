@@ -2,33 +2,23 @@
   .panel-toggle-button {
     display: none;
   }
-  
-  .panel-column {
-    width: 400px; 
-  }
 
   /* Group Page */
     .group-page-chat{
-        position: absolute;
-        right: 0;
         width: 421px;
     }
 
-  @media (max-width: 1507px) {
+  
+  @media (max-width: 800px) {
     .panel-toggle-button {
       display: inherit; 
     }
-  
+
     .panel-column {
       position: absolute; 
       top: 82px; 
       bottom: 0;
       right: 0; 
-    }
-  }
-  
-  @media (max-width: 820px) {
-    .panel-column {
       width: 100%; 
     }
     .group-page-chat{

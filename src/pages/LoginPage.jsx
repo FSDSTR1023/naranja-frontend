@@ -26,7 +26,7 @@ const LoginPage = () => {
   }, [isAuthenticated]);
 
   return (
-    <div className='flex flex-col items-center w-full h-full pt-[150px] bg-gradient-to-b from-yellow-100 via-blue-300 to-blue-700'>
+    <div className='flex flex-col items-center w-full h-full pt-[150px]'>
       <h2 className='text-2xl font-semibold mb-4'>Login</h2>
       <form
         className='w-full max-w-lg'
