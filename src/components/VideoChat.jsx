@@ -45,16 +45,14 @@ export const VideoChat = ({ room, audio, video }) => {
     );
   }
   return (
-    liveKitToken && (
-      <LiveKitRoom
-        data-lk-theme='default'
-        serverUrl={serverUrl}
-        token={liveKitToken}
-        connect={true}
-        video={video}
-        audio={audio}>
-        <VideoConference />
-      </LiveKitRoom>
-    )
+    <LiveKitRoom
+      data-lk-theme='default'
+      serverUrl={serverUrl}
+      token={liveKitToken}
+      connect={true}
+      video={video}
+      audio={audio}>
+      <VideoConference />
+    </LiveKitRoom>
   );
 };
