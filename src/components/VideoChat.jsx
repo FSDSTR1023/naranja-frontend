@@ -6,7 +6,7 @@ import '@livekit/components-styles';
 import { useUser } from '../context/UserContext';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { getLiveKitToken } from '../api/message';
-import process from 'process';
+
 const serverUrl = import.meta.env.VITE_PUBLIC_LK_SERVER_URL;
 export const VideoChat = ({ room, audio, video }) => {
   const { user } = useUser();
