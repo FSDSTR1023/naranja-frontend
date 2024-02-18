@@ -3,5 +3,3 @@
   to = "index.html"
   status = 200
 
-[context.production.environment]
-  VITE_PUBLIC_LK_SERVER_URL=wss://team-chat-app-7keim926.livekit.cloud
