@@ -52,12 +52,15 @@ const ProfilePage = () => {
       </div>
 
 
-      {/* Button to open/close the panel */}
-      <button
-        onClick={togglePanel}
-        className={`panel-toggle-button absolute mt-[0px] right-0 px-3 py-4 z-10 text-xs rounded-lg rounded-r-none ${panelOpen ? 'bg-orange-500 text-white' : 'text-white bg-orange-400 border-2 border-gray-200'}`}>
-        {panelOpen ? 'X' : 'Open'}
-      </button>
+  <button
+    onClick={togglePanel}
+    className="panel-toggle-button flex text-center justify-center absolute mb-10 w-full px-4 py-2 text-xs z-10 bg-orange-500 text-white font-medium"
+  >
+    {panelOpen ? 'Cerrar' :  <span>
+      Abrir <span className="chevron fas fa-chevron-down"></span>
+    </span> }
+  </button>
+
 
       {/* Panel */}
       <div className={`panel-column ${panelOpen ? 'lg:w-1/5' : 'w-0 hidden'} overflow-auto p-4 scrollbar bg-chatGray`}>
@@ -89,7 +92,7 @@ const ProfilePage = () => {
             group={group}
           />
         ))}
-        <hr className='h-[1px] bg-gray-400 border-0 mt-5 mb-5' />
+        <hr className=' h-[1px] bg-gray-400 border-0 mt-5 mb-5' />
 
         {/* Paneles contenido */}
         <div className='text-md flex items-center justify-between gap-3'>

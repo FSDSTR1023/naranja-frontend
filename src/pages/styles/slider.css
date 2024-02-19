@@ -1,6 +1,6 @@
   /* Profile Page */
   .panel-toggle-button {
-    display: none;
+    display: none !important;
   }
 
   /* Group Page */
@@ -11,18 +11,19 @@
   
   @media (max-width: 800px) {
     .panel-toggle-button {
-      display: inherit; 
+      display: inherit !important; 
     }
 
     .panel-column {
       position: absolute; 
-      top: 82px; 
+      top: 100px; 
       bottom: 0;
       right: 0; 
       width: 100%; 
     }
     .group-page-chat{
         width: 100%; 
+        margin-top:15px;
     }
   }
  
