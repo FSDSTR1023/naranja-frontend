@@ -69,7 +69,7 @@ const GroupChatCard = ({ group }) => {
             <div className='flex flex-col items-start mb-2'>
               <p className='font-bold text-sm text-black'>{group?.name}</p>
               <p className='text-[9px] text-white'>
-                {`${group?.members.length} Members`}
+              {group?.members?.length ? `${group.members.length} Members` : '0 Members'}
               </p>
               {user?._id === group?.ownerUser && (
                 <TbTrash
