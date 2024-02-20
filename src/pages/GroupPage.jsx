@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 import ChatComponent from '../components/ChatComponent';
 import TaskEditionPanel from '../components/TaskEditionPanel';
-import "./styles/slider.css"
+import './styles/slider.css';
 
 const GroupPage = () => {
   const [currentMember, setCurrentMember] = useState({});
@@ -76,121 +76,131 @@ const GroupPage = () => {
   };
 
   return (
-    <div className='flex flex-col w-full h-full'>
-
+    <div className='flex md:flex-col md:w-full md:h-full h-full w-full'>
       {/* task navbar */}
-      <div className='flex flex-wrap w-full bg-gray-800 gap-3 box-border'>
+      <div className='flex flex-col md:flex flex-wrap md:w-full w-fit bg-gray-800 gap-3 box-border'>
+        <div className='md:ml-3 gap-3 flex md:flex-row flex-col items-center '>
+          <ButtonDropDownGroup groups={groups} />
+          <h1 className='text-xs font-bold text-gray-100'>
+            {currentGroup?.name}
+          </h1>
 
-<div className='ml-3 gap-3'>
-  <ButtonDropDownGroup groups={groups} />
-  <h1 className='text-xs font-bold text-gray-100'>
-    {currentGroup?.name}
-  </h1>
-
-  {addContainerInput ? (
-    <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
-      <button
-        onClick={onAddContainer}
-        className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
-        Add
-      </button>
-      <input
-        className='border-2 border-gray-500 rounded-lg py-1 px-1 w-full mr-3'
-        type='text'
-        placeholder='Container Title'
-        name='containername'
-        onKeyDown={(e) => 
-          (e.key === 'Escape' && setAddContainerInput(!addContainerInput)) ||
-          (e.key === 'Enter' && onAddContainer())
-        }
-        value={containerName}
-        onChange={(e) => setContainerName(e.target.value)}
-      />
-    </div>
-  ) : (
-    <div className=''>
-      <button
-        className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md hover:bg-gray-300 m-2 whitespace-nowrap'
-        onClick={() => setAddContainerInput(!addContainerInput)}>
-        Añadir Tablero
-      </button>  
-    </div>
-  )}
-
-  <div className='relative flex flex-row mr-3 items-center justify-center ml-3'>
-    {filteredMembers?.map((member) => (
-      <ToolTip
-        key={member?._id}
-        label={member?.email}>
-        <img
-          onClick={() => {
-            user?._id === currentGroup?.ownerUser && setIsConfirmationVisible(true);
-          }}
-          key={member?._id}
-          className='w-6 h-6 rounded-full relative left-0 top-0 cursor-pointer'
-          src={member?.avatar}
-          alt='Avatar'
-        />
-        {isConfirmationVisible && (
-          <div className='z-20 fixed top-0 left-0 w-screen h-screen bg-gray-500/20'>
-            <div className='absolute top-36 right-56 bg-white p-6 rounded-md'>
-              <div className='flex flex-col items-center justify-center p-2 h-auto w-[250px]'>
-                <p className='text-sm font-bold text-gray-700'>
-                  Are you sure you want to delete <em className='text-red-500'>{currentMember?.email}</em> from this group?
-                </p>
-                <div className='flex items-center justify-center p-2 mt-2 gap-6'>
-                  <button
-                    className='bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600'
-                    onClick={() => setIsConfirmationVisible(false)}>
-                    Cancel
-                  </button>
-                  <button
-                    className='bg-red-500 text-white p-2 rounded-md hover:bg-red-600'
-                    onClick={() => handleDeletMemberFromGroup(currentMember)}>
-                    Confirm
-                  </button>
-                </div>
-              </div>
+          {addContainerInput ? (
+            <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
+              <button
+                onClick={onAddContainer}
+                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold 
+                rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
+                Add
+              </button>
+              <input
+                className='border-2 border-gray-500 rounded-lg py-1 px-1 w-full mr-3'
+                type='text'
+                placeholder='Container Title'
+                name='containername'
+                onKeyDown={(e) =>
+                  (e.key === 'Escape' &&
+                    setAddContainerInput(!addContainerInput)) ||
+                  (e.key === 'Enter' && onAddContainer())
+                }
+                value={containerName}
+                onChange={(e) => setContainerName(e.target.value)}
+              />
             </div>
+          ) : (
+            <div className=''>
+              <button
+                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] 
+                font-bold rounded-md hover:bg-gray-300 m-2 whitespace-nowrap'
+                onClick={() => setAddContainerInput(!addContainerInput)}>
+                Añadir Tablero
+              </button>
+            </div>
+          )}
+
+          <div className='relative flex flex-row mr-3 items-center justify-center ml-3'>
+            {filteredMembers?.map((member) => (
+              <ToolTip
+                key={member?._id}
+                label={member?.email}>
+                <img
+                  onClick={() => {
+                    user?._id === currentGroup?.ownerUser &&
+                      setIsConfirmationVisible(true);
+                  }}
+                  key={member?._id}
+                  className='w-6 h-6 rounded-full relative left-0 top-0 cursor-pointer'
+                  src={member?.avatar}
+                  alt='Avatar'
+                />
+                {isConfirmationVisible && (
+                  <div className='z-20 fixed top-0 left-0 w-screen h-screen bg-gray-500/20'>
+                    <div className='absolute top-36 right-56 bg-white p-6 rounded-md'>
+                      <div className='flex flex-col items-center justify-center p-2 h-auto w-[250px]'>
+                        <p className='text-sm font-bold text-gray-700'>
+                          Are you sure you want to delete{' '}
+                          <em className='text-red-500'>
+                            {currentMember?.email}
+                          </em>{' '}
+                          from this group?
+                        </p>
+                        <div className='flex items-center justify-center p-2 mt-2 gap-6'>
+                          <button
+                            className='bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600'
+                            onClick={() => setIsConfirmationVisible(false)}>
+                            Cancel
+                          </button>
+                          <button
+                            className='bg-red-500 text-white p-2 rounded-md hover:bg-red-600'
+                            onClick={() =>
+                              handleDeletMemberFromGroup(currentMember)
+                            }>
+                            Confirm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </ToolTip>
+            ))}
           </div>
-        )}
-      </ToolTip>
-    ))}
-  </div>
 
-  <div className='flex gap-2 items-center justify-center'>
-    {user?._id === currentGroup?.ownerUser ? (
-      <button
-        onClick={() => toggleModal()}
-        className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] w-fit font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
-        <div className='flex items-center justify-center gap-1'>
-          <FiUserPlus className='text-gray-800 w-4 h-4' />
-          <span>Miembro</span>
+          <div className='flex gap-2 items-center justify-center'>
+            {user?._id === currentGroup?.ownerUser ? (
+              <button
+                onClick={() => toggleModal()}
+                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] w-fit font-bold 
+        rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+                <div className='flex items-center justify-center gap-1'>
+                  <FiUserPlus className='text-gray-800 w-4 h-4' />
+                  <span>Miembro</span>
+                </div>
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  deleteMemberFromGroup(currentGroup?._id, user);
+                  navigate('/profile-page');
+                }}
+                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold 
+        rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+                <div className='flex items-center justify-center gap-1'>
+                  <BiExit className='text-gray-800 w-5 h-5 rounded-full' />
+                  <span>Group</span>
+                </div>
+              </button>
+            )}
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md
+     hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+            Open Chat
+          </button>
         </div>
-      </button>
-    ) : (
-      <button
-        onClick={() => {
-          deleteMemberFromGroup(currentGroup?._id, user);
-          navigate('/profile-page');
-        }}
-        className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
-        <div className='flex items-center justify-center gap-1'>
-          <BiExit className='text-gray-800 w-5 h-5 rounded-full' />
-          <span>Group</span>
-        </div>
-      </button>
-    )}
-  </div>
-
-  <button
-    onClick={() => setIsOpen(!isOpen)}
-    className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
-    Open Chat
-  </button>
-</div>
-</div>
-
+      </div>
 
       <Modal
         isVisible={isModalTaskVisible}
@@ -208,9 +218,8 @@ const GroupPage = () => {
 
       {pageLoading ? (
         <div className='w-full h-full flex items-center justify-center'>
-         <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
+          <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
         </div>
-
       ) : (
         <div className='flex flex-row h-full w-full overflow-auto mb-5 bg-gray-100'>
           <div className='h-[90%] w-full flex-grow overflow-auto'>

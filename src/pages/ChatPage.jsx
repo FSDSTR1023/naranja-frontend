@@ -316,7 +316,7 @@ const ChatPage = () => {
               <PaperAirplaneIcon
                 disabled={room ? false : true}
                 className='h-9 w-9 cursor-pointer border-2 border-gray-200 px-2 py-1 rounded-md
-                hover:border-gray-400 text-black'
+                hover:border-gray-400 text-black rotate-90'
                 type='submit'
                 onClick={(e) => onSubmit(e)}
               />
