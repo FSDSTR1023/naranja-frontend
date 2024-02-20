@@ -4,9 +4,9 @@ import { FaRegEye } from 'react-icons/fa';
 import { FaRegUser } from 'react-icons/fa';
 import { FaRegClock } from 'react-icons/fa';
 import { SlPaperClip } from 'react-icons/sl';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useUser } from '../context/UserContext';
-import { Tooltip } from 'keep-react';
+
 import { useTasks } from '../context/TasksContext';
 import { useGroups } from '../context/GroupContext';
 import Dropzone from 'react-dropzone';
@@ -24,24 +24,25 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
   const checkedRef = useRef();
   const [showMembers, setShowMembers] = useState();
 
+  useEffect(() => {}, [taskInfoToEdit]);
+
   console.log(taskInfoToEdit);
   const containerTitle = taskInfoToEdit.containerTitle;
   const onSubmit = (e, task) => {
     e.preventDefault();
     const taskData = { ...task, description: description };
-    console.log(taskData);
+    taskInfoToEdit.item.description = description;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-    toggleEditTask();
   };
   const handleChangeDate = (task) => {
     console.log(typeof calendarRef.current.value);
     const date = new Date(calendarRef.current.value);
     console.log(date);
     const taskData = { ...task, dateEnd: date };
-    console.log(taskData);
+    taskInfoToEdit.item.DateEnd = date;
+
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
     setCalendarOpen(!calendarOpen);
-    toggleEditTask();
   };
 
   const handleImageUpload = async (task, file) => {
@@ -49,13 +50,14 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
     const imageUrl = await uploadImage(file);
     console.log(imageUrl);
     const taskData = { ...task, fileAt: imageUrl };
+    taskInfoToEdit.item.fileAt = imageUrl;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-    toggleEditTask();
   };
 
   const handleFollowNotifications = (userId, task) => {
     if (task.followers && task.followers.length === 0) {
       const followers = [userId];
+      console.log(followers);
       const taskData = {
         id: task.id,
         _id: task._id,
@@ -68,13 +70,16 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
         assignedTo: task.assignedTo || null,
         followers: followers,
       };
+      taskInfoToEdit.item.followers = followers;
       editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-      toggleEditTask();
     } else {
-      const followers = task.followers?.includes(userId)
+      console.log(userId);
+      const followersId = task.followers?.map((follower) => follower._id);
+      const followers = followersId?.includes(userId)
         ? task.followers
         : [...task.followers, userId];
       console.log(followers);
+      console.log(followersId);
 
       const taskData = {
         id: task.id,
@@ -88,22 +93,24 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
         assignedTo: task.assignedTo || null,
         followers: followers,
       };
+      taskInfoToEdit.item.followers = followers;
       editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-      toggleEditTask();
     }
   };
 
   const handleTaskCompleted = async (task) => {
     const taskData = { ...task, isCompleted: checkedRef.current.checked };
+    taskInfoToEdit.item.isCompleted = checkedRef.current.checked;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-    toggleEditTask();
   };
 
   const handelAssignTo = (member, task) => {
     const taskData = { ...task, assignedTo: member._id };
+    taskInfoToEdit.item.assignedTo = member;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
-    toggleEditTask();
+
     setShowMembers(!showMembers);
+
     // enviar notificacion de que se le ha asignado una tarea
   };
   // Crear una Funcion que mire si hay usuarios siguiendo la tarea para notificarles por email cualquier cambio en la misma
@@ -122,16 +129,16 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
             <div className='w-fit flex flex-col items-start'>
               <p className='text-sm font-bold text-start'>Notificaciones</p>
               <div className='flex items-center justify-center gap-3 self-start'>
-                <Tooltip label='Seguir '>
-                  <button
-                    className='flex items-center justify-center py-1 px-2 rounded-md gap-2 border-2 shadow-md
+                <button
+                  className='flex items-center justify-center py-1 px-2 rounded-md gap-2 border-2 shadow-md
                border-gray-800 w-full text-sm mt-2'
-                    onClick={() => {
-                      handleFollowNotifications(user?._id, task);
-                    }}>
-                    <FaRegEye /> Seguir
-                  </button>
-                </Tooltip>
+                  onClick={() => {
+                    handleFollowNotifications(user?._id, task);
+                  }}>
+                  <FaRegEye />
+                  Seguir
+                </button>
+
                 {task.followers && task.followers.length > 0
                   ? task.followers.map((follower) => (
                       <img

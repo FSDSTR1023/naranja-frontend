@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx';
 
 import { useEffect, useState } from 'react';
@@ -20,7 +21,7 @@ import TaskEditionPanel from '../components/TaskEditionPanel';
 import './styles/slider.css';
 
 const GroupPage = () => {
-  const [currentMember, setCurrentMember] = useState({});
+  const [currentMember] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [addContainerInput, setAddContainerInput] = useState(false);
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
