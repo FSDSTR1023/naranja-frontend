@@ -87,8 +87,8 @@ const ChatComponent = () => {
         };
         setChatMessage('');
         setUploadedFile(null);
-        await socket.emit('send-message', { room, messageData, user });
         await setMessage((list) => [...list, messageData]);
+        await socket.emit('send-message', { room, messageData, user });
 
         createMessage(messageData);
       } else if (extencion !== 'pdf') {
@@ -107,8 +107,8 @@ const ChatComponent = () => {
         };
         setChatMessage('');
         setUploadedFile(null);
-        await socket.emit('send-message', { room, messageData, user });
         await setMessage((list) => [...list, messageData]);
+        await socket.emit('send-message', { room, messageData, user });
 
         createMessage(messageData);
       }
@@ -126,9 +126,8 @@ const ChatComponent = () => {
       };
 
       setChatMessage('');
-      await socket.emit('send-message', { room, messageData, user });
-
       await setMessage((list) => [...list, messageData]);
+      await socket.emit('send-message', { room, messageData, user });
 
       createMessage(messageData);
     }
