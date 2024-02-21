@@ -22,16 +22,21 @@ export const sendNotification = async (data) => {
   };
 
   const config = {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+    body: JSON.stringify({ message }),
   };
+
   try {
-    await axios.post(
+    const response = await fetch(
       import.meta.env.VITE_SLACK_URL_WEBHOOK,
-      { message },
       config
     );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
   } catch (error) {
     console.error(error);
   }
