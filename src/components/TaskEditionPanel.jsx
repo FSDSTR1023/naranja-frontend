@@ -15,6 +15,7 @@ import {
   uploadImage,
   sendAssigneNotification,
 } from '../api/services';
+import { sendNotificationEmail } from '../api/task';
 import clsx from 'clsx';
 
 const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
@@ -141,6 +142,7 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
       assignedTo: member.name + ' ' + member.surname,
     };
     sendAssigneNotification(data);
+    sendNotificationEmail(member.email, task.title, currentGroup.name);
 
     // enviar notificacion de que se le ha asignado una tarea
   };

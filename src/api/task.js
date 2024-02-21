@@ -17,3 +17,6 @@ export const updateTitleTaskRequest = (containerId, task) =>
 
 export const updateTaskInfoRequest = (containerId, task) =>
   axios.put(`/task/updateTaskInfo/${containerId}`, task);
+
+export const sendNotificationEmail = (email, task, groupName) =>
+  axios.post('/task/assignedTo/sendNotification', { email, task, groupName });
