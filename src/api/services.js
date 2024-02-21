@@ -21,14 +21,14 @@ export const sendNotification = async (data) => {
     text: `This ${taskTitle} from ${groupName} group in ${containerTitle}has been modificated by ${name} ${surname} with email ${email}`,
   };
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    withCredentials: true,
-  };
+  // const config = {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   withCredentials: true,
+  // };
   try {
-    await axios.post(import.meta.env.VITE_SLACK_URL_WEBHOOK, message, config);
+    await axios.post(import.meta.env.VITE_SLACK_URL_WEBHOOK, message);
   } catch (error) {
     console.error(error);
   }
