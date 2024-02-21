@@ -104,9 +104,9 @@ const ChatPage = () => {
           fileAtt: response,
           time: new Date(Date.now()),
         };
+        await setMessage((list) => [...list, messageData]);
         setChatMessage('');
         setUploadedFile(null);
-        await setMessage((list) => [...list, messageData]);
         await socket.emit('send-message', { room, messageData, user });
 
         createMessage(messageData);
@@ -124,9 +124,9 @@ const ChatPage = () => {
           fileAtt: '',
           time: new Date(Date.now()),
         };
+        await setMessage((list) => [...list, messageData]);
         setChatMessage('');
         setUploadedFile(null);
-        await setMessage((list) => [...list, messageData]);
         await socket.emit('send-message', { room, messageData, user });
 
         createMessage(messageData);
