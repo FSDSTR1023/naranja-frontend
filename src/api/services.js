@@ -27,7 +27,11 @@ export const sendNotification = async (data) => {
     },
   };
   try {
-    await axios.post(import.meta.env.VITE_SLACK_URL_WEBHOOK, message, config);
+    await axios.post(
+      import.meta.env.VITE_SLACK_URL_WEBHOOK,
+      { message },
+      config
+    );
   } catch (error) {
     console.error(error);
   }
