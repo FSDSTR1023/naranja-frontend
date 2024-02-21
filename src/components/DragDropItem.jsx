@@ -7,6 +7,8 @@ import { BiTrash } from 'react-icons/bi';
 import { BiPencil } from 'react-icons/bi';
 import { useTasks } from '../context/TasksContext';
 import Tooltip from '../components/ToolTip';
+import { useUser } from '../context/UserContext';
+import { sendNotification } from '../api/services';
 
 const DragDropItem = ({
   id,
@@ -20,6 +22,7 @@ const DragDropItem = ({
   const { containers, setContainers, updateTask } = useTasks();
   const [isEditing, setIsEditing] = useState(false);
   const [titleEditing, setTitleEditing] = useState(title);
+  const { user } = useUser();
 
   const {
     attributes,
@@ -51,15 +54,27 @@ const DragDropItem = ({
   };
   const onEditItem = (itemId, containerId) => {
     setIsEditing(false);
-    console.log(itemId, containerId, 'delete item');
+
     const container = containers.find((item) => item.id === containerId);
 
     if (!container) return;
     const taskToEdit = container.items.find((item) => item.id === itemId);
     taskToEdit.title = titleEditing;
-    console.log(containers, 'containers');
+    console.log(containerId);
+    console.log(container, 'containers');
 
-    //updateTask(container.id, filteredItems);
+    updateTask(containerId, container.items);
+    //notification to slack
+
+    const data = {
+      name: user?.name,
+      surname: user?.surname,
+      email: user?.email,
+      taskTitle: taskToEdit?.title,
+      containerTitle: container?.title,
+      groupName: container.group?.name,
+    };
+    sendNotification(data);
     setContainers([...containers]);
   };
 
