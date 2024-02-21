@@ -23,7 +23,7 @@ export const sendNotification = async (data) => {
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
   };
   try {
