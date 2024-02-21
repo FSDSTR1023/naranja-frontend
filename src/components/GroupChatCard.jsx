@@ -33,7 +33,7 @@ const GroupChatCard = ({ group }) => {
   };
   return (
     <div
-      className=' flex flex-col flex-wrap w-full rounded-md p-2 my-1 mt-4 cursor-pointer bg-orange-500'
+      className=' flex flex-col flex-wrap w-full rounded-md p-2 my-1 mt-4 cursor-pointer bg-orange-500 min-w-[188px]'
       onClick={(e) => handleClick(e, group?._id)}>
       {isConfirmationVisible && (
         <div className='z-20 fixed top-0 left-0  w-screen h-screen bg-gray-500/20'>
@@ -69,11 +69,13 @@ const GroupChatCard = ({ group }) => {
             <div className='flex flex-col items-start mb-2'>
               <p className='font-bold text-sm text-black'>{group?.name}</p>
               <p className='text-[9px] text-white'>
-              {group?.members?.length ? `${group.members.length} Members` : '0 Members'}
+                {group?.members?.length
+                  ? `${group.members.length} Members`
+                  : '0 Members'}
               </p>
               {user?._id === group?.ownerUser && (
                 <TbTrash
-                  className=' absolute z-10 top-0 right-8 text-gray-200 w-5 h-5 rounded-full'
+                  className=' absolute z-10 top-6 right-0 text-gray-200 w-5 h-5 rounded-full'
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsConfirmationVisible(true);
