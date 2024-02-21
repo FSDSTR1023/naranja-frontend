@@ -25,8 +25,6 @@ export const sendNotification = async (data) => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-
-    withCredentials: true,
   };
   try {
     await axios.post(import.meta.env.VITE_SLACK_URL_WEBHOOK, message, config);
