@@ -26,7 +26,7 @@ export const sendNotification = async (data) => {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify(message),
   };
 
   try {
