@@ -10,7 +10,11 @@ import { useUser } from '../context/UserContext';
 import { useTasks } from '../context/TasksContext';
 import { useGroups } from '../context/GroupContext';
 import Dropzone from 'react-dropzone';
-import { uploadImage } from '../api/services';
+import {
+  sendNotification,
+  uploadImage,
+  sendAssigneNotification,
+} from '../api/services';
 import clsx from 'clsx';
 
 const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
@@ -24,8 +28,6 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
   const checkedRef = useRef();
   const [showMembers, setShowMembers] = useState();
 
-  useEffect(() => {}, [taskInfoToEdit]);
-
   console.log(taskInfoToEdit);
   const containerTitle = taskInfoToEdit.containerTitle;
   const onSubmit = (e, task) => {
@@ -33,6 +35,15 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
     const taskData = { ...task, description: description };
     taskInfoToEdit.item.description = description;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
+    const data = {
+      name: user?.name,
+      surname: user?.surname,
+      email: user?.email,
+      taskTitle: taskInfoToEdit?.item.title,
+      containerTitle: containerTitle,
+      groupName: currentGroup?.name,
+    };
+    sendNotification(data);
   };
   const handleChangeDate = (task) => {
     console.log(typeof calendarRef.current.value);
@@ -52,6 +63,15 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
     const taskData = { ...task, fileAt: imageUrl };
     taskInfoToEdit.item.fileAt = imageUrl;
     editTaskInfo(taskInfoToEdit.containerId, taskData, currentGroup._id);
+    const data = {
+      name: user?.name,
+      surname: user?.surname,
+      email: user?.email,
+      taskTitle: taskInfoToEdit?.item.title,
+      containerTitle: containerTitle,
+      groupName: currentGroup?.name,
+    };
+    sendNotification(data);
   };
 
   const handleFollowNotifications = (userId, task) => {
@@ -111,8 +131,21 @@ const TaskEditionPanel = ({ toggleEditTask, taskInfoToEdit }) => {
 
     setShowMembers(!showMembers);
 
+    const data = {
+      name: user?.name,
+      surname: user?.surname,
+      email: user?.email,
+      taskTitle: taskInfoToEdit?.item.title,
+      containerTitle: containerTitle,
+      groupName: currentGroup?.name,
+      assignedTo: member.name + ' ' + member.surname,
+    };
+    sendAssigneNotification(data);
+
     // enviar notificacion de que se le ha asignado una tarea
   };
+
+  useEffect(() => {}, [taskInfoToEdit]);
   // Crear una Funcion que mire si hay usuarios siguiendo la tarea para notificarles por email cualquier cambio en la misma
   return (
     <div className='grid grid-cols-9 items-center justify-center p-2 bg-gray-800 rounded-md w-[600px] h-[800px]'>
