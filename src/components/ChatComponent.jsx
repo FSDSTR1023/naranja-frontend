@@ -13,6 +13,7 @@ import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
 import { VideoChat } from '../components/VideoChat';
 import MessageCard from './MessageCard';
+import clsx from 'clsx';
 
 const ChatComponent = () => {
   const { user, socket } = useUser();
@@ -34,6 +35,8 @@ const ChatComponent = () => {
   const [isEditing, setIsEditing] = useState(null);
   const [editedMessage, setEditedMessage] = useState('');
   const [editedMessageId, setEditedMessageId] = useState('');
+  const [isWriting, setIsWriting] = useState(false);
+  const [userName, setUserName] = useState('');
 
   const navigate = useNavigate();
   const room = useParams().groupId;
@@ -61,11 +64,25 @@ const ChatComponent = () => {
       return;
     }
     socket.on('receive-message', reciveMessage);
-    return () => socket.off('receive-message');
+    socket.on('user-writing', (data) => {
+      console.log(data, '<-- data');
+      setUserName(data.user?.name);
+      setIsWriting(true);
+      setTimeout(() => {
+        setIsWriting(false);
+      }, 1000);
+    });
+    return () => {
+      socket.off('receive-message');
+      socket.off('user-writing');
+    };
   }, [socket]);
 
   const reciveMessage = (data) => {
     setMessage((list) => [...list, data]);
+  };
+  const handleIsWriting = () => {
+    socket.emit('userWriting', { room, user });
   };
 
   const onSubmit = async (e) => {
@@ -168,9 +185,16 @@ const ChatComponent = () => {
       <div className='w-full justify-center items-center flex flex-col '>
         <div className='flex flex-col w-full p-1 '>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
-            <div className='flex items-center justify-center '>
-              <p className='text-[14px] justify-center flex text-black mr-3'>
+            <div className='relative flex flex-col w-full '>
+              <p className='text-[14px] text-start text-black mr-3 w-full'>
                 {currentGroup?.name}
+              </p>
+              <p
+                className={clsx(
+                  'absolute top-4 py-1 left-0 text-[10px] font-white text-gray-800 w-fit',
+                  isWriting ? null : 'hidden'
+                )}>
+                {userName + ' Esta escribiendo ...'}
               </p>
             </div>
             <button
@@ -222,6 +246,7 @@ const ChatComponent = () => {
                 onChange={(e) => {
                   setChatMessage(e.target.value);
                 }}
+                onKeyUp={handleIsWriting}
               />
               {previewImage && (
                 <img

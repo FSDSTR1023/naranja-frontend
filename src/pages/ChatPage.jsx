@@ -15,6 +15,7 @@ import { FaVideo } from 'react-icons/fa';
 import { FaVideoSlash } from 'react-icons/fa';
 import { VideoChat } from '../components/VideoChat';
 import MessageCard from '../components/MessageCard';
+import clsx from 'clsx';
 
 const ChatPage = () => {
   const { user, selectedUser, socket } = useUser();
@@ -37,6 +38,7 @@ const ChatPage = () => {
   const [isEditing, setIsEditing] = useState(null);
   const [editedMessage, setEditedMessage] = useState('');
   const [editedMessageId, setEditedMessageId] = useState('');
+  const [isWriting, setIsWriting] = useState(false);
 
   const navigate = useNavigate();
 
@@ -74,14 +76,24 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.on('receive-message', recibeMessage);
+    socket.on('user-writing', () => {
+      setIsWriting(true);
+      setTimeout(() => {
+        setIsWriting(false);
+      }, 1000);
+    });
 
     return () => {
       socket.off('receive-message');
+      socket.off('user-writing');
     };
   }, [message]);
 
   const recibeMessage = (data) => {
     setMessage((list) => [...list, data]);
+  };
+  const handleIsWriting = () => {
+    socket.emit('userWriting', { room, user });
   };
 
   const onSubmit = async (e) => {
@@ -190,7 +202,7 @@ const ChatPage = () => {
         w-[calc(100%-15px)] p-2 h-[calc(100vh-135px)] justify-between bg-white'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             {room && selectedUser?.name ? (
-              <div className='flex items-center justify-center'>
+              <div className='flex items-center justify-center relative'>
                 <img
                   className='w-6 h-6 rounded-full mr-3'
                   src={selectedUser?.avatar}
@@ -199,6 +211,13 @@ const ChatPage = () => {
 
                 <p className='text-[14px] justify-center flex text-black mr-3'>
                   {selectedUser?.name} {selectedUser?.surname}
+                </p>
+                <p
+                  className={clsx(
+                    'absolute top-5 left-9 text-xs font-white text-black',
+                    isWriting ? null : 'hidden'
+                  )}>
+                  Esta escribiendo ...
                 </p>
                 {selectedUser?.isOnline === 'Online' ? (
                   <div className='w-2 h-2 bg-green-500 rounded-full'></div>
@@ -266,6 +285,7 @@ const ChatPage = () => {
                 onChange={(e) => {
                   setChatMessage(e.target.value);
                 }}
+                onKeyUp={handleIsWriting}
               />
               {previewImage && (
                 <img
