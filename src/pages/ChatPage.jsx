@@ -73,16 +73,21 @@ const ChatPage = () => {
   }, [room]);
 
   useEffect(() => {
-    if (!socket) return;
-    socket.on('receive-message', (data) => {
-      setMessage((list) => [...list, data]);
-      setIsLoading(false);
-    });
+    if (!socket) {
+      console.log('no hay socket');
+      return;
+    }
+    socket.on('receive-message', recibeMessage);
 
     return () => {
       socket.off('receive-message');
     };
   }, [socket]);
+
+  const recibeMessage = (data) => {
+    setMessage((list) => [...list, data]);
+    setIsLoading(false);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();

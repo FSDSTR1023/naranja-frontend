@@ -57,13 +57,17 @@ const ChatComponent = () => {
   }, [room]);
 
   useEffect(() => {
-    if (!socket) return;
-    socket.on('receive-message', (data) => {
-      console.log(data, '<-- data del receive-message');
-      setMessage((list) => [...list, data]);
-    });
+    if (!socket) {
+      console.log('no hay socket');
+      return;
+    }
+    socket.on('receive-message', reciveMessage);
     return () => socket.off('receive-message');
   }, [socket]);
+
+  const reciveMessage = (data) => {
+    setMessage((list) => [...list, data]);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
