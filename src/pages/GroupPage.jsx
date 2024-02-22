@@ -236,7 +236,7 @@ const GroupPage = () => {
 
           <div
             className={clsx(
-              'group-page-chat transition h-[82%]',
+              'group-page-chat transition h-fit w-auto bg-gray-100 border-l-2 border-gray-300 ',
               !isOpen ? 'hidden' : null
             )}>
             <ChatComponent />

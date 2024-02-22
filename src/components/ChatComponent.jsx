@@ -39,7 +39,6 @@ const ChatComponent = () => {
   const room = useParams().groupId;
 
   useEffect(() => {
-    console.log(room, '<-- room en ChatComponent');
     if (!user) {
       navigate('/');
     }
@@ -165,13 +164,11 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full  h-full bg-gray-100'>
-      <div className='w-full justify-center items-center flex flex-col'>
-        <div
-          className='flex flex-col border-2 border-gray-400 rounded-md 
-        w-full p-2 h-screen'>
+    <div className='flex flex-col justify-center items-center w-full h-full min-w-[350px] '>
+      <div className='w-full justify-center items-center flex flex-col '>
+        <div className='flex flex-col w-full p-1 '>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
-            <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-center '>
               <p className='text-[14px] justify-center flex text-black mr-3'>
                 {currentGroup?.name}
               </p>

@@ -82,11 +82,10 @@ const ChatPage = () => {
     return () => {
       socket.off('receive-message');
     };
-  }, [socket]);
+  }, []);
 
   const recibeMessage = (data) => {
     setMessage((list) => [...list, data]);
-    setIsLoading(false);
   };
 
   const onSubmit = async (e) => {
@@ -113,6 +112,7 @@ const ChatPage = () => {
         setChatMessage('');
         setUploadedFile(null);
         await socket.emit('send-message', { room, messageData, user });
+        setIsLoading(false);
 
         createMessage(messageData);
       } else if (extencion !== 'pdf') {
@@ -133,6 +133,7 @@ const ChatPage = () => {
         setChatMessage('');
         setUploadedFile(null);
         await socket.emit('send-message', { room, messageData, user });
+        setIsLoading(false);
 
         createMessage(messageData);
       }
