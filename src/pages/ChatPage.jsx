@@ -70,19 +70,15 @@ const ChatPage = () => {
     } else {
       getInfo();
     }
-  }, [room]);
+  }, [room, socket]);
 
   useEffect(() => {
-    if (!socket) {
-      console.log('no hay socket');
-      return;
-    }
     socket.on('receive-message', recibeMessage);
 
     return () => {
       socket.off('receive-message');
     };
-  }, []);
+  }, [message]);
 
   const recibeMessage = (data) => {
     setMessage((list) => [...list, data]);
