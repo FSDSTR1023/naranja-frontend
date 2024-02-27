@@ -15,11 +15,11 @@ const AddMemberForm = ({ toggleModal }) => {
     toggleModal();
   };
   return (
-    <div className='h-[500px] w-[400px] text-xl bg-slate-500 p-5 rounded-md'>
-      <h1 className='text-xl font-bold text-white p-1'>
+    <div className='h-[500px] w-[400px] text-xl p-5 rounded-md'>
+      <h1 className='text-xl font-bold text-black p-1'>
         Agrega un Nuevo Miembro
       </h1>
-      <div className='flex flex-col items-center justify-center mt-8'>
+      <div className='flex flex-col items-center justify-center mt-8 text-sm'>
         <input
           onChange={(e) => {
             setFilteredUsers(

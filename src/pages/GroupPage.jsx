@@ -77,27 +77,29 @@ const GroupPage = () => {
   };
 
   return (
-    <div className='flex md:flex-col md:w-full md:h-full h-full w-full'>
+    <div className='flex flex-col md:w-full h-full w-full'>
       {/* task navbar */}
-      <div className='flex flex-col md:flex flex-wrap md:w-full w-fit bg-gray-800 gap-3 box-border'>
-        <div className='md:ml-3 gap-3 flex md:flex-row flex-col items-center '>
-          <ButtonDropDownGroup groups={groups} />
-          <h1 className='text-xs font-bold text-gray-100'>
+      <div className='flex flex-col flex-wrap md:flex-row md:justify-between md:items-center md:w-full bg-gray-800 box-border p-1'>
+
+      <h1 className='group-page-title text-sm font-bold text-gray-100 md:pl-7 flex items-center'>
             {currentGroup?.name}
           </h1>
+
+        <div className='md:ml-3 gap-3 flex flex-row items-center flex-wrap justify-center'>
+          <ButtonDropDownGroup groups={groups} />
 
           {addContainerInput ? (
             <div className='flex flex-row w-[60%] justify-center items-center gap-3'>
               <button
                 onClick={onAddContainer}
-                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold 
-                rounded-md hover:bg-gray-300 m-2 pointer-events-auto'>
+                className='bg-orange-400 p-2 text-center text-gray-700 text-[9px] font-bold 
+                rounded-md hover:bg-orange-400 m-2 pointer-events-auto'>
                 Add
               </button>
               <input
                 className='border-2 border-gray-500 rounded-lg py-1 px-1 w-full mr-3'
                 type='text'
-                placeholder='Container Title'
+                placeholder='Container Title - Press enter'
                 name='containername'
                 onKeyDown={(e) =>
                   (e.key === 'Escape' &&
@@ -109,10 +111,10 @@ const GroupPage = () => {
               />
             </div>
           ) : (
-            <div className=''>
+            <div>
               <button
-                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] 
-                font-bold rounded-md hover:bg-gray-300 m-2 whitespace-nowrap'
+                className='bg-orange-500 p-2.5 px-6 border border-orange-500 text-center text-white text-[9px] 
+                font-bold rounded-md hover:bg-orange-400 hover:border-orange-400 m-2 whitespace-nowrap'
                 onClick={() => setAddContainerInput(!addContainerInput)}>
                 Añadir Tablero
               </button>
@@ -130,7 +132,7 @@ const GroupPage = () => {
                       setIsConfirmationVisible(true);
                   }}
                   key={member?._id}
-                  className='w-6 h-6 rounded-full relative left-0 top-0 cursor-pointer'
+                  className='w-6 h-6 rounded-full relative m-0.5 left-0 top-0 cursor-pointer'
                   src={member?.avatar}
                   alt='Avatar'
                 />
@@ -171,10 +173,10 @@ const GroupPage = () => {
             {user?._id === currentGroup?.ownerUser ? (
               <button
                 onClick={() => toggleModal()}
-                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] w-fit font-bold 
-        rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+                className='bg-orange-500 px-7 p-2.5 border border-orange-500 text-center text-white text-[9px] w-fit font-bold 
+        rounded-md hover:bg-orange-400 hover:border-orange-400 m-2 pointer-events-auto whitespace-nowrap'>
                 <div className='flex items-center justify-center gap-1'>
-                  <FiUserPlus className='text-gray-800 w-4 h-4' />
+                  <FiUserPlus className='text-white w-3 h-3' />
                   <span>Miembro</span>
                 </div>
               </button>
@@ -184,10 +186,10 @@ const GroupPage = () => {
                   deleteMemberFromGroup(currentGroup?._id, user);
                   navigate('/profile-page');
                 }}
-                className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold 
-        rounded-md hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+                className='bg-gray-100 p-2 px-10 border border-white text-center text-gray-700 text-[9px] font-bold 
+        rounded-md hover:bg-orange-400 hover:border-orange-400 m-2 pointer-events-auto whitespace-nowrap'>
                 <div className='flex items-center justify-center gap-1'>
-                  <BiExit className='text-gray-800 w-5 h-5 rounded-full' />
+                  <BiExit className='text-gray-800 w-4 h-4 rounded-full' />
                   <span>Group</span>
                 </div>
               </button>
@@ -196,12 +198,14 @@ const GroupPage = () => {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className='bg-gray-100 p-2 text-center text-gray-700 text-[9px] font-bold rounded-md
-     hover:bg-gray-300 m-2 pointer-events-auto whitespace-nowrap'>
+            className='bg-orange-500 p-2.5 border border-orange-500 text-center px-8 text-white text-[9px] font-bold rounded-md
+            hover:bg-orange-400 hover:border-orange-400 m-2 pointer-events-auto whitespace-nowrap'>
             Open Chat
           </button>
         </div>
+
       </div>
+
 
       <Modal
         isVisible={isModalTaskVisible}
@@ -217,6 +221,7 @@ const GroupPage = () => {
         <AddMemberForm toggleModal={toggleModal} />
       </Modal>
 
+
       {pageLoading ? (
         <div className='w-full h-full flex items-center justify-center'>
           <i className='fas fa-spinner fa-spin text-6xl text-gray-800'></i>
@@ -231,16 +236,18 @@ const GroupPage = () => {
               setContainers={setContainers}
               toggleEditTask={toggleEditTask}
               setTaskInfoToEdit={setTaskInfoToEdit}
+              isOpen={isOpen}
             />
           </div>
 
           <div
             className={clsx(
-              'group-page-chat transition h-fit w-auto bg-gray-100 border-l-2 border-gray-300 ',
-              !isOpen ? 'hidden' : null
+              'group-page-chat transition h-fit sm:w-full bg-gray-100 border-l-2 border-gray-300',
+              !isOpen ? 'hidden' : 'block'
             )}>
             <ChatComponent />
           </div>
+          
         </div>
       )}
     </div>

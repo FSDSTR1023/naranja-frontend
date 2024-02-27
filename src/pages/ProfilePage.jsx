@@ -47,13 +47,13 @@ const ProfilePage = () => {
     return (
         <div className='flex h-[100vh] bg-gray-100'>
             {/* CHAT GRANDE */}
-            <div className="group-page-chat flex-grow lg:w-3/4 w-full overflow-auto p-4">
+            <div className="chat-profile-page flex-grow lg:w-3/4 w-full overflow-auto p-4">
                 <ChatPage />
             </div>
 
             <button
                 onClick={togglePanel}
-                className="panel-toggle-button flex text-center justify-center absolute mb-10 w-full px-4 py-2 text-xs z-10 bg-orange-500 text-white font-medium"
+                className="panel-toggle-button flex text-center justify-center absolute w-full px-4 py-2 text-xs z-10 bg-orange-500 text-white font-medium"
             >
                 {panelOpen ? (
                     <span>

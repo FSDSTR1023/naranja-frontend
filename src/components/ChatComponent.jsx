@@ -181,12 +181,12 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full h-full min-w-[350px] '>
-      <div className='w-full justify-center items-center flex flex-col '>
+    <div className='flex flex-col justify-center items-center w-full h-full bg-white'>
+      <div className='w-full justify-center items-center flex flex-col'>
         <div className='flex flex-col w-full p-1 '>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             <div className='relative flex flex-col w-full '>
-              <p className='text-[14px] text-start text-black mr-3 w-full'>
+              <p className='text-[14px] text-start text-white mr-3 w-full'>
                 {currentGroup?.name}
               </p>
               <p
@@ -210,7 +210,9 @@ const ChatComponent = () => {
               audio={true}
             />
           )}
-          <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-230px)] bg-grey-300'>
+
+          <div>
+          <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-280px)] bg-grey-300'>
             <ScrollToBottom
               beheviour={'smooth'}
               className='no-scrollbar w-full h-full'>
@@ -234,7 +236,7 @@ const ChatComponent = () => {
             </ScrollToBottom>
           </div>
           <hr />
-          <div className='flex flex-row justify-between rounded-md w-full p-1  border-gray-400'>
+          <div className='flex flex-row justify-between rounded-md w-full p-1 border-gray-400'>
             <form
               className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
               onSubmit={(e) => onSubmit(e)}>
@@ -242,7 +244,7 @@ const ChatComponent = () => {
                 type='text'
                 placeholder='Mensaje...'
                 value={chatMessage}
-                className='border-none w-full rounded-md p-1'
+                className='border-none w-full rounded-md p-1 bg-gray-200'
                 onChange={(e) => {
                   setChatMessage(e.target.value);
                 }}
@@ -296,6 +298,8 @@ const ChatComponent = () => {
                 onClick={(e) => onSubmit(e)}
               />
             </form>
+          </div>
+
           </div>
         </div>
       </div>

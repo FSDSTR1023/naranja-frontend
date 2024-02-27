@@ -6,8 +6,8 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='h-screen bg-orange-100 flex flex-col items-center overflow-auto p-5'>
-      <div className="text-center max-w-6xl p-6 mt-40">
+    <div className='h-screenflex flex-col items-center overflow-auto p-5'>
+      <div className="text-center max-w 7xl p-6 mt-40">
         <h1 className='pb-10 text-5xl font-bold text-orange-500 max-w-6xl mx-auto'>
           Todo tu equipo en un grupo, para lograr la máxima eficiencia, rapidez y comodidad en la comunicación y el trabajo.
         </h1>
