@@ -195,8 +195,8 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='grid grid-cols-12 justify-center items-center w-full mt-4'>
-      <div className='col-span-12 w-full justify-center items-center flex flex-co'>
+    <div className='grid grid-cols-12 justify-start items-center w-full'>
+      <div className='col-span-12 w-full justify-center items-center flex '>
         <div
           className='flex flex-col border-2 border-gray-400 rounded-md 
         w-[calc(100%-15px)] p-2 h-[calc(100vh-135px)] justify-between bg-white'>

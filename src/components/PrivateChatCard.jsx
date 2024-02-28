@@ -8,7 +8,7 @@ import { useMessage } from '../context/MessagesContext';
 
 import { useGroups } from '../context/GroupContext';
 
-const PrivateChatCard = ({ group }) => {
+const PrivateChatCard = ({ group, panelOpen, setPanelOpen }) => {
   const { setRoom } = useMessage();
   const { user, setSelectedUser, selectedUser } = useUser();
   const { getAllGroups } = useGroups();
@@ -22,6 +22,9 @@ const PrivateChatCard = ({ group }) => {
     console.log(contact);
     setSelectedUser(contact);
     setRoom(group?.id);
+    if (panelOpen) {
+      setPanelOpen(false);
+    }
   };
 
   return (

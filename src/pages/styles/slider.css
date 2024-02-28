@@ -13,36 +13,28 @@
 
 @media (max-width: 900px) {
   .group-page-chat {
-    width: 100%; 
+    width: 100%;
     position: absolute;
   }
 }
 
 @media (max-width: 800px) {
   .panel-toggle-button {
-    display: inherit !important; 
-  }
-
-  .panel-column {
-    position: absolute; 
-    top: 100px; 
-    bottom: 0;
-    right: 0; 
-    width: 100%; 
+    display: inherit !important;
   }
 
   .chat-profile-page {
     margin-top: 15px;
   }
 
-  .group-page-title{
+  .group-page-title {
     display: flex;
     justify-content: center;
-    }
+  }
 }
 
 @media (max-width: 362px) {
   .panel-column {
-    top: 140px; 
+    top: 140px;
   }
 }
