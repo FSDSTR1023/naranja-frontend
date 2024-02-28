@@ -1,36 +1,48 @@
-  /* Profile Page */
+/* Group Page */
+.group-page-chat {
+  position: relative;
+}
+
+.panel-toggle-button {
+  display: none !important;
+}
+
+.chat-profile-page {
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .group-page-chat {
+    width: 100%; 
+    position: absolute;
+  }
+}
+
+@media (max-width: 800px) {
   .panel-toggle-button {
-    display: none !important;
+    display: inherit !important; 
   }
 
-  /* Group Page */
-    .group-page-chat{
-        width: 421px;
-    }
-
-  
-  @media (max-width: 800px) {
-    .panel-toggle-button {
-      display: inherit !important; 
-    }
-
-    .panel-column {
-      position: absolute; 
-      top: 100px; 
-      bottom: 0;
-      right: 0; 
-      width: 100%; 
-    }
-    .group-page-chat{
-        width: 100%; 
-        margin-top:15px;
-    }
-  }
- 
-  @media (max-width: 362px) {
-    .panel-column {
-        top: 120px; 
-    }
+  .panel-column {
+    position: absolute; 
+    top: 100px; 
+    bottom: 0;
+    right: 0; 
+    width: 100%; 
   }
 
-  
+  .chat-profile-page {
+    margin-top: 15px;
+  }
+
+  .group-page-title{
+    display: flex;
+    justify-content: center;
+    }
+}
+
+@media (max-width: 362px) {
+  .panel-column {
+    top: 140px; 
+  }
+}
