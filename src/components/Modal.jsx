@@ -9,7 +9,7 @@ const Modal = ({ isVisible, onClose, children }) => {
         <div className='bg-white p-6 rounded border border-gray-300 relative'>
           <button
             onClick={onClose}
-            className='absolute right-3 top-3'>
+            className='absolute right-2.5 top-2.5'>
             <RxCross1 />
           </button>
           {children}
