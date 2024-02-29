@@ -181,7 +181,7 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center w-full h-full bg-white'>
+    <div className='flex flex-col justify-center items-center w-full h-full bg-white rounded-[7px]'>
       <div className='w-full justify-center items-center flex flex-col'>
         <div className='flex flex-col w-full p-1 '>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>

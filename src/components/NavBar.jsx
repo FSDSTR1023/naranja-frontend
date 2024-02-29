@@ -64,7 +64,7 @@ const NavBar = () => {
                     onClick={handleClickOutside}>
                     <div className='w-fit mx-auto  absolute top-14 right-10 pointer-events-auto z-100'>
                       <div
-                        className='bg-white p-4 rounded-lg  '
+                        className='bg-white p-4 rounded-lg z-20'
                         ref={profileRef}>
                         <Profile />
                       </div>

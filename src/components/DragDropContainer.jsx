@@ -108,8 +108,8 @@ const DragDropContainer = ({
         'card-container w-full h-full p-4 bg-orange-400 rounded-xl flex flex-col gap-y-4 justify-between',
         isDragging && 'opacity-50'
       )}>
-      <div className='flex items-center justify-between flex-wrap'>
-        <div className='gap-y-1'>
+<div className='flex items-center justify-between flex-wrap' style={{ maxWidth: '100%' }}>
+<div className='gap-y-1 w-full'>
           {edittingContainer ? (
             <input
               autoFocus={true}
@@ -124,7 +124,7 @@ const DragDropContainer = ({
               className='border-2 border-gray-500 rounded-md p-1 w-full'
             />
           ) : (
-            <h1 className='text-gray-800 text-md'>{title}</h1>
+            <h1 className="text-gray-800 text-md truncate pb-3" style={{ maxWidth: '90%' }}>{title}</h1>
           )}
         </div>
         <div className='flex gap-1 '>

@@ -49,13 +49,13 @@ const ProfilePage = () => {
   return (
     <div className='flex h-[100vh] bg-gray-100 relative'>
       {/* CHAT GRANDE */}
-      <div className='w-full md:mr-[230px] mt-6 '>
+      <div className='w-full md:mr-[230px] mt-6 pl-3 pr-3'>
         <ChatPage />
       </div>
       <button
         onClick={togglePanel}
         className='panel-toggle-button flex text-center 
-        justify-center absolute w-full px-4 py-2 text-xs z-10 bg-orange-500 text-white font-medium md:hidden'>
+        justify-center absolute w-full px-4 py-2 text-xs z-7 bg-orange-500 text-white font-medium md:hidden'>
         {panelOpen ? (
           <span>
             Cerrar <span className='chevron fas fa-chevron-down'></span>
@@ -70,7 +70,7 @@ const ProfilePage = () => {
       {/* Panel */}
       <div
         className={clsx(
-          `absolute top-0 bottom-0 right-0 w-full  overflow-auto p-4 scrollbar  bg-chatGray md:w-[230px] mt-6  `,
+          `panel-column absolute top-0 bottom-0 right-0 w-full overflow-auto p-4 scrollbar bg-chatGray md:w-[230px]`,
           panelOpen ? 'w-full' : 'hidden md:block '
         )}>
         <div className='text-md md:flex items-center justify-between gap-3 mt-4 hidden '>

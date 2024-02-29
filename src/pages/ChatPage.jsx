@@ -196,9 +196,9 @@ const ChatPage = () => {
 
   return (
     <div className='grid grid-cols-12 justify-start items-center w-full'>
-      <div className='col-span-12 w-full justify-center items-center flex '>
+      <div className='col-span-12 w-full justify-center items-center flex'>
         <div
-          className='flex flex-col border-2 border-gray-400 rounded-md 
+          className='group-page-chat flex flex-col border-2 border-gray-400 rounded-md 
         w-[calc(100%-15px)] p-2 h-[calc(100vh-135px)] justify-between bg-white'>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
             {room && selectedUser?.name ? (

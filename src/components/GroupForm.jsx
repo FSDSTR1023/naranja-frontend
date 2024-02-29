@@ -56,7 +56,7 @@ const GroupForm = () => {
   });
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center p-3'>
       <h1 className='text-3xl font-bold my-6'>Nuevo Grupo</h1>
       <form
         className='w-full max-w-lg'
@@ -70,7 +70,7 @@ const GroupForm = () => {
             placeholder='Nombre del grupo'
             className='appearance-none block w-full bg-gray-200
                text-gray-700 border border-gray-200 rounded 
-               py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white
+               py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white
                 focus:border-gray-500 my-2'
           />
         </div>
@@ -96,7 +96,7 @@ const GroupForm = () => {
             </button>
           ))}
         </div>
-        <div className='mb-4'>Members:</div>
+        <div className='mt-10 bold'>Members:</div>
         <div className='my-1'>
           {names.map((name) => (
             <span
@@ -113,7 +113,7 @@ const GroupForm = () => {
               type='submit'
               className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 
               px-4 rounded focus:outline-none mt-2 focus:shadow-outline'>
-              Crear grupo
+              Create group
             </button>
           </div>
         </div>
