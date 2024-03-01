@@ -22,7 +22,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className='bg-white border-gray-200 p-4 block'>
+    <nav className='bg-white border-gray-200 md:p-4 block'>
       <div className='flex flex-wrap items-center justify-between'>
         <a
           href='/'
