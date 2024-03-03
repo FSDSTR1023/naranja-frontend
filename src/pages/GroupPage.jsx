@@ -41,6 +41,7 @@ const GroupPage = () => {
   useEffect(() => {
     getAllTasks(currentGroup?._id);
   }, [currentGroup?._id, !isModalVisible, !isConfirmationVisible]);
+
   const onAddContainer = () => {
     if (!containerName) return;
     const id = `container-${uuidv4()}`;
@@ -73,6 +74,7 @@ const GroupPage = () => {
   const toggleOptionMenu = () => {
     setOptionMenu(!optionMenu);
   };
+  
   return (
     <div className='relative flex flex-col md:w-full h-full w-full '>
       {/* task navbar */}
@@ -80,13 +82,12 @@ const GroupPage = () => {
         <GiHamburgerMenu onClick={() => toggleOptionMenu()} />
       </div>
       <div
-        className={clsx(
-          `md:flex md:flex-row flex-nowrap
-   md:justify-between md:items-center md:w-full md:bg-gray-800 box-border md:p-1 `,
-          !optionMenu
-            ? 'hidden'
-            : ' w-full flex flex-col h-fit z-10 items-center justify-center gap-2 md:hidden'
-        )}>
+className={clsx(
+  `md:flex md:flex-row flex-nowrap md:justify-between md:items-center md:w-full bg-gray-800 box-border md:p-1`,
+  !optionMenu
+    ? 'hidden'
+    : `w-full flex flex-col h-fit z-10 items-center justify-center gap-2 md:hidden ${!optionMenu ? '' : 'absolute top-12 pb-4'}` 
+)}>
         <h1 className='text-xs md:flex md:text-sm font-bold text-gray-100 md:pl-7 items-center whitespace-nowrap'>
           {currentGroup?.name}
         </h1>
@@ -205,7 +206,12 @@ const GroupPage = () => {
             )}
           </div>
           <button
-            onClick={() => setIsOpen(!isOpen)}
+           onClick={() => {
+  setIsOpen(!isOpen); 
+  if (window.innerWidth <= 768) {
+    setOptionMenu(false); 
+  }
+}}
             className='bg-orange-500 p-2.5 border border-orange-500 text-center px-8 text-white text-[9px] font-bold rounded-md
          hover:bg-orange-400 hover:border-orange-400 m-2 pointer-events-auto whitespace-nowrap'>
             Open Chat
@@ -246,9 +252,10 @@ const GroupPage = () => {
           </div>
           <div
             className={clsx(
-              ' absolute top-0 right-0 transition h-full w-full md:w-[450px] bg-gray-100 border border-gray-300 rounded-[7px] duration-100',
+              'absolute top-0 right-0 transition h-full w-full md:w-[450px] bg-gray-100 border border-gray-300 rounded-[7px] duration-100',
               !isOpen ? 'hidden' : 'block'
             )}>
+               <div className="flex justify-end pr-4 cursor-pointer bg-white" onClick={() => setIsOpen(!isOpen)}>x</div>
             <ChatComponent />
           </div>
         </div>
