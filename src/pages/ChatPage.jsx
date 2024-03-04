@@ -242,11 +242,21 @@ const ChatPage = () => {
             </button>
           </div>
           {isVideo && (
-            <VideoChat
-              room={room}
-              video={true}
-              audio={true}
-            />
+            <div className='absolute w-[100%] h-[99%] top-0 right-0 z-10'>
+              <button
+                className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300
+                 z-20 w-full bg-orange-500 flex items-center justify-center text-white gap-4'
+                onClick={hendleVideoCall}>
+                {!isVideo ? <FaVideo /> : <FaVideoSlash />}
+                {!isVideo ? 'Llamada' : 'Corta LLamada'}
+              </button>
+
+              <VideoChat
+                room={room}
+                video={true}
+                audio={true}
+              />
+            </div>
           )}
           <div className='flex flex-col p-2 rounded-md overflow-auto w-full h-full scrollbar'>
             <ScrollToBottom
