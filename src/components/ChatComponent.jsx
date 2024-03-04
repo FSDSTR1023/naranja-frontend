@@ -205,103 +205,112 @@ const ChatComponent = () => {
             </button>
           </div>
           {isVideo && (
-            <span>
-            <VideoChat
-              room={room}
-              video={true}
-              audio={true}
-            />
-            </span>
+
+            <div className='absolute w-screen pl-4 h-[90%] top-0 right-0 z-10'>
+              <button
+                className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300
+                 z-20 w-full bg-orange-500 flex items-center justify-center text-white gap-4'
+                onClick={hendleVideoCall}>
+                {!isVideo ? <FaVideo /> : <FaVideoSlash />}
+                {!isVideo ? 'Llamada' : 'Corta LLamada'}
+              </button>
+
+              <VideoChat
+                room={room}
+                video={true}
+                audio={true}
+              />
+            </div>
+
           )}
           <div>
-          <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-280px)] bg-grey-300'>
-            <ScrollToBottom
-              beheviour={'smooth'}
-              className='no-scrollbar w-full h-full'>
-              <div className='flex flex-col'>
-                {message &&
-                  message?.map((m) => (
-                    <MessageCard
-                      m={m}
-                      key={m._id}
-                      handleEdit={handleEdit}
-                      handleDelete={handleDelete}
-                      isEditing={isEditing}
-                      setIsEditing={setIsEditing}
-                      editedMessage={editedMessage}
-                      setEditedMessage={setEditedMessage}
-                      onSubmitEdit={onSubmitEdit}
-                      editPanel={editPanel}
-                    />
-                  ))}
-              </div>
-            </ScrollToBottom>
-          </div>
-          <hr />
-          <div className='flex flex-row justify-between rounded-md w-full p-1 border-gray-400'>
-            <form
-              className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
-              onSubmit={(e) => onSubmit(e)}>
-              <input
-                type='text'
-                placeholder='Mensaje...'
-                value={chatMessage}
-                className='border-none w-full rounded-md p-1 bg-gray-200'
-                onChange={(e) => {
-                  setChatMessage(e.target.value);
-                }}
-                onKeyUp={handleIsWriting}
-              />
-              {previewImage && (
-                <img
-                  className='w-8 h-8 object-cover align-center m-2'
-                  src={previewImage}
-                  alt=''
-                  onClick={() => {
-                    URL.revokeObjectURL(previewImage);
-                    setPreviewImage(null);
-                  }}
-                />
-              )}
-              <Dropzone
-                acceptedFiles='.jpg, .png, .jpeg, .gif, .svg, .pdf'
-                multiple={false}
-                noClick={true}
-                onDrop={(acceptedFiles) => {
-                  setUploadedFile(acceptedFiles[0]);
-                  console.log(acceptedFiles[0], '<-- acceptedFiles[0]');
-                  if (acceptedFiles[0].type.includes('pdf' || 'PDF')) {
-                    setPreviewImage(PDF);
-                    return;
-                  }
-                  setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
-                }}>
-                {({ getRootProps, getInputProps, open }) => (
-                  <section>
-                    <div
-                      {...getRootProps()}
-                      className='flex gap-2'>
-                      <input {...getInputProps()} />
-
-                      <PaperClipIcon
-                        className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
-                       hover:border-gray-400'
-                        onClick={open}
+            <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-280px)] bg-grey-300'>
+              <ScrollToBottom
+                beheviour={'smooth'}
+                className='no-scrollbar w-full h-full'>
+                <div className='flex flex-col'>
+                  {message &&
+                    message?.map((m) => (
+                      <MessageCard
+                        m={m}
+                        key={m._id}
+                        handleEdit={handleEdit}
+                        handleDelete={handleDelete}
+                        isEditing={isEditing}
+                        setIsEditing={setIsEditing}
+                        editedMessage={editedMessage}
+                        setEditedMessage={setEditedMessage}
+                        onSubmitEdit={onSubmitEdit}
+                        editPanel={editPanel}
                       />
-                    </div>
-                  </section>
+                    ))}
+                </div>
+              </ScrollToBottom>
+            </div>
+            <hr />
+            <div className='flex flex-row justify-between rounded-md w-full p-1 border-gray-400'>
+              <form
+                className='flex flex-row justify-between rounded-md w-full p-1 items-center gap-2'
+                onSubmit={(e) => onSubmit(e)}>
+                <input
+                  type='text'
+                  placeholder='Mensaje...'
+                  value={chatMessage}
+                  className='border-none w-full rounded-md p-1 bg-gray-200'
+                  onChange={(e) => {
+                    setChatMessage(e.target.value);
+                  }}
+                  onKeyUp={handleIsWriting}
+                />
+                {previewImage && (
+                  <img
+                    className='w-8 h-8 object-cover align-center m-2'
+                    src={previewImage}
+                    alt=''
+                    onClick={() => {
+                      URL.revokeObjectURL(previewImage);
+                      setPreviewImage(null);
+                    }}
+                  />
                 )}
-              </Dropzone>
+                <Dropzone
+                  acceptedFiles='.jpg, .png, .jpeg, .gif, .svg, .pdf'
+                  multiple={false}
+                  noClick={true}
+                  onDrop={(acceptedFiles) => {
+                    setUploadedFile(acceptedFiles[0]);
+                    console.log(acceptedFiles[0], '<-- acceptedFiles[0]');
+                    if (acceptedFiles[0].type.includes('pdf' || 'PDF')) {
+                      setPreviewImage(PDF);
+                      return;
+                    }
+                    setPreviewImage(URL.createObjectURL(acceptedFiles[0]));
+                  }}>
+                  {({ getRootProps, getInputProps, open }) => (
+                    <section>
+                      <div
+                        {...getRootProps()}
+                        className='flex gap-2'>
+                        <input {...getInputProps()} />
 
-              <PaperAirplaneIcon
-                className='h-8 w-8 
+                        <PaperClipIcon
+                          className='h-8 w-8 cursor-pointer border-2 border-gray-300 px-2 py-1 rounded-md
+                       hover:border-gray-400'
+                          onClick={open}
+                        />
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+
+                <PaperAirplaneIcon
+                  className='h-8 w-8 
       cursor-pointer border-2 border-gray-300 p-1 rounded-md hover:border-gray-400 rotate-90'
-                type='submit'
-                onClick={(e) => onSubmit(e)}
-              />
-            </form>
-          </div>
-
+                  type='submit'
+                  onClick={(e) => onSubmit(e)}
+                />
+              </form>
+            </div>
           </div>
         </div>
       </div>
