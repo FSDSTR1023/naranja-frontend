@@ -153,7 +153,7 @@ const ChatComponent = () => {
     }
   };
 
-  const hendleVideoCall = () => {
+  const handleVideoCall = () => {
     setIsVideo(!isVideo);
   };
   const handleEdit = (message) => {
@@ -182,6 +182,7 @@ const ChatComponent = () => {
 
   return (
     <div className='flex flex-col justify-center items-center w-full bg-white rounded-[7px]'>
+
       <div className='w-full justify-center items-center flex flex-col'>
         <div className='flex flex-col w-full p-1 '>
           <div className='flex items-center justify-between w-full bg-orange-500 text-white px-3 py-2 rounded-md'>
@@ -199,11 +200,12 @@ const ChatComponent = () => {
             </div>
             <button
               className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300 '
-              onClick={hendleVideoCall}>
+              onClick={handleVideoCall}>
               {!isVideo ? <FaVideo /> : <FaVideoSlash />}
             </button>
           </div>
           {isVideo && (
+
             <div className='absolute w-screen pl-4 h-[90%] top-0 right-0 z-10'>
               <button
                 className='p-2 rounded-md hover:bg-zinc-200 hover:text-gray-700 transition border-2 border-gray-300
@@ -219,8 +221,8 @@ const ChatComponent = () => {
                 audio={true}
               />
             </div>
-          )}
 
+          )}
           <div>
             <div className='flex scrollbar2 flex-col p-2 rounded-md w-full h-[calc(100vh-280px)] bg-grey-300'>
               <ScrollToBottom

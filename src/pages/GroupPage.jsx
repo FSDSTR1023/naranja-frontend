@@ -252,7 +252,7 @@ className={clsx(
           </div>
           <div
             className={clsx(
-              'absolute top-0 right-0 transition h-full w-full md:w-[450px] bg-gray-100 border border-gray-300 rounded-[7px] duration-100',
+              'absolute top-0 right-0 transition h-full w-full md:w-[690px] bg-gray-100 border border-gray-300 rounded-[7px] duration-100',
               !isOpen ? 'hidden' : 'block'
             )}>
                <div className="flex justify-end pr-4 cursor-pointer bg-white" onClick={() => setIsOpen(!isOpen)}>x</div>

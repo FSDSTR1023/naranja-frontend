@@ -1,0 +1,12 @@
+.lk-button{
+    font-size: 14px;
+}
+
+.lk-button-group{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.lk-control-bar{
+    font-size: 10px;
+}

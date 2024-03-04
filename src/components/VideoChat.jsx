@@ -6,6 +6,7 @@ import '@livekit/components-styles';
 import { useUser } from '../context/UserContext';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { getLiveKitToken } from '../api/message';
+import "./styles/videochat.css"
 
 const serverUrl = import.meta.env.VITE_PUBLIC_LK_SERVER_URL;
 
@@ -40,7 +41,7 @@ export const VideoChat = ({ room, audio, video }) => {
   if (liveKitToken === '') {
     return (
       <div className='flex flex-col flex-1 justify-center items-center '>
-        <BiLoaderAlt className='h-7 w-7 animate-spin text-zinc-500 my-4 ' />
+        <BiLoaderAlt className='h-3 w-3 animate-spin text-zinc-500 my-4 ' />
         <p className='text-xs text-zinc-500 dark:text-zinc-400'>Loading...</p>
       </div>
     );
