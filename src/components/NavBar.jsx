@@ -7,6 +7,8 @@ import Profile from './Profile';
 import { useMessage } from '../context/MessagesContext';
 import { useGroups } from '../context/GroupContext';
 import { useRef } from 'react';
+import slack from '../assets/slackbtn.webp';
+import ToolTip from './ToolTip';
 
 const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -49,6 +51,20 @@ const NavBar = () => {
                 }}>
                 Home
               </Link>
+              <div className=''>
+                <ToolTip label={'Unite a Slack'}>
+                  <a
+                    href='https://join.slack.com/t/tasktalkespacio/shared_invite/zt-2ec2qbip1-RLZc6xUpByIQNk_tajA0DA'
+                    target='_blank'
+                    rel='noreferrer'>
+                    <img
+                      src={slack}
+                      alt='Slack'
+                      className='w-6 h-6 rounded-md'
+                    />
+                  </a>
+                </ToolTip>
+              </div>
               <div className='hover:bg-orange-600 p-2 rounded-md '>
                 <img
                   src={user?.avatar}
